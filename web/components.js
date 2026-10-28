@@ -159,7 +159,7 @@ export function renderPracticeFeedback({ current = 1, total = 2, choice, winner,
   if ([leftViews, rightViews].every(value => Number.isSafeInteger(value) && value >= 0)) {
     panel.append(node('p', 'i-practice-feedback__counts', `Left: ${leftViews.toLocaleString()} views · Right: ${rightViews.toLocaleString()} views`));
   }
-  panel.append(node('p', 'i-practice-feedback__note', current === 1 ? 'The posts disappear after six seconds. Then you have four seconds to choose.' : 'Practice doesn’t count toward your score. Scored answers are revealed at the end.'));
+  panel.append(node('p', 'i-practice-feedback__note', current === 1 ? `The posts disappear after ${TIMING.exposureMs/1000} seconds. Then you have ${TIMING.decisionMs/1000} seconds to choose.` : 'Practice doesn’t count toward your score. Scored answers are revealed at the end.'));
   if (onContinue) {
     const next = node('button', 'i-button', continueLabel || (current < total ? 'Next practice round →' : 'Finish practice →'));
     next.type = 'button';

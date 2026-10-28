@@ -8,7 +8,7 @@ Use this shared project directory: `/Users/ericliu/Documents/ChatGPT/sys1bench`.
 
 - Benchmark quick intuition across categories, starting with internet instinct (网感).
 - Start with English X posts. Eric subsequently requested showing authors and including some image posts in the X data chat; this supersedes the earlier author-hidden direction. Show names, handles, avatars, and attached images; hide follower counts and engagement during questions.
-- Initial interaction: two unscored educational practice rounds with feedback, then 15 scored pairs; 6 seconds to view both posts, followed by 4 seconds to choose left or right after the posts disappear. Practice posts must be distinct from the scored set.
+- Initial interaction: two unscored educational practice rounds with feedback, then 15 scored pairs; 15 seconds to view both posts, followed by 5 seconds to choose left or right after the posts disappear. Practice posts must be distinct from the scored set.
 - Eric's latest experiment compares different authors within every question, using substantially higher-reach posts. The v0.4 pilot targets at least 100,000 captured views for each displayed post. Preserve previous question sets/protocols and keep their results separate.
 - Keep visible product copy in English. The landing page should introduce the benchmark generally, with Internet instinct as the first test, a short snippet, and a Start button.
 - Keep the UI extremely simple and styles modular, with shared design tokens.

@@ -24,8 +24,8 @@ function fixture() {
       assert.equal(next.data.ordinal,ordinal);
       assert(!JSON.stringify(next.data).includes('"views"'));
       const opened=await request(`/api/runs/${created.data.id}/open`,{ordinal}); assert.equal(opened.status,200);
-      time+=6100;
-      const saved=await request(`/api/runs/${created.data.id}/answer`,{ordinal,choice:'left',observedMs:6000,responseMs:100,correct:true});
+      time+=15100;
+      const saved=await request(`/api/runs/${created.data.id}/answer`,{ordinal,choice:'left',observedMs:15000,responseMs:100,correct:true});
       assert.equal(saved.status,200);
       assert.equal(Boolean(saved.data.feedback),ordinal<2);
       assert.equal(saved.data.complete,ordinal===16);
@@ -35,8 +35,8 @@ function fixture() {
   return {request,completeRun,sqlite,DB,advance:ms=>time+=ms};
 }
 
-test('current question set uses 6/4 timing, different authors, and higher-reach posts',()=>{
-  assert.deepEqual(bank.timing,{exposureMs:6000,decisionMs:4000});
+test('current question set uses 15/5 timing, different authors, and higher-reach posts',()=>{
+  assert.deepEqual(bank.timing,{exposureMs:15000,decisionMs:5000});
   for(const pair of [...bank.practice,...bank.pairs]) {
     assert.notEqual(pair.left.author.id,pair.right.author.id);
     assert(pair.left.views>=100000 && pair.right.views>=100000);
@@ -70,12 +70,13 @@ test('rejects early answers, expired rounds, out-of-order submissions, invalid c
   assert.equal((await f.request(`/api/runs/${id}/result`)).status,409);
   assert.equal((await f.request(`/api/runs/${id}/open`,{ordinal:2})).status,409);
   await f.request(`/api/runs/${id}/open`,{ordinal:0});
-  const answer={ordinal:0,choice:'left',observedMs:6000,responseMs:50};
+  const answer={ordinal:0,choice:'left',observedMs:15000,responseMs:50};
   assert.equal((await f.request(`/api/runs/${id}/answer`,answer)).status,409);
-  f.advance(6100);
+  f.advance(15100);
+  assert.equal((await f.request(`/api/runs/${id}/answer`,{...answer,observedMs:6000})).status,400);
   assert.equal((await f.request(`/api/runs/${id}/answer`,{...answer,choice:'up'})).status,400);
-  assert.equal((await f.request(`/api/runs/${id}/answer`,{...answer,responseMs:4000})).status,400);
-  f.advance(16000);
+  assert.equal((await f.request(`/api/runs/${id}/answer`,{...answer,responseMs:5000})).status,400);
+  f.advance(26000);
   assert.equal((await f.request(`/api/runs/${id}/answer`,answer)).status,409);
   assert.equal((await f.request('/api/runs',{}, {Origin:'https://example.com'})).status,403);
   assert.equal(f.sqlite.prepare('SELECT COUNT(*) AS n FROM human_answers').get().n,0);f.sqlite.close();
@@ -87,20 +88,24 @@ test('aborted runs never produce results or leaderboard entries',async()=>{
   assert.equal((await f.request(`/api/runs/${id}/result`)).status,409);
   assert.equal((await f.request('/api/leaderboard')).data.humans.count,0);f.sqlite.close();
 });
-test('the expanded decision window accepts a 3-second choice after a 6-second glimpse',async()=>{
+test('the expanded decision window accepts a 4.9-second choice after a 15-second glimpse',async()=>{
   const f=fixture();const created=await f.request('/api/runs',{});const id=created.data.id;
-  assert.deepEqual(created.data.timing,{exposureMs:6000,decisionMs:4000});
+  assert.deepEqual(created.data.timing,{exposureMs:15000,decisionMs:5000});
   await f.request(`/api/runs/${id}/open`,{ordinal:0});
-  f.advance(9100);
-  const saved=await f.request(`/api/runs/${id}/answer`,{ordinal:0,choice:'right',observedMs:6000,responseMs:3000});
+  f.advance(19900);
+  const saved=await f.request(`/api/runs/${id}/answer`,{ordinal:0,choice:'right',observedMs:15000,responseMs:4900});
   assert.equal(saved.status,200);assert.equal(saved.data.saved,true);
   f.sqlite.close();
 });
-test('comparison cohorts stay separate across question-set versions',async()=>{
+test('comparison cohorts stay separate across question-set versions and timing protocols',async()=>{
   const f=fixture();await f.completeRun();
   const other=createApp({dataset:{...bank,version:'previous-pilot'}});
   const result=await other.fetch(new Request('https://sys1bench.com/api/leaderboard'),{DB:f.DB});
   const board=await result.json();assert.equal(board.humans.count,0);
   assert.equal((await f.request('/api/leaderboard')).data.humans.count,1);
+  const previousTiming=`${bank.version}:human-6s4s-cross-author-highreach-education2-v2`;
+  f.sqlite.prepare('UPDATE human_first_results SET cohort=?').run(previousTiming);
+  assert.equal((await f.request('/api/leaderboard')).data.humans.count,0);
+  assert.equal(f.sqlite.prepare('SELECT COUNT(*) AS n FROM human_first_results WHERE cohort=?').get(previousTiming).n,1);
   f.sqlite.close();
 });

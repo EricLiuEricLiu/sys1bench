@@ -1,13 +1,13 @@
 {
-  "version": "0.4.0",
+  "version": "0.4.1",
   "productName": "System 1 Bench",
   "canonicalDomain": "https://sys1bench.com",
   "label": "System 1 Bench · English high-reach cross-author pilot",
   "language": "en",
   "collectedAt": "2026-10-28T08:04:58.286Z",
   "timing": {
-    "exposureMs": 6000,
-    "decisionMs": 4000
+    "exposureMs": 15000,
+    "decisionMs": 5000
   },
   "display": {
     "authors": true,
@@ -39,7 +39,7 @@
     "Search/date/language operators are not fully reliable upstream. Actual returned timestamps, language and content were checked for the selected records.",
     "The normalized source does not expose a reliable quote-post flag. Selected text and images were reviewed to stand alone, but quote status and original X pages/counts were not independently verified.",
     "Original text is preserved in text. For photo posts, displayText omits one trailing t.co token as an attachment-link rendering convention; source entity mapping is unavailable.",
-    "Pair captions total 8–64 words, with additional words inside some images. Six-second exposure also measures reading, scanning and image interpretation; timing has not been calibrated with users.",
+    "Pair captions total 8–64 words, with additional words inside some images. Fifteen-second exposure also measures reading, scanning and image interpretation; timing has not been calibrated with users.",
     "All eight selected photo files were downloaded and visually reviewed for visible engagement/outcome leaks; original bytes, dimensions and SHA-256 hashes are preserved. Responsive rendering and preload must be verified by app integration.",
     "Authors, handles and avatars are visible. Followers and engagement are excluded from client stimuli. Preload and decode all content images before exposure; failed-load rounds must not receive a score.",
     "3 posts also appeared in v0.3.0. This is development/pilot data without a registered held-out split; prior exposure can affect results.",
