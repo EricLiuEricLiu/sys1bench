@@ -162,7 +162,13 @@ export function renderPracticeFeedback({ current = 1, total = 2, choice, winner,
   if (onContinue) {
     const next = node('button', 'i-button', continueLabel || (current < total ? 'Next practice round →' : 'Finish practice →'));
     next.type = 'button';
-    next.addEventListener('click', onContinue);
+    let continued = false;
+    next.addEventListener('click', () => {
+      if (continued) return;
+      continued = true;
+      next.disabled = true;
+      onContinue();
+    });
     panel.append(next);
   }
   return panel;
@@ -405,6 +411,7 @@ export function createRoundController({
       destroyed = true;
       clearTimers();
       assetAbort.abort();
+      content.replaceChildren();
       document.removeEventListener('keydown', onKey);
       document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('blur', onBlur);

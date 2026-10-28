@@ -6,7 +6,7 @@ let token = 0;
 const root = document.createElement('div');
 root.className = 'app-shell';
 const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
-function button(label, action) { const n = el('button','i-button',label); n.type='button'; n.addEventListener('click',action); return n; }
+function button(label, action) { const n = el('button','i-button',label); n.type='button'; n.addEventListener('click',()=>{n.disabled=true;Promise.resolve(action()).catch(errorScreen);}); return n; }
 async function api(path, data) {
   const response = await fetch(path, { method: data === undefined ? 'GET' : 'POST', credentials: 'same-origin', headers: data === undefined ? {} : {'Content-Type':'application/json'}, body: data === undefined ? undefined : JSON.stringify(data) });
   const result = await response.json();

@@ -3,18 +3,27 @@
   "name": "sys1bench",
   "main": "server/index.js",
   "compatibility_date": "2026-10-28",
-  "workers_dev": true,
+  "workers_dev": false,
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
-    "run_worker_first": ["/api/*"]
+    "run_worker_first": [
+      "/api/*"
+    ]
   },
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "sys1bench",
-      "migrations_dir": "migrations"
+      "migrations_dir": "migrations",
+      "database_id": "14239adb-9fef-4025-840f-b6cd4d01cea5"
     }
   ],
-  "routes": [{ "pattern": "sys1bench.com", "custom_domain": true }]
+  "routes": [
+    {
+      "pattern": "sys1bench.com",
+      "custom_domain": true
+    }
+  ],
+  "account_id": "694c8866cc83187d4d033eecbe9219f0"
 }
