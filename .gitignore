@@ -1,0 +1,14 @@
+.DS_Store
+node_modules/
+.env
+.env.*
+!.env.example
+work/
+outputs/
+dist/
+.dev.vars
+.dev.vars.*
+__pycache__/
+*.pyc
+.wrangler/
+*.log

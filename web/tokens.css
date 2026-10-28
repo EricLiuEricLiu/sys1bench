@@ -1,0 +1,52 @@
+@font-face {
+  font-family: 'Manrope';
+  src: url('./assets/manrope-latin.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+:root {
+  --i-bg: #faf9f6;
+  --i-surface: #ffffff;
+  --i-ink: #171715;
+  --i-muted: #6c6c65;
+  --i-line: #deded7;
+  --i-soft: #f0efe9;
+  --i-font-sans: 'Manrope', Arial, sans-serif;
+  --i-font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+  --i-post-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --i-post-ink: #0f1419;
+  --i-post-muted: #536471;
+  --i-post-line: #cfd9de;
+  --i-post-mask: #eff3f4;
+  --i-post-radius: 16px;
+  --i-text-xs: 0.75rem;
+  --i-text-sm: 0.875rem;
+  --i-text-base: 1rem;
+  --i-text-lg: 1.125rem;
+  --i-text-xl: 1.25rem;
+  --i-text-2xl: 1.5rem;
+  --i-text-3xl: 1.875rem;
+  --i-text-4xl: 2.25rem;
+  --i-text-5xl: 3rem;
+  --i-text-6xl: 3.75rem;
+  --i-radius: 4px;
+  --i-focus: 2px solid var(--i-ink);
+  --color-bg: var(--i-bg);
+  --color-surface: var(--i-surface);
+  --color-ink: var(--i-ink);
+  --color-muted: var(--i-muted);
+  --color-line: var(--i-line);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+}
