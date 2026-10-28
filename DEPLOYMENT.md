@@ -1,6 +1,8 @@
 # Cloudflare deployment
 
-Production destination: **https://sys1bench.com**, in Eric's personal Cloudflare account. Repository: **https://github.com/EricLiuEricLiu/sys1bench** (private).
+Live pilot: **https://sys1bench.com**, in Eric's Personal Cloudflare account. Repository: **https://github.com/EricLiuEricLiu/sys1bench** (private).
+
+The `sys1bench` Worker and D1 database are provisioned. Their account/database IDs and custom domain are already configured in `wrangler.jsonc`.
 
 The `cf` helper isolates this project's Cloudflare login in gitignored `work/cloudflare-config/`, preserving the existing Ditto login.
 
@@ -9,15 +11,16 @@ npm ci
 npm run check
 npm run cf -- login --scopes account:read user:read workers:write workers_scripts:write workers_routes:write d1:write zone:read ssl_certs:write
 npm run cf -- whoami
-npm run cf -- d1 create sys1bench
 ```
 
-Sign in to the account that owns `sys1bench.com`. Put the returned database ID in the `DB` entry in `wrangler.jsonc`, then:
+Sign in to the account that owns `sys1bench.com`, then apply pending migrations and publish:
 
 ```sh
 npm run cf -- d1 migrations apply sys1bench --remote
 npm run deploy
 ```
+
+Only when bootstrapping a different account or environment, create a separate D1 database with `npm run cf -- d1 create <name>` and update the binding with its returned ID. Do not recreate the existing production database during a routine deployment.
 
 Wrangler deploys the Worker, static assets, and configured custom domain together. Verify `/api/health`, the two practice rounds, a completed test, and `/leaderboard.html` afterward. Migrate the production database before deploying code that requires a new schema.
 
