@@ -9,7 +9,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 from .adapters import validate_config
-from .core import digest, file_digest, load_json, parse_choice, request_for, require, validate_plan, write_json
+from .core import DATASET_PROFILES, digest, file_digest, load_json, parse_choice, request_for, require, validate_plan, write_json
 from .runner import now
 
 
@@ -59,8 +59,9 @@ def labels_for(plan, bank_path):
     bank = load_json(bank_path)
     require(bank["version"] == plan["dataset_version"], "Answer bank version differs from stimuli")
     require(bank.get("outcome") == "cumulative_snapshot_views", "Unexpected outcome definition")
-    if plan["dataset_version"] == "0.4.0":
-        require(bank.get("timing") == {"exposureMs": 6000, "decisionMs": 4000}, "Current bank timing differs from the frozen human protocol")
+    profile = DATASET_PROFILES.get(plan["dataset_version"], {})
+    if profile.get("cross_author"):
+        require(bank.get("timing") == profile["timing"], "Current bank timing differs from the frozen human protocol")
     practice = bank["practice"] if isinstance(bank["practice"], list) else [bank["practice"]]
     pairs = [("practice", p) for p in practice] + [("scored", p) for p in bank["pairs"]]
     require(len(pairs) == len(plan["items"]), "Answer bank item count mismatch")
@@ -93,7 +94,7 @@ def labels_for(plan, bank_path):
             else:
                 require(named_url, "Historical hidden-author bank requires an author-bearing source URL")
                 authors.append(path[0].casefold())
-        cross_author = plan["dataset_version"] == "0.4.0"
+        cross_author = profile.get("cross_author", False)
         if cross_author:
             require(authors[0] != authors[1], "Current protocol requires different-author pairs")
             ids = [by_id[item[s]["id"]]["author"]["id"] for s in ["A", "B"]]

@@ -3,7 +3,7 @@
 import os
 from pathlib import Path
 
-from .core import DECISION_PROTOCOL_VERSION, PROTOCOL_VERSION, digest, file_digest, load_json, prepare, require, write_json
+from .core import CURRENT_DATASET_VERSION, DECISION_PROTOCOL_VERSION, PROTOCOL_VERSION, digest, file_digest, load_json, prepare, require, write_json
 from .runner import run, validate_execution
 from .scoring import score
 
@@ -11,8 +11,8 @@ from .scoring import score
 def prepare_campaign(out, seed="pilot-cohort-001"):
     """Freeze the user-approved four-model disabled-thinking comparison offline."""
     package = Path(__file__).parent.resolve()
-    data = package / "fixtures/cross-author-v0.4.0"
-    require((data / "stimuli.client.json").is_file(), "Current 0.4.0 bank is not frozen yet; no historical paid campaign may be prepared")
+    data = package / ("fixtures/cross-author-v" + CURRENT_DATASET_VERSION)
+    require((data / "stimuli.client.json").is_file(), "Current 0.4.1 bank is not frozen yet; no historical paid campaign may be prepared")
     out = Path(out).resolve()
     out.mkdir(parents=True, exist_ok=False)
     plan_paths = {}

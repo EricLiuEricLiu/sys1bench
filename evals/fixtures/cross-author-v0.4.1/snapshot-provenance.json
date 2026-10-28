@@ -1,0 +1,20 @@
+{
+  "dataset_version": "0.4.1",
+  "parent_dataset_version": "0.4.0",
+  "parent_fixture": "evals/fixtures/cross-author-v0.4.0",
+  "canonical_bank_source": "data/question-bank.server.json",
+  "source_files_sha256": {
+    "stimuli.client.json": "3b677a68055295af2b5bf946b41c6d727f444a08ea33f1e0c35de0d0af740695",
+    "question-bank.server.json": "7d03c9c4be0e49224a9f11c1db504af3d4b7a580ebc3fb0a25d1339f713847b6",
+    "audit.json": "bc2dc22adeefc81cbd2a9c85d3563e88a20483f518d178cf382fa0c8db168167",
+    "media-manifest.json": "e767c5c704726ca70f186678b5cac45e649eecc8bc6a3ae4703c347b324ea593"
+  },
+  "canonical_bank_copied_without_modification": false,
+  "client_derivation": "Original 0.4.0 client with only version and timing metadata updated.",
+  "audit_status": "passed_timing_patch_source_equivalence_checks",
+  "posts_pairs_outcomes_unchanged": true,
+  "all_captured_media_bytes_unchanged": true,
+  "real_model_calls": 0,
+  "canonical_bank_source_sha256": "9911668930075db1678dcc139919ef6113f421cb09b4858a2e0d57332f99f707",
+  "bank_derivation": "Canonical 0.4.1 bank with one stale practice/scored timer limitation corrected from 6,000/4,000ms to 15,000/5,000ms. Posts, pairs, outcomes, assets and every other field unchanged."
+}

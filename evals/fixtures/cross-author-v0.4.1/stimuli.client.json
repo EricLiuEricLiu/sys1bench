@@ -1,0 +1,597 @@
+{
+  "version": "0.4.1",
+  "productName": "System 1 Bench",
+  "canonicalDomain": "https://sys1bench.com",
+  "label": "System 1 Bench · English high-reach cross-author pilot",
+  "language": "en",
+  "timing": {
+    "exposureMs": 15000,
+    "decisionMs": 5000
+  },
+  "display": {
+    "authors": true,
+    "avatars": true,
+    "handles": true,
+    "followerCounts": false,
+    "engagement": false,
+    "imagePolicy": "single-image; preload and decode before exposure; preserve full image"
+  },
+  "usage": "Display-only stimuli. Score using the private server bank.",
+  "practice": [
+    {
+      "id": "practice-01",
+      "left": {
+        "id": "2105849104840753403",
+        "text": "if a man writes a woman a poem, he loves her\n\nif a man writes a woman 763 poems, he loves poetry",
+        "displayText": "if a man writes a woman a poem, he loves her\n\nif a man writes a woman 763 poems, he loves poetry",
+        "author": {
+          "id": "960051487064944640",
+          "name": "Danish Hussain",
+          "handle": "astrodanish",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/1033848977261830144/9tC3wV4k_normal.jpg",
+          "verified": true
+        },
+        "media": []
+      },
+      "right": {
+        "id": "2105906812545630651",
+        "text": "I'm putting my 6 yo to bed and he says, \"Dad, I have kidneys. You have Dadneys.\"\nI'm. So. Proud.",
+        "displayText": "I'm putting my 6 yo to bed and he says, \"Dad, I have kidneys. You have Dadneys.\"\nI'm. So. Proud.",
+        "author": {
+          "id": "849732866070110208",
+          "name": "Boo",
+          "handle": "333too3",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/1407103544583352320/j7Y8Mptx_normal.jpg",
+          "verified": true
+        },
+        "media": []
+      }
+    },
+    {
+      "id": "practice-02",
+      "left": {
+        "id": "2112551136175808794",
+        "text": "My 19yr old coworker giving me new pirate sites https://t.co/fMJxgt8gVh",
+        "displayText": "My 19yr old coworker giving me new pirate sites",
+        "author": {
+          "id": "1448721185546637321",
+          "name": "E-Thang",
+          "handle": "Ethan7182954",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2095941264432611337/URT1n6Ag_normal.jpg",
+          "verified": false
+        },
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HVFKD8PWAAAnQI8.jpg",
+            "width": 516,
+            "height": 572,
+            "alt": "An older photograph of adult runners following a child, with a caption about learning from someone younger.",
+            "assetFile": "media/2112551136175808794.jpg",
+            "sha256": "abb5fc777ef5def54f3777cb18ea8763491eb70b2b70344d3a4e599669e0496c"
+          }
+        ]
+      },
+      "right": {
+        "id": "2112649169605448154",
+        "text": "Did absolutely nothing at work today https://t.co/wjilK0P1JE",
+        "displayText": "Did absolutely nothing at work today",
+        "author": {
+          "id": "1122971175393665029",
+          "name": "chavua lipa",
+          "handle": "balkanchav",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2103305670334263296/VOw6cBt5_normal.jpg",
+          "verified": false
+        },
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HVGjOPFawAA5tWe.jpg",
+            "width": 1200,
+            "height": 676,
+            "alt": "A person sitting at a desk with a computer, phone and papers in an office.",
+            "assetFile": "media/2112649169605448154.jpg",
+            "sha256": "7c02691bba62171d1baa4a691aeb0b358718df589dd9591ccc292d9c7725b422"
+          }
+        ]
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "id": "reach-01",
+      "left": {
+        "id": "2112333916770013187",
+        "text": "I don’t know how the AT&T people at Costco do it man. Just sit there all day  constantly getting denied and ignored. Gritty.",
+        "displayText": "I don’t know how the AT&T people at Costco do it man. Just sit there all day  constantly getting denied and ignored. Gritty.",
+        "author": {
+          "id": "1058076689065013248",
+          "name": "baskin",
+          "handle": "alltimegoober",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2087599894529798144/j_DaP3wm_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      },
+      "right": {
+        "id": "2112410984694558801",
+        "text": "Can we talk about the guilt that comes with calling in sick at work? 😭",
+        "displayText": "Can we talk about the guilt that comes with calling in sick at work? 😭",
+        "author": {
+          "id": "1153448461",
+          "name": "Chiko Biscuit ✨",
+          "handle": "Rainbow_Wxtch",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2107401900903567360/GN1fjJYG_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      }
+    },
+    {
+      "id": "reach-02",
+      "left": {
+        "id": "2112593060836323499",
+        "text": "The literacy crisis isn’t that people can’t read the words. It’s that they can’t understand the context, infer meaning, recognise nuance, identify contradictions, or draw logical conclusions from what they’ve read",
+        "displayText": "The literacy crisis isn’t that people can’t read the words. It’s that they can’t understand the context, infer meaning, recognise nuance, identify contradictions, or draw logical conclusions from what they’ve read",
+        "author": {
+          "id": "2083125055018475520",
+          "name": ".",
+          "handle": "Omgemeraldddd",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2087307980752433153/-pXqlizw_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      },
+      "right": {
+        "id": "2112558163774038029",
+        "text": "i'm so jealous of those people who speak like so smartly like what the fuck was that word you just said and where did you learn it",
+        "displayText": "i'm so jealous of those people who speak like so smartly like what the fuck was that word you just said and where did you learn it",
+        "author": {
+          "id": "2053008125079199753",
+          "name": "mia.",
+          "handle": "dreamsickang3l",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2112517151391166465/wY3Vgqf1_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      }
+    },
+    {
+      "id": "reach-03",
+      "left": {
+        "id": "2111822378611408978",
+        "text": "As a woman you have to choose between being skinny and looking good in clothes, or having a little extra fat and looking good naked",
+        "displayText": "As a woman you have to choose between being skinny and looking good in clothes, or having a little extra fat and looking good naked",
+        "author": {
+          "id": "1465928304679075846",
+          "name": "🧘🏻‍♀️🪷",
+          "handle": "stwrawrbewry",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2098401022578417665/U1oijabf_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      },
+      "right": {
+        "id": "2111873765512491348",
+        "text": "my friend (lesbian) got a boob job and they shaved her armpits without asking her. im trying to convince her she has grounds to sue",
+        "displayText": "my friend (lesbian) got a boob job and they shaved her armpits without asking her. im trying to convince her she has grounds to sue",
+        "author": {
+          "id": "1815899837365161984",
+          "name": "TS lars ulrich 🏳️‍⚧️",
+          "handle": "sweetjewishgirl",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2031109068371243009/Jb0ZiwJc_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      }
+    },
+    {
+      "id": "reach-04",
+      "left": {
+        "id": "2106025949519130642",
+        "text": "I have started ignoring girls who dont ask questions back in messages and and it has made my life a lot better",
+        "displayText": "I have started ignoring girls who dont ask questions back in messages and and it has made my life a lot better",
+        "author": {
+          "id": "1479990595875651584",
+          "name": "🕵🏻‍♂️",
+          "handle": "killwinstanley",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2089375288857653248/F3Ss5G1X_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      },
+      "right": {
+        "id": "2106061621756060057",
+        "text": "Adulthood is realizing you can no longer invite friends to a party without also inviting their romantic support staff",
+        "displayText": "Adulthood is realizing you can no longer invite friends to a party without also inviting their romantic support staff",
+        "author": {
+          "id": "2310773724",
+          "name": "Yikes is my catchphrase",
+          "handle": "big_yyikes",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2064834096807739393/2gFCk3X2_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      }
+    },
+    {
+      "id": "reach-05",
+      "left": {
+        "id": "2111832011447181687",
+        "text": "When my husband worked in the psych ward he had one patient who was committed because she thought she was being gangstalked. Except, there was very compelling evidence that she was actually being gangstalked.",
+        "displayText": "When my husband worked in the psych ward he had one patient who was committed because she thought she was being gangstalked. Except, there was very compelling evidence that she was actually being gangstalked.",
+        "author": {
+          "id": "1234659774014382081",
+          "name": "ned!",
+          "handle": "nedsore",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/1920122461447766016/-41LevNy_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      },
+      "right": {
+        "id": "2112245420655358140",
+        "text": "Trying to harass my best friend into getting a fill before her trip (her man is proposing) and this stubborn hoe talking about “I don’t need a fill yet” 😭😭😭",
+        "displayText": "Trying to harass my best friend into getting a fill before her trip (her man is proposing) and this stubborn hoe talking about “I don’t need a fill yet” 😭😭😭",
+        "author": {
+          "id": "866903113",
+          "name": "dre",
+          "handle": "veraliciousssss",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2087186682684846081/2gt4K2nV_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      }
+    },
+    {
+      "id": "reach-06",
+      "left": {
+        "id": "2106112191384658220",
+        "text": "Girl who is still weird: I was so weird back then",
+        "displayText": "Girl who is still weird: I was so weird back then",
+        "author": {
+          "id": "1376968537512701953",
+          "name": "g",
+          "handle": "34rths",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/1645905896076382210/j4zj3Mca_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      },
+      "right": {
+        "id": "2106077308348191094",
+        "text": "that weird girl whos like 3 different types of animal and also an angel on the internet will save you btw",
+        "displayText": "that weird girl whos like 3 different types of animal and also an angel on the internet will save you btw",
+        "author": {
+          "id": "1196078976235712513",
+          "name": "🐇🐾sammie",
+          "handle": "bunnymoder_",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2093751109256921088/tBhQnp5z_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      }
+    },
+    {
+      "id": "reach-07",
+      "left": {
+        "id": "2106010795499028525",
+        "text": "hey everyone i discovered a life hack that's absolutely game changing.\n\ngo to your browser of choice. type in an animal. than click 'images'.",
+        "displayText": "hey everyone i discovered a life hack that's absolutely game changing.\n\ngo to your browser of choice. type in an animal. than click 'images'.",
+        "author": {
+          "id": "1682425948887478274",
+          "name": "werner | 🐆🛰️",
+          "handle": "fermiidirac",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2097898508070092811/5CCeMWZm_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      },
+      "right": {
+        "id": "2105262913879425066",
+        "text": "That laptop you refused to properly shutdown will sleep and not wake up one day. Continue! 👍",
+        "displayText": "That laptop you refused to properly shutdown will sleep and not wake up one day. Continue! 👍",
+        "author": {
+          "id": "1830527313143848960",
+          "name": "molola🫧🌸",
+          "handle": "Lolaschanne",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2101195457942761472/ZblXxApH_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      }
+    },
+    {
+      "id": "reach-08",
+      "left": {
+        "id": "2109974443057352961",
+        "text": "me: Imao i saw it on twitter \n\nthem: what's your twitter \n\nme: i don't have twitter",
+        "displayText": "me: Imao i saw it on twitter \n\nthem: what's your twitter \n\nme: i don't have twitter",
+        "author": {
+          "id": "1653096357593243656",
+          "name": "✮",
+          "handle": "istgnolimit",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2044678977910964224/cciBEy8w_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      },
+      "right": {
+        "id": "2111232439150403683",
+        "text": "THESE KIDS JUST CLOWNED ON ME FOR SAYING TWITTER INSTEAD OF X OMFG ???????????? WE'RE LOSING THE PLOT WE'RE LOSING THE ANCIENT SCRIPTURES THE CHILDREN R BEING LEFT BEHIND",
+        "displayText": "THESE KIDS JUST CLOWNED ON ME FOR SAYING TWITTER INSTEAD OF X OMFG ???????????? WE'RE LOSING THE PLOT WE'RE LOSING THE ANCIENT SCRIPTURES THE CHILDREN R BEING LEFT BEHIND",
+        "author": {
+          "id": "931671610796494849",
+          "name": "bug",
+          "handle": "munibug",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2105389604371058689/N1NBMK7t_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      }
+    },
+    {
+      "id": "reach-09",
+      "left": {
+        "id": "2105954444869587378",
+        "text": "my advice to toddlers is to start saving your money now.",
+        "displayText": "my advice to toddlers is to start saving your money now.",
+        "author": {
+          "id": "1388860668506411011",
+          "name": "Buhle",
+          "handle": "Guluvakazi_sa",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2100581961018257408/EwcIorqz_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      },
+      "right": {
+        "id": "2104882126361419829",
+        "text": "Name a business that will always make money regardless of how bad the economy gets",
+        "displayText": "Name a business that will always make money regardless of how bad the economy gets",
+        "author": {
+          "id": "283427229",
+          "name": "Mankhumiše 🤍",
+          "handle": "Ms_Logical",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/1985227173439897600/bnG-TB7O_normal.jpg",
+          "verified": true
+        },
+        "media": []
+      }
+    },
+    {
+      "id": "reach-10",
+      "left": {
+        "id": "2111423181063946740",
+        "text": "i just looked up how much money doctors make in the US are y'all fucking insane",
+        "displayText": "i just looked up how much money doctors make in the US are y'all fucking insane",
+        "author": {
+          "id": "1510376773724393473",
+          "name": "mir🇵🇸🇺🇦",
+          "handle": "Mirs_____",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2112478572778606592/Ochv-0aJ_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      },
+      "right": {
+        "id": "2112174235095339304",
+        "text": "just bought 3 rolex's at 40% under market\n\nall being shipped from france this week",
+        "displayText": "just bought 3 rolex's at 40% under market\n\nall being shipped from france this week",
+        "author": {
+          "id": "1386542533124272128",
+          "name": "schmosby",
+          "handle": "schmosby_xbt",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/1872076784583249921/-hsw7jZH_normal.jpg",
+          "verified": true
+        },
+        "media": []
+      }
+    },
+    {
+      "id": "reach-11",
+      "left": {
+        "id": "2112531940406612090",
+        "text": "Calling in stinky to work today",
+        "displayText": "Calling in stinky to work today",
+        "author": {
+          "id": "1461473469695094784",
+          "name": "verdant hell",
+          "handle": "verdant_gel",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/1893465195554500609/utUxahTw_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      },
+      "right": {
+        "id": "2111991706665271646",
+        "text": "officially that time of the year when it feels amazing to sleep and absolutely horrible to wakeup and get out of bed",
+        "displayText": "officially that time of the year when it feels amazing to sleep and absolutely horrible to wakeup and get out of bed",
+        "author": {
+          "id": "1801912917073547264",
+          "name": "momin",
+          "handle": "mominasir99",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2043084579221966848/AZN9XIeF_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      }
+    },
+    {
+      "id": "reach-12",
+      "left": {
+        "id": "2112246423064645828",
+        "text": "People my age: i need to get serious about settling down and starting a family\n\nMe: i need to get serious about watching movies again",
+        "displayText": "People my age: i need to get serious about settling down and starting a family\n\nMe: i need to get serious about watching movies again",
+        "author": {
+          "id": "806976170541465600",
+          "name": "angela",
+          "handle": "horrorcomedies",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2077893190183772160/A5OJuUNy_normal.jpg",
+          "verified": false
+        },
+        "media": []
+      },
+      "right": {
+        "id": "2111523329781715176",
+        "text": "I cannot tell you how uninterested I am in flying cars when people who work 40+ hours a week can't afford rent or groceries.",
+        "displayText": "I cannot tell you how uninterested I am in flying cars when people who work 40+ hours a week can't afford rent or groceries.",
+        "author": {
+          "id": "1183539821609996288",
+          "name": "𝕯𝖞𝖑𝖆𝖓™",
+          "handle": "Dylanszn01",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2096694529315266560/c8ID5I1f_normal.jpg",
+          "verified": true
+        },
+        "media": []
+      }
+    },
+    {
+      "id": "reach-13",
+      "left": {
+        "id": "2112538493431787531",
+        "text": "my vent art https://t.co/RgS03AfuTb",
+        "displayText": "my vent art",
+        "author": {
+          "id": "1898901146552680448",
+          "name": "Kin (キン)",
+          "handle": "KinNyaan",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2104297752431661056/znKRYawW_normal.jpg",
+          "verified": false
+        },
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HVE-S6HWcAAW3mw.png",
+            "width": 749,
+            "height": 509,
+            "alt": "An internet connection error screenshot annotated to point out that the computer reports a connection.",
+            "assetFile": "media/2112538493431787531.png",
+            "sha256": "021f4081e09ba7b02d80144cc45b0c7aea8efafb33766b7342b34e53a1e1bd4a"
+          }
+        ]
+      },
+      "right": {
+        "id": "2112465446368911840",
+        "text": "my kinda specific vent art https://t.co/xrPoNZVXik",
+        "displayText": "my kinda specific vent art",
+        "author": {
+          "id": "1909158590306254848",
+          "name": "rami",
+          "handle": "ramidrawzz",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2072176553325150209/CHUMNwve_normal.jpg",
+          "verified": false
+        },
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HVD8DWNX0AALIoH.png",
+            "width": 849,
+            "height": 441,
+            "alt": "A drawing showing three versions of a character labelled Concept art, First game and Latest game.",
+            "assetFile": "media/2112465446368911840.png",
+            "sha256": "bbd2b6eda280630835284cef31fe837ba77b27d1ed55c2215ed9542e8bae6f42"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reach-14",
+      "left": {
+        "id": "2112540906264101014",
+        "text": "every time i post my thoughts or feelings i think of this https://t.co/oYF3DkgcUF",
+        "displayText": "every time i post my thoughts or feelings i think of this",
+        "author": {
+          "id": "2097042099535302656",
+          "name": "𓏲🪽",
+          "handle": "nymphejpg",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2115219573469216768/YdM99s_-_normal.jpg",
+          "verified": false
+        },
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HVFAwWqXMAAhLaK.jpg",
+            "width": 1200,
+            "height": 408,
+            "alt": "Two online comments, one about never having been loved and another asking if the journal factory exploded.",
+            "assetFile": "media/2112540906264101014.jpg",
+            "sha256": "78964f4c05d4c792f2319b5ffca3378ccd2bfc245364330c91000768a078ecd8"
+          }
+        ]
+      },
+      "right": {
+        "id": "2112461574195781691",
+        "text": "how life should be treating me https://t.co/9QGTn2K2Tp",
+        "displayText": "how life should be treating me",
+        "author": {
+          "id": "1846394266815549441",
+          "name": "AmperSand",
+          "handle": "TwinkLuvr28",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2111449714877247488/nYbRlqhZ_normal.jpg",
+          "verified": false
+        },
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HVD4krNbgAAhMBV.png",
+            "width": 372,
+            "height": 680,
+            "alt": "A two-panel cartoon showing characters talking and hugging on a sofa.",
+            "assetFile": "media/2112461574195781691.png",
+            "sha256": "7da2c6b77e18aebeb2d810d7831fd679071e242aec6fd3696fa00a318ae0115e"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reach-15",
+      "left": {
+        "id": "2110718668195676545",
+        "text": "Coworker I have a slight proximity crush on complimented my shirt this morning https://t.co/Vgl4EvKFd1",
+        "displayText": "Coworker I have a slight proximity crush on complimented my shirt this morning",
+        "author": {
+          "id": "1857575001593098242",
+          "name": "cam",
+          "handle": "realricchh",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2047248420994195456/JEpZQ8Ib_normal.jpg",
+          "verified": false
+        },
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HUrHcWcWQAA5reH.jpg",
+            "width": 1199,
+            "height": 666,
+            "alt": "A film still showing a person in a suit looking over their shoulder.",
+            "assetFile": "media/2110718668195676545.jpg",
+            "sha256": "72047326785baf9af69773d11dfdac3b7c7eec82261c3c3ff2a3d51b0c3d7b64"
+          }
+        ]
+      },
+      "right": {
+        "id": "2110897350570897772",
+        "text": "Hit the waitress with a classic “it was terrible” when she took my clean plate away https://t.co/rGzuhOxFiJ",
+        "displayText": "Hit the waitress with a classic “it was terrible” when she took my clean plate away",
+        "author": {
+          "id": "94720974",
+          "name": "Liam Fennessy",
+          "handle": "LiamFennessy_",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/1909741744637333504/kfYPKEQx_normal.jpg",
+          "verified": false
+        },
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HUtp8_pXsAACUtK.jpg",
+            "width": 805,
+            "height": 1000,
+            "alt": "A cover image for the film Uncut Gems.",
+            "assetFile": "media/2110897350570897772.jpg",
+            "sha256": "f9ccd1fd567c71ed1473cc3bd7876dfbbafd26b50b01c2cb39d7274bf92710e9"
+          }
+        ]
+      }
+    }
+  ]
+}

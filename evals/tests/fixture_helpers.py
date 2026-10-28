@@ -25,7 +25,7 @@ def cross_author_fixture(root):
                                      "handle": "synthetic_" + suffix, "avatarAssetFile": "synthetic.png", "avatarSha256": sha},
                           "media": ([{"type": "photo", "assetFile": "synthetic.png", "sha256": sha, "width": 1, "height": 1}] if number == 1 else [])}
         pairs.append(pair)
-    client = {"version": "0.4.0", "language": "en", "timing": {"exposureMs": 6000, "decisionMs": 4000},
+    client = {"version": "0.4.1", "language": "en", "timing": {"exposureMs": 15000, "decisionMs": 5000},
               "display": {"authors": True, "avatars": True, "handles": True, "followerCounts": False, "engagement": False},
               "practice": pairs[:2], "pairs": pairs[2:]}
     bank = copy.deepcopy(client)

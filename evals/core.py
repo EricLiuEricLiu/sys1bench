@@ -63,12 +63,31 @@ DECISION_PROTOCOL = {**DECISION_PROTOCOL, **PROTOCOL, "version": DECISION_PROTOC
                      "parser": "accept exactly A or B from the typed winner.choice field; never choose by probability",
                      "response_format": "Gateway Decision choice with criteria A and B; separate from free-text direct-choice cohort"}
 PROTOCOLS = {**V03_PROTOCOLS, PROTOCOL_VERSION: PROTOCOL, DECISION_PROTOCOL_VERSION: DECISION_PROTOCOL}
+
+# Timing-only 0.4.1 revision: preserve every 0.4.0 protocol hash for replay.
+V04_PROTOCOL_VERSION = PROTOCOL_VERSION
+V04_DECISION_PROTOCOL_VERSION = DECISION_PROTOCOL_VERSION
+V04_PROTOCOLS = dict(PROTOCOLS)
+CURRENT_DATASET_VERSION = "0.4.1"
+BENCHMARK_VERSION = "0.3.1-pilot"
+HUMAN_PROTOCOL_VERSION = "human-15s5s-cross-author-highreach-education2-v3"
+PROTOCOL_VERSION = "direct-ab-cross-author-image-v4"
+DECISION_PROTOCOL_VERSION = "choice-cross-author-image-v3"
+PROTOCOL = {**PROTOCOL, "version": PROTOCOL_VERSION,
+            "human_timing": {"exposure_ms": 15000, "decision_ms": 5000},
+            "human_protocol_version": HUMAN_PROTOCOL_VERSION}
+DECISION_PROTOCOL = {**DECISION_PROTOCOL, "version": DECISION_PROTOCOL_VERSION,
+                     "human_timing": dict(PROTOCOL["human_timing"]),
+                     "human_protocol_version": HUMAN_PROTOCOL_VERSION}
+PROTOCOLS = {**V04_PROTOCOLS, PROTOCOL_VERSION: PROTOCOL, DECISION_PROTOCOL_VERSION: DECISION_PROTOCOL}
 ACTIVE_PROTOCOL_VERSIONS = {PROTOCOL_VERSION, DECISION_PROTOCOL_VERSION}
-DECISION_SYSTEM_PROMPTS = {p["system"] for version, p in PROTOCOLS.items() if version in {V03_DECISION_PROTOCOL_VERSION, DECISION_PROTOCOL_VERSION}}
+DECISION_SYSTEM_PROMPTS = {p["system"] for version, p in PROTOCOLS.items() if version in {V03_DECISION_PROTOCOL_VERSION, V04_DECISION_PROTOCOL_VERSION, DECISION_PROTOCOL_VERSION}}
 DATASET_PROFILES = {
     "0.3.0": {"schema_version": "2.0.0", "benchmark_version": "0.2.0-pilot", "timing": {"exposureMs": 3000, "decisionMs": 2000},
               "direct": V03_PROTOCOL_VERSION, "decision": V03_DECISION_PROTOCOL_VERSION, "cross_author": False},
-    "0.4.0": {"schema_version": SCHEMA_VERSION, "benchmark_version": BENCHMARK_VERSION, "timing": {"exposureMs": 6000, "decisionMs": 4000},
+    "0.4.0": {"schema_version": SCHEMA_VERSION, "benchmark_version": "0.3.0-pilot", "timing": {"exposureMs": 6000, "decisionMs": 4000},
+              "direct": V04_PROTOCOL_VERSION, "decision": V04_DECISION_PROTOCOL_VERSION, "cross_author": True},
+    CURRENT_DATASET_VERSION: {"schema_version": SCHEMA_VERSION, "benchmark_version": BENCHMARK_VERSION, "timing": {"exposureMs": 15000, "decisionMs": 5000},
               "direct": PROTOCOL_VERSION, "decision": DECISION_PROTOCOL_VERSION, "cross_author": True},
 }
 
