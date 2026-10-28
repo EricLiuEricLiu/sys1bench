@@ -8,7 +8,7 @@ import urllib.request
 from dataclasses import dataclass
 from typing import Protocol
 
-from .core import canonical, digest, require, validate_request, DECISION_SYSTEM_PROMPT
+from .core import canonical, digest, require, validate_request, DECISION_SYSTEM_PROMPTS
 
 OPENAI_ENDPOINT = "https://api.openai.com/v1/responses"
 GATEWAY_RESPONSES_ENDPOINT = "https://ai-gateway.vercel.sh/v1/responses"
@@ -110,7 +110,7 @@ def image_content(request, config):
 
 def openai_payload(request, config):
     validate_request(request)
-    require(request["system"] != DECISION_SYSTEM_PROMPT, "Typed decision protocol requires the decision adapter")
+    require(request["system"] not in DECISION_SYSTEM_PROMPTS, "Typed decision protocol requires the decision adapter")
     payload = {
         "model": config["model"],
         "instructions": request["system"],

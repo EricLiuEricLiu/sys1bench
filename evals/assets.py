@@ -89,7 +89,7 @@ def capture_avatars(stimuli_path, out):
     """Explicit free image downloads only; prepare/run never invoke this function."""
     from .runner import now
     data = load_json(stimuli_path)
-    require(data.get("version") == "0.3.0" and isinstance(data.get("practice"), list) and len(data["practice"]) == 2, "Capture requires actual 0.3.0 two-practice dataset")
+    require(data.get("version") in {"0.3.0", "0.4.0"} and isinstance(data.get("practice"), list) and len(data["practice"]) == 2, "Capture requires versioned two-practice author/image dataset")
     urls = sorted({p[s]["author"]["avatarUrl"] for p in data["practice"] + data["pairs"] for s in ["left", "right"]})
     require(0 < len(urls) <= 34, "Unexpected avatar count")
     out = Path(out)

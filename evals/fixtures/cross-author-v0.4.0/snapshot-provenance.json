@@ -1,0 +1,13 @@
+{
+  "dataset_version": "0.4.0",
+  "source_directory": "outputs/system-1-bench-data",
+  "source_files_sha256": {
+    "stimuli.client.json": "79cba5a2906ff82fc34ac43f9f61cd8420c9f9a8747082400a0eeb3f49392ddd",
+    "question-bank.server.json": "dae4ad6a6f1becfc5489c4c52aa3476004746f44629c3433e854b2d224a65b29",
+    "audit.json": "cea1595879e0c06146d6563557b8e4e013dca3a0db1dff52d007d112839f6221",
+    "media-manifest.json": "e767c5c704726ca70f186678b5cac45e649eecc8bc6a3ae4703c347b324ea593"
+  },
+  "copied_without_modification": true,
+  "audit_status": "passed_saved_source_and_media_checks",
+  "real_model_calls": 0
+}

@@ -43,6 +43,43 @@ DECISION_PROTOCOL = {**PROTOCOL, "version": DECISION_PROTOCOL_VERSION, "system":
                      "response_format": "Gateway Decision choice with criteria A and B; separate from free-text direct-choice cohort"}
 PROTOCOLS = {PROTOCOL_VERSION: PROTOCOL, DECISION_PROTOCOL_VERSION: DECISION_PROTOCOL}
 
+# Keep the already-frozen 0.3 prompts and hashes available for replay/scoring.
+V03_PROTOCOL_VERSION = PROTOCOL_VERSION
+V03_DECISION_PROTOCOL_VERSION = DECISION_PROTOCOL_VERSION
+V03_PROTOCOLS = dict(PROTOCOLS)
+SCHEMA_VERSION = "2.1.0"
+BENCHMARK_VERSION = "0.3.0-pilot"
+PROTOCOL_VERSION = "direct-ab-cross-author-image-v3"
+DECISION_PROTOCOL_VERSION = "choice-cross-author-image-v2"
+SYSTEM_PROMPT = PROTOCOL["system"].replace("The two posts come from the same author.", "The two posts come from different authors.")
+PROTOCOL = {**PROTOCOL, "version": PROTOCOL_VERSION, "system": SYSTEM_PROMPT,
+            "human_timing": {"exposure_ms": 6000, "decision_ms": 4000},
+            "pairing": "different authors in every practice and scored pair; author context is visible"}
+DECISION_SYSTEM_PROMPT = SYSTEM_PROMPT.replace(
+    "Reply with exactly A or B, where A is the left post and B is the right post.",
+    "Select exactly one of A (left) or B (right) using the typed choice question.",
+)
+DECISION_PROTOCOL = {**DECISION_PROTOCOL, **PROTOCOL, "version": DECISION_PROTOCOL_VERSION, "system": DECISION_SYSTEM_PROMPT,
+                     "parser": "accept exactly A or B from the typed winner.choice field; never choose by probability",
+                     "response_format": "Gateway Decision choice with criteria A and B; separate from free-text direct-choice cohort"}
+PROTOCOLS = {**V03_PROTOCOLS, PROTOCOL_VERSION: PROTOCOL, DECISION_PROTOCOL_VERSION: DECISION_PROTOCOL}
+ACTIVE_PROTOCOL_VERSIONS = {PROTOCOL_VERSION, DECISION_PROTOCOL_VERSION}
+DECISION_SYSTEM_PROMPTS = {p["system"] for version, p in PROTOCOLS.items() if version in {V03_DECISION_PROTOCOL_VERSION, DECISION_PROTOCOL_VERSION}}
+DATASET_PROFILES = {
+    "0.3.0": {"schema_version": "2.0.0", "benchmark_version": "0.2.0-pilot", "timing": {"exposureMs": 3000, "decisionMs": 2000},
+              "direct": V03_PROTOCOL_VERSION, "decision": V03_DECISION_PROTOCOL_VERSION, "cross_author": False},
+    "0.4.0": {"schema_version": SCHEMA_VERSION, "benchmark_version": BENCHMARK_VERSION, "timing": {"exposureMs": 6000, "decisionMs": 4000},
+              "direct": PROTOCOL_VERSION, "decision": DECISION_PROTOCOL_VERSION, "cross_author": True},
+}
+
+
+def validate_pair_context(a, b, cross_author):
+    if cross_author:
+        require(a["author"]["handle"].casefold() != b["author"]["handle"].casefold(), "Every 0.4 pair must contain different authors")
+    else:
+        require(a["author"] == b["author"], "Same-author context differs within historical pair")
+        require(bool(a["images"]) == bool(b["images"]), "Historical sides require matched text/image modality")
+
 
 def _plain(text, *, empty=False):
     require(isinstance(text, str) and (empty or text.strip()), "Empty/invalid visible text")
@@ -67,12 +104,13 @@ def validate_post(post):
 
 def read_stimuli(path, avatar_manifest=None):
     data = load_json(path)
-    if data.get("version") != "0.3.0":
+    if data.get("version") not in DATASET_PROFILES:
         return legacy.read_stimuli(path)
+    profile = DATASET_PROFILES[data["version"]]
     allowed = {"version", "productName", "canonicalDomain", "label", "language", "timing", "display", "usage", "practice", "pairs"}
     require(set(data) <= allowed, "Expected client stimuli schema; unexpected top-level fields")
     require(data.get("language") == "en", "Expected English stimuli")
-    require(data.get("timing") == {"exposureMs": 3000, "decisionMs": 2000}, "Human timing differs from protocol")
+    require(data.get("timing") == profile["timing"], "Human timing differs from dataset protocol")
     display = data.get("display", {})
     require(all(display.get(k) is True for k in ["authors", "avatars", "handles"]), "Author context must be visible")
     require(all(display.get(k) is False for k in ["followerCounts", "engagement"]), "Followers/engagement must be hidden")
@@ -110,8 +148,10 @@ def read_stimuli(path, avatar_manifest=None):
             seen_content.add(content_key)
             seen_posts.add(p["id"])
             posts.append(post)
-        require(posts[0]["author"] == posts[1]["author"], "Same-author context differs within pair")
-        require(bool(posts[0]["images"]) == bool(posts[1]["images"]), "Both sides must have matched text/image modality")
+        validate_pair_context(posts[0], posts[1], profile["cross_author"])
+        if profile["cross_author"]:
+            left_id, right_id = (pair[s]["author"].get("id") for s in ["left", "right"])
+            require(isinstance(left_id, str) and isinstance(right_id, str) and left_id != right_id, "Source author IDs must differ in every 0.4 pair")
         items.append({"item_id": pair["id"], "kind": kind, "left": posts[0], "right": posts[1]})
     require(not items[0]["left"]["images"] and items[1]["left"]["images"], "Practice must be ordered text then image")
     return {"version": data["version"], "stimuli_sha256": digest({"version": data["version"], "language": "en", "items": items}), "source_file_sha256": file_digest(path), "items": items}
@@ -134,7 +174,7 @@ def request_for(item):
 def validate_request(request):
     if request.get("system") == legacy.SYSTEM_PROMPT:
         return legacy.validate_request(request)
-    require(set(request) == {"system", "user", "images"} and request["system"] in {SYSTEM_PROMPT, DECISION_SYSTEM_PROMPT}, "Unversioned multimodal request")
+    require(set(request) == {"system", "user", "images"} and request["system"] in {p["system"] for p in PROTOCOLS.values()}, "Unversioned multimodal request")
     posts = load_request_posts(request)
     expected_refs = []
     for side in ["A", "B"]:
@@ -163,14 +203,16 @@ def load_request_posts(request):
     return posts
 
 
-def prepare(stimuli_path, seed, mirror=False, avatar_manifest=None, protocol_version=PROTOCOL_VERSION):
+def prepare(stimuli_path, seed, mirror=False, avatar_manifest=None, protocol_version=None):
     data = read_stimuli(stimuli_path, avatar_manifest)
-    if data["version"] != "0.3.0":
+    if data["version"] not in DATASET_PROFILES:
         return legacy.prepare(stimuli_path, seed, mirror)
-    require(protocol_version in PROTOCOLS, "Unsupported multimodal protocol")
+    profile = DATASET_PROFILES[data["version"]]
+    protocol_version = protocol_version or profile["direct"]
+    require(protocol_version in {profile["direct"], profile["decision"]}, "Protocol does not match dataset version")
     protocol = PROTOCOLS[protocol_version]
     require(isinstance(seed, str) and seed and "\0" not in seed, "Invalid assignment seed")
-    plan = {"schema_version": SCHEMA_VERSION, "benchmark_id": BENCHMARK_ID, "benchmark_version": BENCHMARK_VERSION,
+    plan = {"schema_version": profile["schema_version"], "benchmark_id": BENCHMARK_ID, "benchmark_version": profile["benchmark_version"],
             "dataset_version": data["version"], "stimuli_sha256": data["stimuli_sha256"], "source_file_sha256": data["source_file_sha256"],
             "split_status": "pilot_no_registered_holdout", "protocol_version": protocol_version, "protocol_sha256": digest(protocol),
             "protocol": protocol, "assignment_seed": seed, "variant": "mirrored" if mirror else "primary", "items": []}
@@ -189,8 +231,9 @@ def validate_plan(plan):
         return legacy.validate_plan(plan)
     require(digest({k: v for k, v in plan.items() if k != "plan_sha256"}) == plan.get("plan_sha256"), "Plan hash mismatch")
     protocol = PROTOCOLS.get(plan.get("protocol_version"))
-    require(protocol is not None and plan["schema_version"] == SCHEMA_VERSION and plan["protocol"] == protocol and plan["protocol_sha256"] == digest(protocol), "Unsupported schema/protocol")
-    require(plan["benchmark_id"] == BENCHMARK_ID and plan["benchmark_version"] == BENCHMARK_VERSION and plan["dataset_version"] == "0.3.0", "Benchmark/dataset version mismatch")
+    profile = DATASET_PROFILES.get(plan.get("dataset_version"))
+    require(profile is not None and protocol is not None and plan["schema_version"] == profile["schema_version"] and plan["protocol"] == protocol and plan["protocol_sha256"] == digest(protocol), "Unsupported schema/protocol")
+    require(plan["benchmark_id"] == BENCHMARK_ID and plan["benchmark_version"] == profile["benchmark_version"] and plan["protocol_version"] in {profile["direct"], profile["decision"]}, "Benchmark/dataset version mismatch")
     require(plan["variant"] in {"primary", "mirrored"}, "Invalid side variant")
     original, seen_items, seen_posts = [], set(), set()
     for ordinal, item in enumerate(plan["items"]):
@@ -204,7 +247,7 @@ def validate_plan(plan):
         flipped = bool(hashlib.sha256((plan["assignment_seed"] + "\0" + item["item_id"]).encode()).digest()[0] & 1) ^ (plan["variant"] == "mirrored")
         require(item["flipped"] == flipped, "Orientation differs from seed")
         require(item["request_sha256"] == digest(validate_request(request_for(item))), "Inference request hash mismatch")
-        require(item["A"]["author"] == item["B"]["author"] and bool(item["A"]["images"]) == bool(item["B"]["images"]), "Within-pair context mismatch")
+        validate_pair_context(item["A"], item["B"], profile["cross_author"])
         left, right = (item["B"], item["A"]) if flipped else (item["A"], item["B"])
         original.append({"item_id": item["item_id"], "kind": item["kind"], "left": left, "right": right})
     require(len(original) > 2 and not original[0]["left"]["images"] and original[1]["left"]["images"], "Two practice rounds must be text then image before scored items")

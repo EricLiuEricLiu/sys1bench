@@ -1,0 +1,281 @@
+{
+  "auditVersion": "1.2",
+  "datasetVersion": "0.4.0",
+  "productName": "System 1 Bench",
+  "firstVerifiedAt": "2026-10-28T08:15:22.294353+00:00",
+  "status": "passed_saved_source_and_media_checks",
+  "questionBankSha256": "dae4ad6a6f1becfc5489c4c52aa3476004746f44629c3433e854b2d224a65b29",
+  "stimuliSha256": "79cba5a2906ff82fc34ac43f9f61cd8420c9f9a8747082400a0eeb3f49392ddd",
+  "summary": {
+    "version": "0.4.0",
+    "productName": "System 1 Bench",
+    "retrievedRecords": 718,
+    "uniqueRetrievedPosts": 694,
+    "scoredPairs": 15,
+    "practicePairs": 2,
+    "selectedUniquePosts": 34,
+    "selectedAuthorCount": 34,
+    "maximumPostsPerAuthor": 1,
+    "crossAuthorPairs": 17,
+    "sameAuthorPairs": 0,
+    "minimumRequiredViews": 100000,
+    "selectedViewMinimum": 113216,
+    "selectedViewMedian": 1176533.5,
+    "selectedViewMaximum": 8211513,
+    "millionPlusPosts": 22,
+    "imagePairs": 4,
+    "imagePosts": 8,
+    "scoredImagePairs": 3,
+    "practiceImagePairs": 1,
+    "textOnlyScoredPairs": 12,
+    "minimumPostAgeDaysAtCapture": 7.4616,
+    "maximumPostAgeDaysAtCapture": 28.8972,
+    "maxWithinPairCreationGapHours": 83.3136,
+    "captionWordsPerPairRange": [
+      8,
+      64
+    ],
+    "selectedFollowerRange": [
+      541,
+      138729
+    ],
+    "newCollectionCostUSD": 0.009,
+    "totalCollectionCostUSD": 0.0306,
+    "timing": {
+      "exposureMs": 6000,
+      "decisionMs": 4000
+    },
+    "practiceScoredPostOverlapCount": 0,
+    "selectedDuplicateIdCount": 0,
+    "allPostsMeetViewFloor": true,
+    "allPairsHaveDifferentAuthors": true,
+    "scoredLeftWinsInCanonicalOrder": 8,
+    "scoredRightWinsInCanonicalOrder": 7
+  },
+  "sourceVerification": "All 34 selected original texts, view counts, author records, URLs, creation times and capture times reconcile to saved successful Monid runs. Eight selected images were visually checked at native scale and their cached bytes/hashes verified. Original X pages/counts and app-responsive rendering were not independently rechecked.",
+  "materialLimitations": [
+    "High-reach curated pilot, not a uniform random sample of X or a validated measure of intuition.",
+    "Every displayed post was selected to have at least 100,000 provider-reported views; discovery also used minimum-like filters. This deliberately conditions on successful posts.",
+    "All 17 pairs compare different author IDs. The 34 posts use 34 distinct accounts, with no author reused in this release.",
+    "Accounts were limited to 100–200,000 source-reported followers, and the selection avoids recognized celebrity and organizational accounts. This does not independently verify account ownership or representativeness.",
+    "Cross-author questions can be affected by author recognition, audience size, posting time, paid promotion and external amplification. Author reach is only approximately matched; one pair differs by over 20 times in source-reported followers.",
+    "Pair creation times differ by at most 83.31 hours. This is not a fixed-post-age experiment.",
+    "Views are cumulative snapshots captured at post ages between 7.46 and 28.90 days. They are not unique viewers, causal content effects or 48-hour view outcomes.",
+    "Search/date/language operators are not fully reliable upstream. Actual returned timestamps, language and content were checked for the selected records.",
+    "The normalized source does not expose a reliable quote-post flag. Selected text and images were reviewed to stand alone, but quote status and original X pages/counts were not independently verified.",
+    "Original text is preserved in text. For photo posts, displayText omits one trailing t.co token as an attachment-link rendering convention; source entity mapping is unavailable.",
+    "Pair captions total 8–64 words, with additional words inside some images. Six-second exposure also measures reading, scanning and image interpretation; timing has not been calibrated with users.",
+    "All eight selected photo files were downloaded and visually reviewed for visible engagement/outcome leaks; original bytes, dimensions and SHA-256 hashes are preserved. Responsive rendering and preload must be verified by app integration.",
+    "Authors, handles and avatars are visible. Followers and engagement are excluded from client stimuli. Preload and decode all content images before exposure; failed-load rounds must not receive a score.",
+    "3 posts also appeared in v0.3.0. This is development/pilot data without a registered held-out split; prior exposure can affect results.",
+    "Two ordered practice rounds are unscored and receive feedback. Fifteen scored rounds use the same 6,000 ms exposure and 4,000 ms decision settings.",
+    "No human percentiles or AI scores are supplied by this dataset. Do not pool older same-author/timer protocols with this cross-author high-reach release.",
+    "The server bank contains outcomes and source URLs. Keep it private; use only the display export for the browser and model inference."
+  ],
+  "pairChecks": [
+    {
+      "pairId": "practice-01",
+      "kind": "practice",
+      "postIds": [
+        "2105849104840753403",
+        "2105906812545630651"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 1454441,
+      "createdGapHours": 3.8217,
+      "authorFollowerRatio": 6.1285
+    },
+    {
+      "pairId": "practice-02",
+      "kind": "practice",
+      "postIds": [
+        "2112551136175808794",
+        "2112649169605448154"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 638605,
+      "createdGapHours": 6.4925,
+      "authorFollowerRatio": 11.7519
+    },
+    {
+      "pairId": "reach-01",
+      "kind": "scored",
+      "postIds": [
+        "2112333916770013187",
+        "2112410984694558801"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 1279466,
+      "createdGapHours": 5.1042,
+      "authorFollowerRatio": 4.6864
+    },
+    {
+      "pairId": "reach-02",
+      "kind": "scored",
+      "postIds": [
+        "2112593060836323499",
+        "2112558163774038029"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 1076412,
+      "createdGapHours": 2.3111,
+      "authorFollowerRatio": 5.6137
+    },
+    {
+      "pairId": "reach-03",
+      "kind": "scored",
+      "postIds": [
+        "2111822378611408978",
+        "2111873765512491348"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 1614574,
+      "createdGapHours": 3.4033,
+      "authorFollowerRatio": 2.0436
+    },
+    {
+      "pairId": "reach-04",
+      "kind": "scored",
+      "postIds": [
+        "2106025949519130642",
+        "2106061621756060057"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 469559,
+      "createdGapHours": 2.3625,
+      "authorFollowerRatio": 4.6475
+    },
+    {
+      "pairId": "reach-05",
+      "kind": "scored",
+      "postIds": [
+        "2111832011447181687",
+        "2112245420655358140"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 1607806,
+      "createdGapHours": 27.3789,
+      "authorFollowerRatio": 1.7657
+    },
+    {
+      "pairId": "reach-06",
+      "kind": "scored",
+      "postIds": [
+        "2106112191384658220",
+        "2106077308348191094"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 113216,
+      "createdGapHours": 2.3103,
+      "authorFollowerRatio": 10.2727
+    },
+    {
+      "pairId": "reach-07",
+      "kind": "scored",
+      "postIds": [
+        "2106010795499028525",
+        "2105262913879425066"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 329441,
+      "createdGapHours": 49.5303,
+      "authorFollowerRatio": 3.2178
+    },
+    {
+      "pairId": "reach-08",
+      "kind": "scored",
+      "postIds": [
+        "2109974443057352961",
+        "2111232439150403683"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 631211,
+      "createdGapHours": 83.3136,
+      "authorFollowerRatio": 6.5328
+    },
+    {
+      "pairId": "reach-09",
+      "kind": "scored",
+      "postIds": [
+        "2105954444869587378",
+        "2104882126361419829"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 1276655,
+      "createdGapHours": 71.0169,
+      "authorFollowerRatio": 4.9254
+    },
+    {
+      "pairId": "reach-10",
+      "kind": "scored",
+      "postIds": [
+        "2111423181063946740",
+        "2112174235095339304"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 1389063,
+      "createdGapHours": 49.7403,
+      "authorFollowerRatio": 6.7237
+    },
+    {
+      "pairId": "reach-11",
+      "kind": "scored",
+      "postIds": [
+        "2112531940406612090",
+        "2111991706665271646"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 512197,
+      "createdGapHours": 35.7783,
+      "authorFollowerRatio": 3.1646
+    },
+    {
+      "pairId": "reach-12",
+      "kind": "scored",
+      "postIds": [
+        "2112246423064645828",
+        "2111523329781715176"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 798752,
+      "createdGapHours": 47.8886,
+      "authorFollowerRatio": 1.5779
+    },
+    {
+      "pairId": "reach-13",
+      "kind": "scored",
+      "postIds": [
+        "2112538493431787531",
+        "2112465446368911840"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 235332,
+      "createdGapHours": 4.8378,
+      "authorFollowerRatio": 1.7221
+    },
+    {
+      "pairId": "reach-14",
+      "kind": "scored",
+      "postIds": [
+        "2112540906264101014",
+        "2112461574195781691"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 333722,
+      "createdGapHours": 5.2539,
+      "authorFollowerRatio": 2.3739
+    },
+    {
+      "pairId": "reach-15",
+      "kind": "scored",
+      "postIds": [
+        "2110718668195676545",
+        "2110897350570897772"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 207791,
+      "createdGapHours": 11.8336,
+      "authorFollowerRatio": 20.423
+    }
+  ]
+}

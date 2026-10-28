@@ -11,7 +11,8 @@ from .scoring import score
 def prepare_campaign(out, seed="pilot-cohort-001"):
     """Freeze the user-approved four-model disabled-thinking comparison offline."""
     package = Path(__file__).parent.resolve()
-    data = package / "fixtures/author-image-v0.3.0"
+    data = package / "fixtures/cross-author-v0.4.0"
+    require((data / "stimuli.client.json").is_file(), "Current 0.4.0 bank is not frozen yet; no historical paid campaign may be prepared")
     out = Path(out).resolve()
     out.mkdir(parents=True, exist_ok=False)
     plan_paths = {}

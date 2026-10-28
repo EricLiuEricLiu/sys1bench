@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 
 from .adapters import validate_config
-from .core import PROTOCOL_VERSION, DECISION_PROTOCOL_VERSION, load_json, prepare, read_stimuli, require, validate_plan, write_json
+from .core import PROTOCOLS, load_json, prepare, read_stimuli, require, validate_plan, write_json
 from .assets import capture_avatars
 from .export import export_records
 from .runner import run, validate_execution
@@ -26,7 +26,7 @@ def main():
     p.add_argument("--mirror", action="store_true")
     p.add_argument("--out", required=True)
     p.add_argument("--avatar-manifest")
-    p.add_argument("--protocol", choices=[PROTOCOL_VERSION, DECISION_PROTOCOL_VERSION], default=PROTOCOL_VERSION)
+    p.add_argument("--protocol", choices=sorted(PROTOCOLS))
     p = sub.add_parser("preflight", help="Validate plan/config locally; never contacts a provider")
     p.add_argument("--plan", required=True)
     p.add_argument("--config", required=True)

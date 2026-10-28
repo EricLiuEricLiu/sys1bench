@@ -12,13 +12,14 @@ from unittest.mock import patch
 
 from evals.adapters import Reply, openai_payload
 from evals.assets import image_info, validate_blob
-from evals.core import (DECISION_PROTOCOL_VERSION, PROTOCOL_VERSION, digest, file_digest,
+from evals.core import (V03_DECISION_PROTOCOL_VERSION as DECISION_PROTOCOL_VERSION, PROTOCOL_VERSION, digest, file_digest,
                         load_json, prepare, read_stimuli, request_for, validate_request, write_json)
 from evals.export import export_records
 from evals.gateway import (GatewayDecisionAdapter, GatewayResponsesAdapter, add_gateway_metadata,
                            decision_payload, validate_gateway_config)
 from evals.runner import run, validate_execution
 from evals.scoring import labels_for, score
+from evals.tests.fixture_helpers import cross_author_fixture
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "evals/fixtures/author-image-v0.3.0"
@@ -163,7 +164,8 @@ class MultimodalTests(unittest.TestCase):
             validate_gateway_config(config)
             if config["provider"] == "vercel-responses":
                 self.assertEqual(config["reasoning_effort"], "none")
-                validate_execution(self.plan, config)
+                with self.assertRaisesRegex(ValueError, "Historical datasets are frozen"):
+                    validate_execution(self.plan, config)
         with self.assertRaisesRegex(ValueError, "reviewed strict no-thinking"):
             validate_gateway_config(gateway_config("mistral/mistral-large-4"))
         policy = load_json(CATALOG.parent / "no-thinking-policy.json")
@@ -175,7 +177,7 @@ class MultimodalTests(unittest.TestCase):
             config = {**gateway_config(), "reasoning_effort": effort}
             adapter = CaptureAdapter()
             with tempfile.TemporaryDirectory() as directory:
-                with self.assertRaisesRegex(ValueError, "Thinking must be disabled"):
+                with self.assertRaisesRegex(ValueError, "Historical datasets are frozen"):
                     run(self.plan, config, Path(directory) / "run", allow_paid=True, adapter=adapter)
             self.assertEqual(adapter.requests, [])
 
@@ -184,7 +186,8 @@ class MultimodalTests(unittest.TestCase):
         self.assertEqual(plan["stimuli_sha256"], self.plan["stimuli_sha256"])
         self.assertNotEqual(plan["protocol_sha256"], self.plan["protocol_sha256"])
         config = gateway_config("typesafe-ai/jev-1.14.0", "vercel-decision")
-        validate_execution(plan, config)
+        with self.assertRaisesRegex(ValueError, "Historical datasets are frozen"):
+            validate_execution(plan, config)
         payload = decision_payload(request_for(plan["items"][1]), config)
         self.assertNotIn("reasoning", payload)
         self.assertNotIn("max_output_tokens", payload)
@@ -235,13 +238,15 @@ class MultimodalTests(unittest.TestCase):
         from evals.campaign import preflight_campaign, run_campaign
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            write_json(root / "plan.json", self.plan)
+            stimuli, bank = cross_author_fixture(root / "synthetic-inputs")
+            current_plan = prepare(stimuli, "synthetic-seed")
+            write_json(root / "plan.json", current_plan)
             config = load_json(ROOT / "evals/configs/gateway/opus-5-no-thinking.json")
             write_json(root / "config.json", config)
-            write_json(root / "bank.json", load_json(DATA / "question-bank.server.json"))
-            entry = {"model": config["model"], "planned_items": 17, "plan": "plan.json", "config": "config.json", "bank": "bank.json",
+            write_json(root / "bank.json", load_json(bank))
+            entry = {"model": config["model"], "planned_items": 3, "plan": "plan.json", "config": "config.json", "bank": "bank.json",
                      **{k + "_file_sha256": file_digest(root / (k + ".json")) for k in ["plan", "config", "bank"]}}
-            manifest = {"schema_version": "gateway-campaign-v1", "lineup_approved": True, "primary_runs_per_model": 1, "automatic_mirrors": 0, "maximum_requests": 17, "entries": [entry]}
+            manifest = {"schema_version": "gateway-campaign-v1", "lineup_approved": True, "primary_runs_per_model": 1, "automatic_mirrors": 0, "maximum_requests": 3, "entries": [entry]}
             write_json(root / "campaign.json", manifest)
             _, jobs = preflight_campaign(root / "campaign.json")
             self.assertEqual(len(jobs), 1)
@@ -250,7 +255,7 @@ class MultimodalTests(unittest.TestCase):
                     run_campaign(root / "campaign.json", root / "out", allow_paid=True)
             self.assertFalse((root / "out").exists())
             manifest["entries"].append(entry)
-            manifest["maximum_requests"] = 34
+            manifest["maximum_requests"] = 6
             write_json(root / "campaign.json", manifest)
             with self.assertRaisesRegex(ValueError, "Duplicate"):
                 preflight_campaign(root / "campaign.json")

@@ -34,6 +34,9 @@ def percentile(values, p):
 
 
 def cluster_interval(answers, seed="cluster-bootstrap-v1", draws=5000):
+    if any(len(a.get("author_cluster_ids", [])) > 1 for a in answers):
+        return {"method": "not estimated for crossed-author pairs", "interval_95": None,
+                "interpretation": "Each item involves two authors and authors may recur across pairs. The historical one-author bootstrap is invalid for this dependency structure; collect more data and preregister a crossed-author analysis."}
     groups = defaultdict(list)
     for a in answers:
         groups[a["author_cluster_id"]].append(int(a["correct"]))
@@ -56,6 +59,8 @@ def labels_for(plan, bank_path):
     bank = load_json(bank_path)
     require(bank["version"] == plan["dataset_version"], "Answer bank version differs from stimuli")
     require(bank.get("outcome") == "cumulative_snapshot_views", "Unexpected outcome definition")
+    if plan["dataset_version"] == "0.4.0":
+        require(bank.get("timing") == {"exposureMs": 6000, "decisionMs": 4000}, "Current bank timing differs from the frozen human protocol")
     practice = bank["practice"] if isinstance(bank["practice"], list) else [bank["practice"]]
     pairs = [("practice", p) for p in practice] + [("scored", p) for p in bank["pairs"]]
     require(len(pairs) == len(plan["items"]), "Answer bank item count mismatch")
@@ -78,12 +83,28 @@ def labels_for(plan, bank_path):
             require(type(post.get("views")) is int and post["views"] > 0, "Missing/invalid view outcome")
             url = urlparse(post["url"])
             path = url.path.strip("/").split("/")
-            require(url.hostname in {"x.com", "www.x.com", "twitter.com"} and len(path) == 3 and path[1] == "status" and path[2] == post["id"], "Invalid source URL in answer bank")
-            authors.append(path[0].casefold())
-        require(authors[0] == authors[1], "Protocol requires same-author pairs")
+            named_url = len(path) == 3 and path[0] != "i" and path[1:] == ["status", post["id"]]
+            canonical_url = path in [["i", "web", "status", post["id"]], ["i", "status", post["id"]]]
+            require(url.hostname in {"x.com", "www.x.com", "twitter.com"} and (named_url or canonical_url), "Invalid source URL in answer bank")
+            if "author" in item[s]:
+                source_handle = post["author"]["handle"].casefold()
+                require(not named_url or path[0].casefold() == source_handle, "Source URL author differs from visible author")
+                authors.append(source_handle)
+            else:
+                require(named_url, "Historical hidden-author bank requires an author-bearing source URL")
+                authors.append(path[0].casefold())
+        cross_author = plan["dataset_version"] == "0.4.0"
+        if cross_author:
+            require(authors[0] != authors[1], "Current protocol requires different-author pairs")
+            ids = [by_id[item[s]["id"]]["author"]["id"] for s in ["A", "B"]]
+            require(all(isinstance(a, str) and a for a in ids) and ids[0] != ids[1], "Current protocol requires distinct source author IDs")
+            require(all(by_id[item[s]["id"]]["views"] >= 100_000 for s in ["A", "B"]), "Current bank requires at least 100000 captured views per post")
+        else:
+            require(authors[0] == authors[1], "Historical protocol requires same-author pairs")
         av, bv = by_id[item["A"]["id"]]["views"], by_id[item["B"]["id"]]["views"]
         require(av != bv, "Tied outcomes require a new protocol/dataset")
-        labels[item["item_id"]] = {"correct_choice": "A" if av > bv else "B", "author_cluster_id": digest(authors[0])[:16]}
+        cluster_ids = sorted({digest(a)[:16] for a in authors})
+        labels[item["item_id"]] = {"correct_choice": "A" if av > bv else "B", "author_cluster_id": None if cross_author else digest(authors[0])[:16], "author_cluster_ids": cluster_ids}
     return labels, bank
 
 
@@ -140,6 +161,7 @@ def score(run_dir, bank_path, out):
             "correct_choice": labels[item["item_id"]]["correct_choice"],
             "correct": choice == labels[item["item_id"]]["correct_choice"],
             "author_cluster_id": labels[item["item_id"]]["author_cluster_id"],
+            "author_cluster_ids": labels[item["item_id"]]["author_cluster_ids"],
             "primary_latency_ms": primary["latency_ms"] if primary else None,
             "attempt_count": len(rows), "request_sha256": item["request_sha256"],
         }

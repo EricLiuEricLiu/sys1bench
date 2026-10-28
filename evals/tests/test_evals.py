@@ -204,12 +204,12 @@ class HarnessTests(unittest.TestCase):
         config = {**MOCK, "provider": "openai-responses", "model": "approved-test-id"}
         del config["scenario"]
         adapter = Scripted([])
-        with self.assertRaisesRegex(ValueError, "allow-paid"):
+        with self.assertRaisesRegex(ValueError, "Historical datasets are frozen"):
             run(self.plan, config, self.root / "paid", adapter=adapter)
         self.assertEqual(adapter.requests, [])
         self.assertFalse((self.root / "paid").exists())
         with patch.dict(os.environ, {}, clear=True):
-            with self.assertRaisesRegex(ValueError, "OPENAI_API_KEY"):
+            with self.assertRaisesRegex(ValueError, "Historical datasets are frozen"):
                 run(self.plan, config, self.root / "paid", allow_paid=True)
 
     def test_openai_payload_has_no_metadata_tools_or_history(self):

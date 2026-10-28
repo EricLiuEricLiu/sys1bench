@@ -5,7 +5,7 @@ from pathlib import Path
 
 from .adapters import (AdapterError, GATEWAY_DECISION_ENDPOINT, GATEWAY_RESPONSES_ENDPOINT,
                        OpenAIResponsesAdapter, Reply, decode_openai, image_content, openai_payload)
-from .core import DECISION_SYSTEM_PROMPT, file_digest, load_json, require, validate_request
+from .core import DECISION_SYSTEM_PROMPTS, file_digest, load_json, require, validate_request
 
 CATALOG = Path(__file__).parent / "fixtures/gateway/models.catalog.json"
 
@@ -38,7 +38,7 @@ def routing_options(config):
 
 def decision_payload(request, config):
     validate_request(request)
-    require(request["system"] == DECISION_SYSTEM_PROMPT, "Native decision adapter requires its own versioned choice protocol")
+    require(request["system"] in DECISION_SYSTEM_PROMPTS, "Native decision adapter requires its own versioned choice protocol")
     return {"model": config["model"], "input": [{"role": "user", "content": image_content(request, config)}],
             "questions": [{"type": "choice", "name": "winner", "instructions": request["system"],
                            "choices": [{"value": "A", "description": "The left post received more cumulative views at capture."},
