@@ -1,4 +1,5 @@
 import { createRoundController, renderPostPair } from './components.js';
+import { TIMING } from './benchmark.js';
 
 let run;
 let controller;
@@ -15,6 +16,7 @@ async function api(path, data) {
 }
 function frame(kicker, title, copy) {
   root.replaceChildren();
+  root.classList.remove('app-shell--round');
   const header = el('header','app-header');
   const home=el('a','app-brand','System 1 Bench'); home.href='/';
   const label=el('span','app-mono','INTERNET INSTINCT'); header.append(home,label);
@@ -22,7 +24,7 @@ function frame(kicker, title, copy) {
   if(kicker)main.append(el('p','app-kicker',kicker));
   if(title)main.append(el('h1','app-title',title));
   if(copy)main.append(el('p','app-body',copy));
-  root.append(header,main,el('footer','app-footer','English pilot · 3 seconds to look · 2 seconds to choose'));
+  root.append(header,main,el('footer','app-footer',`English pilot · ${TIMING.exposureMs/1000} seconds to look · ${TIMING.decisionMs/1000} seconds to choose`));
   return main;
 }
 function stop() { token++; controller?.destroy(); controller=null; }
@@ -34,7 +36,7 @@ function errorScreen(error) {
 }
 function intro() {
   stop(); abortRun();
-  const main=frame('TWO PRACTICE ROUNDS','First, get the rhythm.','Look for 3 seconds. The posts disappear. Choose which got more views in 2 seconds.');
+  const main=frame('TWO PRACTICE ROUNDS','First, get the rhythm.',`Look for ${TIMING.exposureMs/1000} seconds. The posts disappear. Choose which got more views in ${TIMING.decisionMs/1000} seconds.`);
   main.append(el('p','app-note','One text pair, then one image pair. You’ll see feedback after each. Neither counts toward your score.'),button('Start practice →',start));
   main.append(el('p','app-fine','Your answers and timings are saved anonymously. A browser cookie keeps repeat attempts out of the pilot comparison. No account needed.'));
   main.focus({preventScroll:true});
@@ -51,9 +53,10 @@ async function showRound() {
     const round=await api(`/api/runs/${run.id}/next`);
     if(current!==token)return;
     const main=frame(); main.classList.add('app-main--round');
+    root.classList.add('app-shell--round');
     const mount=el('section','app-round'); main.append(mount);
     const practice=round.kind==='practice';
-    controller=createRoundController({mount,pair:round.pair,exposureMs:3000,choiceMs:2000,
+    controller=createRoundController({mount,pair:round.pair,exposureMs:TIMING.exposureMs,choiceMs:TIMING.decisionMs,
       roundLabel:practice?`Practice ${round.ordinal+1} / 2 · unscored`:`${String(round.ordinal-1).padStart(2,'0')} / 15`,
       onComplete:async result=>{
         if(current!==token)return;

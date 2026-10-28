@@ -1,18 +1,21 @@
 import { cpSync, readFileSync, readdirSync, existsSync, rmSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
+import { TIMING, MINIMUM_VIEWS } from '../web/benchmark.js';
 const bank = JSON.parse(readFileSync('data/question-bank.server.json', 'utf8'));
 assert.equal(bank.practice.length, 2, 'Two distinct educational practice rounds are required');
 assert.equal(bank.pairs.length, 15);
+assert.deepEqual(bank.timing, TIMING, 'The question set and deployed timing must agree');
 const seen = new Set();
 for (const p of [...bank.practice, ...bank.pairs]) {
   assert.notEqual(p.left.views, p.right.views);
+  assert.notEqual(p.left.author.id, p.right.author.id, 'Every pair must compare different authors');
   for (const side of ['left','right']) {
     const post = p[side];
     assert(!seen.has(post.id), 'Practice and scored posts must not overlap'); seen.add(post.id);
-    assert(Number.isSafeInteger(post.views) && post.views > 0);
+    assert(Number.isSafeInteger(post.views) && post.views >= MINIMUM_VIEWS, 'Every post must meet the high-reach floor');
     for (const media of post.media) {
-      assert(/^media\/[\w.-]+\.jpg$/.test(media.assetFile));
+      assert(/^media\/[\w.-]+\.(?:jpg|jpeg|png|webp)$/.test(media.assetFile));
       const bytes = readFileSync(`web/${media.assetFile}`);
       assert.equal(createHash('sha256').update(bytes).digest('hex'), media.sha256);
     }

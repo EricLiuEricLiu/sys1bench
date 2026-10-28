@@ -1,3 +1,4 @@
+import { TIMING } from './benchmark.js';
 import { preloadPairAssets, resolvePostMediaUrl, resolveAvatarUrl } from './media.js';
 export { preloadPairAssets };
 
@@ -158,7 +159,7 @@ export function renderPracticeFeedback({ current = 1, total = 2, choice, winner,
   if ([leftViews, rightViews].every(value => Number.isSafeInteger(value) && value >= 0)) {
     panel.append(node('p', 'i-practice-feedback__counts', `Left: ${leftViews.toLocaleString()} views · Right: ${rightViews.toLocaleString()} views`));
   }
-  panel.append(node('p', 'i-practice-feedback__note', current === 1 ? 'The posts disappear after three seconds. Then you have two seconds to choose.' : 'Practice doesn’t count toward your score. Scored answers are revealed at the end.'));
+  panel.append(node('p', 'i-practice-feedback__note', current === 1 ? 'The posts disappear after six seconds. Then you have four seconds to choose.' : 'Practice doesn’t count toward your score. Scored answers are revealed at the end.'));
   if (onContinue) {
     const next = node('button', 'i-button', continueLabel || (current < total ? 'Next practice round →' : 'Finish practice →'));
     next.type = 'button';
@@ -177,8 +178,8 @@ export function renderPracticeFeedback({ current = 1, total = 2, choice, winner,
 export function createRoundController({
   mount,
   pair,
-  exposureMs = 3000,
-  choiceMs = 2000,
+  exposureMs = TIMING.exposureMs,
+  choiceMs = TIMING.decisionMs,
   roundLabel = 'Practice',
   assetBaseUrl,
   resolveAsset,
@@ -234,10 +235,11 @@ export function createRoundController({
     fill = node('div', 'i-timer__fill');
     track.append(fill);
     remaining = node('span', 'i-timer__number', `${(exposureMs / 1000).toFixed(1)}s`);
-    timer.append(track, remaining);
-    topline.append(timer);
+    timer.append(remaining);
     const heading = node('h2', 'i-round__heading', 'Which post gets more views?');
-    instruction = node('p', 'i-round__instruction', 'Three seconds to look. Then choose.');
+    instruction = node('p', 'i-round__instruction', 'Get ready.');
+    const phaseRow = node('div', 'i-round__phase');
+    phaseRow.append(instruction, timer);
     content = node('div');
     const footer = node('div', 'i-round__bottomline');
     footer.append(node('span', '', 'Followers and engagement are hidden.'));
@@ -245,7 +247,7 @@ export function createRoundController({
     announcement = node('div', 'i-sr-only');
     announcement.setAttribute('role', 'status');
     announcement.setAttribute('aria-live', 'polite');
-    mount.append(topline, heading, instruction, content, footer, announcement);
+    mount.append(topline, heading, phaseRow, content, footer, track, announcement);
   }
 
   function showMessage(title, description) {
@@ -298,7 +300,7 @@ export function createRoundController({
     choices.style.minHeight = `${pairHeight}px`;
     // Replacing the posts prevents reading them during the answer window.
     content.replaceChildren(choices);
-    instruction.textContent = 'Go with your gut. Two seconds to choose.';
+    instruction.textContent = 'Choose.';
     announcement.textContent = 'Posts hidden. Choose left or right now.';
     setPhase('choice');
     if (destroyed) return;
@@ -336,7 +338,7 @@ export function createRoundController({
         preparedAssets = assets;
         setPhase('ready');
         if (destroyed) return null;
-        instruction.textContent = 'Three seconds to look. Then choose.';
+        instruction.textContent = 'Get ready.';
         showMessage('Ready when you are.', 'Both posts are ready to show.');
         return assets;
       })
@@ -367,8 +369,8 @@ export function createRoundController({
           return;
         }
         content.style.visibility = '';
-        instruction.textContent = 'Take it in. You have three seconds.';
-        announcement.textContent = 'Read both posts. You have three seconds.';
+        instruction.textContent = 'Look.';
+        announcement.textContent = `Read both posts. You have ${exposureMs / 1000} seconds.`;
         exposedAt = clock();
         deadline = exposedAt + exposureMs;
         setPhase('exposure');
@@ -395,7 +397,7 @@ export function createRoundController({
   document.addEventListener('visibilitychange', onVisibility);
   window.addEventListener('blur', onBlur);
   paintFrame();
-  showMessage('Ready when you are.', 'The posts will disappear after three seconds.');
+  showMessage('Ready when you are.', `The posts will disappear after ${exposureMs / 1000} seconds.`);
   mount.dataset.phase = 'idle';
 
   return {

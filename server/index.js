@@ -1,7 +1,7 @@
 import bank from '../data/question-bank.server.json' with { type: 'json' };
+import { TIMING, PROTOCOL } from '../web/benchmark.js';
 
 const COOKIE = 's1b_participant';
-const PROTOCOL = 'human-3s2s-education2-v1';
 const UUID = /^[a-f0-9-]{36}$/;
 const json = (data, status = 200, extra = {}) => new Response(JSON.stringify(data), {
   status, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', ...extra },
@@ -64,8 +64,8 @@ export function createApp({ dataset = bank, now = Date.now } = {}) {
         const cookie = request.headers.get('Cookie')?.split(';').map(p => p.trim()).find(p => p.startsWith(`${COOKIE}=`))?.slice(COOKIE.length + 1);
         const participant = UUID.test(cookie ?? '') ? cookie : null;
         if (url.pathname === '/api/health' && request.method === 'GET') {
-          await env.DB.prepare('SELECT 1 AS ok').first();
-          return json({ status: 'ok', datasetVersion: dataset.version, protocol: PROTOCOL });
+          await env.DB.prepare('SELECT id FROM human_runs LIMIT 1').first();
+          return json({ status: 'ok', datasetVersion: dataset.version, protocol: PROTOCOL, timing: TIMING });
         }
         if (url.pathname === '/api/runs' && request.method === 'POST') {
           const id = crypto.randomUUID();
@@ -74,7 +74,7 @@ export function createApp({ dataset = bank, now = Date.now } = {}) {
           if (count.n >= 30) throw fail('Please wait before starting another test.', 429);
           await env.DB.prepare('INSERT INTO human_runs (id,participant_id,cohort,dataset_version,assignments,created_at) VALUES (?,?,?,?,?,?)')
             .bind(id, owner, cohort, dataset.version, JSON.stringify(makeAssignments(dataset)), now()).run();
-          return json({ id, datasetVersion: dataset.version, practiceRounds: dataset.practice.length, scoredRounds: dataset.pairs.length }, 201,
+          return json({ id, datasetVersion: dataset.version, practiceRounds: dataset.practice.length, scoredRounds: dataset.pairs.length, timing: TIMING }, 201,
             { 'Set-Cookie': `${COOKIE}=${owner}; Path=/; HttpOnly; SameSite=Lax; Max-Age=31536000${url.protocol === 'https:' ? '; Secure' : ''}` });
         }
         if (url.pathname === '/api/leaderboard' && request.method === 'GET') {
@@ -117,9 +117,9 @@ export function createApp({ dataset = bank, now = Date.now } = {}) {
         if (action === 'answer' && request.method === 'POST') {
           const data = await body(request);
           if (data.ordinal !== run.next_ordinal) throw fail('Round is out of order.', 409);
-          if (![null, 'left', 'right'].includes(data.choice) || !Number.isFinite(data.observedMs) || data.observedMs < 2900 || data.observedMs > 4500) throw fail('Invalid round timing. Please start again.');
-          if (data.choice !== null && (!Number.isFinite(data.responseMs) || data.responseMs < 0 || data.responseMs >= 2000)) throw fail('Answer deadline has passed.');
-          if (run.opened_at === null || now() - run.opened_at < 2700 || now() - run.opened_at > 10000) throw fail('Round expired. Please start again.', 409);
+          if (![null, 'left', 'right'].includes(data.choice) || !Number.isFinite(data.observedMs) || data.observedMs < TIMING.exposureMs - 100 || data.observedMs > TIMING.exposureMs + 1500) throw fail('Invalid round timing. Please start again.');
+          if (data.choice !== null && (!Number.isFinite(data.responseMs) || data.responseMs < 0 || data.responseMs >= TIMING.decisionMs)) throw fail('Answer deadline has passed.');
+          if (run.opened_at === null || now() - run.opened_at < TIMING.exposureMs - 300 || now() - run.opened_at > TIMING.exposureMs + TIMING.decisionMs + 5000) throw fail('Round expired. Please start again.', 409);
           const assignment = assignments[run.next_ordinal];
           const pair = assignPair(assignment);
           const correct = gradeAnswer(pair, data.choice);

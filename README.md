@@ -6,7 +6,7 @@ A minimal website for benchmarking intuition, beginning with internet instinct: 
 
 The pilot is live on Cloudflare Workers, with anonymous first-attempt comparisons at [/leaderboard](https://sys1bench.com/leaderboard) backed by D1.
 
-The first format has two unscored educational practice pairs with feedback, followed by 15 scored pairs. Posts appear for 3 seconds, disappear, and users have 2 seconds to choose left or right. Author context and attached images are shown; engagement and follower counts are hidden. Human and AI comparisons will use actual benchmark runs when available.
+The format has two unscored educational practice pairs with feedback, followed by 15 scored pairs. Posts appear for 6 seconds, disappear, and users have 4 seconds to choose left or right. Each pair compares different authors, with at least 100,000 captured views per post in the current pilot. Author context and attached images are shown; engagement and follower counts are hidden. Human and AI comparisons use versioned question sets and protocols.
 
 ## Project layout
 
