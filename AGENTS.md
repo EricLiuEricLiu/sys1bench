@@ -12,6 +12,7 @@ Use this shared project directory: `/Users/ericliu/Documents/ChatGPT/sys1bench`.
 - Keep visible product copy in English. The landing page should introduce the benchmark generally, with Internet instinct as the first test, a short snippet, and a Start button.
 - Keep the UI extremely simple and styles modular, with shared design tokens.
 - Use real collected data and disclose pilot limitations. Do not fabricate view counts, human percentiles, or AI scores.
+- LLM comparisons must use a strict no-thinking mode, following Eric's later direction in the evaluations chat. Models with mandatory reasoning are ineligible for that comparison; a short final answer alone does not establish that thinking was disabled. Verify exact Gateway IDs and provider capabilities. `AI_GATEWAY_API_KEY` stays local or in a server secret store.
 
 ## Shared work
 
