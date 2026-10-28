@@ -1,0 +1,514 @@
+{
+  "data": {
+    "id": "openai/gpt-6-astra",
+    "name": "GPT-6 Astra",
+    "created": 1755815280,
+    "released": 1788480000,
+    "description": "GPT-6 Astra is OpenAI's most capable model for complex reasoning, coding, computer use, research, and document creation.",
+    "knowledge": "2026-04-30",
+    "architecture": {
+      "tokenizer": null,
+      "instruct_type": null,
+      "modality": "text+image+file\u2192text",
+      "input_modalities": [
+        "text",
+        "image",
+        "file"
+      ],
+      "output_modalities": [
+        "text"
+      ]
+    },
+    "reasoning": {
+      "supported_efforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ]
+    },
+    "endpoints": [
+      {
+        "name": "azure | openai/gpt-6-astra",
+        "model_name": "GPT-6 Astra",
+        "context_length": 1050000,
+        "pricing": {
+          "prompt": "0.00001",
+          "prompt_tiers": [
+            {
+              "cost": "0.00001",
+              "max": 272001
+            },
+            {
+              "cost": "0.00002",
+              "min": 272001
+            }
+          ],
+          "completion": "0.00005",
+          "completion_tiers": [
+            {
+              "cost": "0.00005",
+              "max": 272001
+            },
+            {
+              "cost": "0.000075",
+              "min": 272001
+            }
+          ],
+          "request": "0",
+          "image": "0",
+          "image_output": "0",
+          "web_search": "0.014",
+          "internal_reasoning": "0",
+          "input_cache_read": "0.000001",
+          "input_cache_read_tiers": [
+            {
+              "cost": "0.000001",
+              "max": 272001
+            },
+            {
+              "cost": "0.000002",
+              "min": 272001
+            }
+          ],
+          "input_cache_write": "0.0000125",
+          "input_cache_write_tiers": [
+            {
+              "cost": "0.0000125",
+              "max": 272001
+            },
+            {
+              "cost": "0.000025",
+              "min": 272001
+            }
+          ],
+          "discount": 0
+        },
+        "provider_name": "azure",
+        "has_zdr": true,
+        "has_no_training": true,
+        "tags": [
+          "file-input",
+          "implicit-caching",
+          "reasoning",
+          "tool-use",
+          "vision",
+          "web-search",
+          "websocket-realtime",
+          "explicit-caching",
+          "structured-output"
+        ],
+        "quantization": null,
+        "max_completion_tokens": 128000,
+        "max_prompt_tokens": null,
+        "supported_parameters": [
+          "max_tokens",
+          "stop",
+          "tools",
+          "tool_choice",
+          "reasoning",
+          "include_reasoning",
+          "response_format",
+          "structured_outputs"
+        ],
+        "status": 0,
+        "uptime_last_15m": 100,
+        "uptime_last_1h": 100,
+        "uptime_last_1d": 99.9942,
+        "latency_last_1h": {
+          "p50": 6019,
+          "p95": 13620.549999999994
+        },
+        "throughput_last_1h": {
+          "p50": 31.5,
+          "p95": 69.85
+        },
+        "supports_implicit_caching": true
+      },
+      {
+        "name": "bedrock | openai/gpt-6-astra",
+        "model_name": "GPT-6 Astra",
+        "context_length": 1050000,
+        "pricing": {
+          "prompt": "0.00001",
+          "prompt_tiers": [
+            {
+              "cost": "0.00001",
+              "min": 0,
+              "max": 272000
+            },
+            {
+              "cost": "0.00002",
+              "min": 272000
+            }
+          ],
+          "completion": "0.00005",
+          "completion_tiers": [
+            {
+              "cost": "0.00005",
+              "min": 0,
+              "max": 272000
+            },
+            {
+              "cost": "0.000075",
+              "min": 272000
+            }
+          ],
+          "request": "0",
+          "image": "0",
+          "image_output": "0",
+          "web_search": "0.01",
+          "internal_reasoning": "0",
+          "input_cache_read": "0.000001",
+          "input_cache_read_tiers": [
+            {
+              "cost": "0.000001",
+              "min": 0,
+              "max": 272000
+            },
+            {
+              "cost": "0.000002",
+              "min": 272000
+            }
+          ],
+          "input_cache_write": "0.0000125",
+          "input_cache_write_tiers": [
+            {
+              "cost": "0.0000125",
+              "min": 0,
+              "max": 272000
+            },
+            {
+              "cost": "0.000025",
+              "min": 272000
+            }
+          ],
+          "discount": 0
+        },
+        "provider_name": "bedrock",
+        "has_zdr": false,
+        "has_no_training": true,
+        "tags": [
+          "explicit-caching",
+          "implicit-caching",
+          "reasoning",
+          "tool-use",
+          "vision"
+        ],
+        "inference_regions": [
+          {
+            "scope": "zone",
+            "geo_region": "us",
+            "pricing": {
+              "prompt": "0.000011",
+              "prompt_tiers": [
+                {
+                  "cost": "0.000011",
+                  "min": 0,
+                  "max": 272000
+                },
+                {
+                  "cost": "0.000022",
+                  "min": 272000
+                }
+              ],
+              "completion": "0.000055",
+              "completion_tiers": [
+                {
+                  "cost": "0.000055",
+                  "min": 0,
+                  "max": 272000
+                },
+                {
+                  "cost": "0.0000825",
+                  "min": 272000
+                }
+              ],
+              "input_cache_read": "0.0000011",
+              "input_cache_read_tiers": [
+                {
+                  "cost": "0.0000011",
+                  "min": 0,
+                  "max": 272000
+                },
+                {
+                  "cost": "0.0000022",
+                  "min": 272000
+                }
+              ],
+              "input_cache_write": "0.00001375",
+              "input_cache_write_tiers": [
+                {
+                  "cost": "0.00001375",
+                  "min": 0,
+                  "max": 272000
+                },
+                {
+                  "cost": "0.0000275",
+                  "min": 272000
+                }
+              ]
+            }
+          }
+        ],
+        "quantization": null,
+        "max_completion_tokens": 128000,
+        "max_prompt_tokens": null,
+        "supported_parameters": [
+          "max_tokens",
+          "stop",
+          "tools",
+          "tool_choice",
+          "reasoning",
+          "include_reasoning"
+        ],
+        "status": 0,
+        "uptime_last_15m": 100,
+        "uptime_last_1h": 100,
+        "uptime_last_1d": 93.1116,
+        "latency_last_1h": {
+          "p50": 917,
+          "p95": 1019.85
+        },
+        "throughput_last_1h": null,
+        "supports_implicit_caching": true
+      },
+      {
+        "name": "openai | openai/gpt-6-astra",
+        "model_name": "GPT-6 Astra",
+        "context_length": 1050000,
+        "pricing": {
+          "prompt": "0.00001",
+          "prompt_tiers": [
+            {
+              "cost": "0.00001",
+              "max": 272001
+            },
+            {
+              "cost": "0.00002",
+              "min": 272001
+            }
+          ],
+          "completion": "0.00005",
+          "completion_tiers": [
+            {
+              "cost": "0.00005",
+              "max": 272001
+            },
+            {
+              "cost": "0.000075",
+              "min": 272001
+            }
+          ],
+          "request": "0",
+          "image": "0",
+          "image_output": "0",
+          "web_search": "0.01",
+          "internal_reasoning": "0",
+          "input_cache_read": "0.000001",
+          "input_cache_read_tiers": [
+            {
+              "cost": "0.000001",
+              "max": 272001
+            },
+            {
+              "cost": "0.000002",
+              "min": 272001
+            }
+          ],
+          "input_cache_write": "0.0000125",
+          "input_cache_write_tiers": [
+            {
+              "cost": "0.0000125",
+              "max": 272001
+            },
+            {
+              "cost": "0.000025",
+              "min": 272001
+            }
+          ],
+          "service_tiers": {
+            "flex": {
+              "prompt": "0.000005",
+              "completion": "0.000025",
+              "input_cache_read": "0.0000005",
+              "long_context": {
+                "threshold": 272001,
+                "prompt": "0.00001",
+                "completion": "0.0000375",
+                "input_cache_read": "0.000001"
+              }
+            },
+            "priority": {
+              "prompt": "0.00002",
+              "completion": "0.0001",
+              "input_cache_read": "0.000002",
+              "long_context": {
+                "threshold": 272001,
+                "prompt": "0.00004",
+                "completion": "0.00015",
+                "input_cache_read": "0.000004"
+              }
+            },
+            "ultrafast": {
+              "prompt": "0.00006",
+              "completion": "0.0003",
+              "input_cache_read": "0.000006",
+              "long_context": {
+                "threshold": 272001,
+                "prompt": "0.00012",
+                "completion": "0.00045",
+                "input_cache_read": "0.000012"
+              }
+            }
+          },
+          "discount": 0
+        },
+        "provider_name": "openai",
+        "has_zdr": true,
+        "has_no_training": true,
+        "tags": [
+          "fast",
+          "file-input",
+          "implicit-caching",
+          "reasoning",
+          "tool-use",
+          "vision",
+          "web-search",
+          "websocket-realtime",
+          "explicit-caching",
+          "structured-output"
+        ],
+        "inference_regions": [
+          {
+            "scope": "zone",
+            "geo_region": "us",
+            "pricing": {
+              "prompt": "0.000011",
+              "prompt_tiers": [
+                {
+                  "cost": "0.000011",
+                  "max": 272001
+                },
+                {
+                  "cost": "0.000022",
+                  "min": 272001
+                }
+              ],
+              "completion": "0.000055",
+              "completion_tiers": [
+                {
+                  "cost": "0.000055",
+                  "max": 272001
+                },
+                {
+                  "cost": "0.0000825",
+                  "min": 272001
+                }
+              ],
+              "input_cache_read": "0.0000011",
+              "input_cache_read_tiers": [
+                {
+                  "cost": "0.0000011",
+                  "max": 272001
+                },
+                {
+                  "cost": "0.0000022",
+                  "min": 272001
+                }
+              ],
+              "input_cache_write": "0.00001375",
+              "input_cache_write_tiers": [
+                {
+                  "cost": "0.00001375",
+                  "max": 272001
+                },
+                {
+                  "cost": "0.0000275",
+                  "min": 272001
+                }
+              ]
+            }
+          },
+          {
+            "scope": "zone",
+            "geo_region": "eu",
+            "pricing": {
+              "prompt": "0.000011",
+              "prompt_tiers": [
+                {
+                  "cost": "0.000011",
+                  "max": 272001
+                },
+                {
+                  "cost": "0.000022",
+                  "min": 272001
+                }
+              ],
+              "completion": "0.000055",
+              "completion_tiers": [
+                {
+                  "cost": "0.000055",
+                  "max": 272001
+                },
+                {
+                  "cost": "0.0000825",
+                  "min": 272001
+                }
+              ],
+              "input_cache_read": "0.0000011",
+              "input_cache_read_tiers": [
+                {
+                  "cost": "0.0000011",
+                  "max": 272001
+                },
+                {
+                  "cost": "0.0000022",
+                  "min": 272001
+                }
+              ],
+              "input_cache_write": "0.00001375",
+              "input_cache_write_tiers": [
+                {
+                  "cost": "0.00001375",
+                  "max": 272001
+                },
+                {
+                  "cost": "0.0000275",
+                  "min": 272001
+                }
+              ]
+            }
+          }
+        ],
+        "quantization": null,
+        "max_completion_tokens": 128000,
+        "max_prompt_tokens": null,
+        "supported_parameters": [
+          "max_tokens",
+          "stop",
+          "tools",
+          "tool_choice",
+          "reasoning",
+          "include_reasoning",
+          "response_format",
+          "structured_outputs"
+        ],
+        "status": 0,
+        "uptime_last_15m": 100,
+        "uptime_last_1h": 99.866,
+        "uptime_last_1d": 99.9803,
+        "latency_last_1h": {
+          "p50": 2106,
+          "p95": 3631.2499999999973
+        },
+        "throughput_last_1h": {
+          "p50": 87,
+          "p95": 142.19999999999993
+        },
+        "supports_implicit_caching": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": "no-thinking-policy-v1",
+  "reviewed_at": "2026-10-28",
+  "models": {
+    "anthropic/claude-opus-5": {
+      "eligible": true,
+      "method": "Documented thinking disabled through Gateway reasoning.effort none",
+      "rationale": "Anthropic Opus family model with an actual off switch; approved replacement for always-thinking Opus 5.5.",
+      "source": "https://platform.claude.com/docs/en/models/fable-5-1/migration-guide"
+    },
+    "openai/gpt-6-sol": {
+      "eligible": true,
+      "method": "Responses reasoning.effort none",
+      "rationale": "Recognizable general-purpose OpenAI Sol model with documented none support; approved replacement for always-thinking Sol 6.1.",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-sol"
+    },
+    "spacexai/grok-4.20-non-reasoning": {
+      "eligible": true,
+      "method": "Dedicated non-reasoning model ID and reasoning.effort none",
+      "rationale": "Explicitly non-reasoning Grok variant, approved replacement for Grok 4.7.",
+      "source": "https://vercel.com/ai-gateway/models/grok-4.20-non-reasoning"
+    },
+    "typesafe-ai/jev-1.14.0": {
+      "eligible": true,
+      "method": "Native typed-decision API without a generation/thinking parameter",
+      "rationale": "Requested System One decision baseline with image support; keep typed-choice protocol distinct.",
+      "source": "https://vercel.com/changelog/typesafe-ais-jev-1-14-is-now-available-on-ai-gateway"
+    },
+    "google/gemini-2.5-flash": {
+      "eligible": false,
+      "method": "Gateway none maps to native thinkingBudget 0",
+      "rationale": "Removed from the active comparison at Eric’s request because this generation is too old. Preserve metadata for the historical audit only.",
+      "source": "https://ai.google.dev/gemini-api/docs/generate-content/thinking"
+    },
+    "meta/llama-4-maverick": {
+      "eligible": false,
+      "method": "Plain instruction model; Gateway none; no reasoning capability tag",
+      "rationale": "Removed from the active comparison at Eric’s request because this generation is too old. Preserve metadata for the historical audit only.",
+      "source": "https://vercel.com/ai-gateway/models/llama-4-maverick"
+    },
+    "mistral/mistral-large-4": {
+      "eligible": false,
+      "method": null,
+      "rationale": "Primary docs describe none as minimal hidden thinking, so a catalog none flag alone does not satisfy this strict task.",
+      "source": "https://docs.mistral.ai/studio/conversations/reasoning"
+    },
+    "google/gemini-2.5-pro": {
+      "eligible": false,
+      "method": null,
+      "rationale": "Primary Google documentation says thinking cannot be disabled, despite generic catalog none metadata.",
+      "source": "https://ai.google.dev/gemini-api/docs/generate-content/thinking"
+    },
+    "meta/muse-glimmer-30b": {
+      "eligible": false,
+      "method": null,
+      "rationale": "Newer catalog entry has generic none metadata, but primary prompting docs describe a private reasoning turn; a genuine off configuration was not established. Do not substitute.",
+      "source": "https://dev.meta.ai/docs/muse-glimmer/prompting"
+    }
+  },
+  "interpretation": "No extended reasoning/thinking feature is enabled. This does not assert absence of latent computation or reasoning ability inside a neural network."
+}

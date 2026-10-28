@@ -1,0 +1,10 @@
+{
+  "provider": "mock",
+  "model": "mock-fixture-v1",
+  "scenario": "mixed-failures",
+  "reasoning_effort": "none",
+  "max_output_tokens": 32,
+  "timeout_seconds": 30,
+  "diagnostic_retries": 0,
+  "pricing": null
+}

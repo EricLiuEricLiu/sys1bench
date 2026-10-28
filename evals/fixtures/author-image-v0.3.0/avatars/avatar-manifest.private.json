@@ -1,0 +1,61 @@
+{
+  "schema_version": "avatar-capture-v1",
+  "source_stimuli_sha256": "5f0c48bd62f26260065fcda61252c39389ba7c7591156d301305207390c07b74",
+  "captured_at": "2026-10-28T07:35:07.415771Z",
+  "entries": [
+    {
+      "url": "https://pbs.twimg.com/profile_images/1645905896076382210/j4zj3Mca_normal.jpg",
+      "assetFile": "d3d629f3a7a064da230185eea6760cc122379be07aaa46c4d5e13da8a69aae47.jpg",
+      "mime_type": "image/jpeg",
+      "sha256": "d3d629f3a7a064da230185eea6760cc122379be07aaa46c4d5e13da8a69aae47",
+      "size_bytes": 1959,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "url": "https://pbs.twimg.com/profile_images/1909741744637333504/kfYPKEQx_normal.jpg",
+      "assetFile": "2fc4de68ef853070b1be2ce7c44756d62fa54586ea1381a8bf51d8864d12cab1.jpg",
+      "mime_type": "image/jpeg",
+      "sha256": "2fc4de68ef853070b1be2ce7c44756d62fa54586ea1381a8bf51d8864d12cab1",
+      "size_bytes": 2339,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "url": "https://pbs.twimg.com/profile_images/2044678977910964224/cciBEy8w_normal.jpg",
+      "assetFile": "26d0a4ff0c575e1f46e7ea524dbb93aee7e8ada4d718c1d11680b97314764ec9.jpg",
+      "mime_type": "image/jpeg",
+      "sha256": "26d0a4ff0c575e1f46e7ea524dbb93aee7e8ada4d718c1d11680b97314764ec9",
+      "size_bytes": 1959,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "url": "https://pbs.twimg.com/profile_images/2064834096807739393/2gFCk3X2_normal.jpg",
+      "assetFile": "44a9386da2c2d2f05a5b08f219240e094c997fe25ab931cc14cefe405b50c7f0.jpg",
+      "mime_type": "image/jpeg",
+      "sha256": "44a9386da2c2d2f05a5b08f219240e094c997fe25ab931cc14cefe405b50c7f0",
+      "size_bytes": 1959,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "url": "https://pbs.twimg.com/profile_images/2097898508070092811/5CCeMWZm_normal.jpg",
+      "assetFile": "7917e204167fd7dd33f1c5f1705393cc7b486c566a712ba297df3efe42e44538.jpg",
+      "mime_type": "image/jpeg",
+      "sha256": "7917e204167fd7dd33f1c5f1705393cc7b486c566a712ba297df3efe42e44538",
+      "size_bytes": 1731,
+      "width": 48,
+      "height": 48
+    },
+    {
+      "url": "https://pbs.twimg.com/profile_images/2113855204525473792/FV3t86M0_normal.jpg",
+      "assetFile": "7953436d394ae87e3a4d098891604b648062aa5b6e72878dcbe82aa9e1cac6d6.jpg",
+      "mime_type": "image/jpeg",
+      "sha256": "7953436d394ae87e3a4d098891604b648062aa5b6e72878dcbe82aa9e1cac6d6",
+      "size_bytes": 2035,
+      "width": 48,
+      "height": 48
+    }
+  ]
+}

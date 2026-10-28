@@ -1,0 +1,171 @@
+{
+  "data": {
+    "id": "spacexai/grok-4.7",
+    "name": "Grok 4.7",
+    "created": 1755815280,
+    "released": 1789948800,
+    "description": "Grok 4.7 is SpaceXAI\u2019s advanced AI model for coding and professional knowledge work, built to tackle complex, multi-hour tasks with improved self-verification and long-context handling. It strengthens software engineering, document creation, and presentation workflows while maintaining Grok 4.6\u2019s speed and pricing.",
+    "knowledge": "2026-05",
+    "architecture": {
+      "tokenizer": null,
+      "instruct_type": null,
+      "modality": "text+image\u2192text",
+      "input_modalities": [
+        "text",
+        "image"
+      ],
+      "output_modalities": [
+        "text"
+      ]
+    },
+    "reasoning": {
+      "supported_efforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ]
+    },
+    "endpoints": [
+      {
+        "name": "xai | spacexai/grok-4.7",
+        "model_name": "Grok 4.7",
+        "context_length": 500000,
+        "pricing": {
+          "prompt": "0.000002",
+          "prompt_tiers": [
+            {
+              "cost": "0.000002",
+              "min": 0,
+              "max": 200001
+            },
+            {
+              "cost": "0.000004",
+              "min": 200001
+            }
+          ],
+          "completion": "0.000006",
+          "completion_tiers": [
+            {
+              "cost": "0.000006",
+              "min": 0,
+              "max": 200001
+            },
+            {
+              "cost": "0.000012",
+              "min": 200001
+            }
+          ],
+          "request": "0",
+          "image": "0",
+          "image_output": "0",
+          "web_search": "0.005",
+          "x_search_post": "0.005",
+          "x_search_user": "0.01",
+          "internal_reasoning": "0",
+          "input_cache_read": "0.0000005",
+          "input_cache_read_tiers": [
+            {
+              "cost": "0.0000005",
+              "min": 0,
+              "max": 200001
+            },
+            {
+              "cost": "0.000001",
+              "min": 200001
+            }
+          ],
+          "service_tiers": {
+            "priority": {
+              "prompt": "0.000004",
+              "completion": "0.000012",
+              "input_cache_read": "0.000001",
+              "long_context": {
+                "threshold": 200001,
+                "prompt": "0.000008",
+                "completion": "0.000024",
+                "input_cache_read": "0.000002"
+              }
+            }
+          },
+          "discount": 0
+        },
+        "provider_name": "xai",
+        "has_zdr": true,
+        "has_no_training": true,
+        "tags": [
+          "reasoning",
+          "tool-use",
+          "implicit-caching",
+          "vision",
+          "structured-output"
+        ],
+        "inference_regions": [
+          {
+            "scope": "zone",
+            "geo_region": "us",
+            "pricing": {
+              "prompt": "0.0000022",
+              "prompt_tiers": [
+                {
+                  "cost": "0.0000022",
+                  "min": 0,
+                  "max": 200001
+                },
+                {
+                  "cost": "0.0000044",
+                  "min": 200001
+                }
+              ],
+              "completion": "0.0000066",
+              "completion_tiers": [
+                {
+                  "cost": "0.0000066",
+                  "min": 0,
+                  "max": 200001
+                },
+                {
+                  "cost": "0.0000132",
+                  "min": 200001
+                }
+              ],
+              "input_cache_read": "0.00000055",
+              "input_cache_read_tiers": [
+                {
+                  "cost": "0.00000055",
+                  "min": 0,
+                  "max": 200001
+                },
+                {
+                  "cost": "0.0000011",
+                  "min": 200001
+                }
+              ]
+            }
+          }
+        ],
+        "quantization": null,
+        "max_completion_tokens": 500000,
+        "max_prompt_tokens": null,
+        "supported_parameters": [
+          "max_tokens",
+          "temperature",
+          "stop",
+          "tools",
+          "tool_choice",
+          "reasoning",
+          "include_reasoning",
+          "response_format",
+          "structured_outputs"
+        ],
+        "status": 0,
+        "uptime_last_15m": null,
+        "uptime_last_1h": null,
+        "uptime_last_1d": null,
+        "latency_last_1h": null,
+        "throughput_last_1h": null,
+        "supports_implicit_caching": true
+      }
+    ]
+  }
+}

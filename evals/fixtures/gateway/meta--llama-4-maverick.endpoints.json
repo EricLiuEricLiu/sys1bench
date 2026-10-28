@@ -1,0 +1,81 @@
+{
+  "data": {
+    "id": "meta/llama-4-maverick",
+    "name": "Llama 4 Maverick 17B Instruct",
+    "created": 1755815280,
+    "released": 1743811200,
+    "description": "As a general purpose LLM, Llama 4 Maverick contains 17 billion active parameters, 128 experts, and 400 billion total parameters, offering high quality at a lower price compared to Llama 3.3 70B.",
+    "knowledge": "2024-08",
+    "architecture": {
+      "tokenizer": null,
+      "instruct_type": null,
+      "modality": "text+image→text",
+      "input_modalities": [
+        "text",
+        "image"
+      ],
+      "output_modalities": [
+        "text"
+      ]
+    },
+    "reasoning": {
+      "mandatory": false,
+      "supported_efforts": [
+        "none",
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "endpoints": [
+      {
+        "name": "bedrock | meta/llama-4-maverick",
+        "model_name": "Llama 4 Maverick 17B Instruct",
+        "context_length": 128000,
+        "pricing": {
+          "prompt": "0.00000024",
+          "completion": "0.00000097",
+          "request": "0",
+          "image": "0",
+          "image_output": "0",
+          "web_search": "0",
+          "internal_reasoning": "0",
+          "discount": 0
+        },
+        "provider_name": "bedrock",
+        "has_zdr": true,
+        "has_no_training": true,
+        "tags": [
+          "tool-use",
+          "vision",
+          "open-weights"
+        ],
+        "quantization": null,
+        "max_completion_tokens": 8192,
+        "max_prompt_tokens": null,
+        "supported_parameters": [
+          "max_tokens",
+          "temperature",
+          "stop",
+          "tools",
+          "tool_choice",
+          "reasoning",
+          "include_reasoning"
+        ],
+        "status": 0,
+        "uptime_last_15m": 100,
+        "uptime_last_1h": 100,
+        "uptime_last_1d": 99.9829,
+        "latency_last_1h": {
+          "p50": 254,
+          "p95": 421.2999999999999
+        },
+        "throughput_last_1h": {
+          "p50": 134,
+          "p95": 141.8
+        },
+        "supports_implicit_caching": false
+      }
+    ]
+  }
+}

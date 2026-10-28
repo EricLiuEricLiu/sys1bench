@@ -1,0 +1,345 @@
+{
+  "productName": "System 1 Bench",
+  "canonicalDomain": "https://sys1bench.com",
+  "auditVersion": "1.0",
+  "auditedAt": "2026-10-28T06:29:32.752945Z",
+  "questionBankSha256": "79606124272dbe139fe8d6e64c730abd240e8e931cbe6d177dfb10404f2f75b5",
+  "status": "passed_saved_source_checks",
+  "suitableFor": "interaction pilot with provider-reported snapshot outcomes",
+  "notYetSuitableFor": "population ranking, human percentiles, or claims of validated intuition measurement",
+  "sourceVerification": "Every selected text, URL, view count, creation timestamp and capture timestamp reconciles to the saved Monid run. Original X pages were not independently rechecked in this audit.",
+  "summary": {
+    "completedRuns": 17,
+    "retrievedRows": 320,
+    "uniqueRetrievedPostIds": 315,
+    "overlappingRowsAcrossRuns": 5,
+    "scoredPairs": 15,
+    "practicePairs": 1,
+    "selectedUniquePostIds": 32,
+    "selectedUniqueNormalizedTexts": 32,
+    "sameAuthorPairs": 16,
+    "selectedAuthors": 5,
+    "minimumPostAgeDaysAtCapture": 12.119,
+    "maximumPostAgeDaysAtCapture": 27.217,
+    "maximumWithinPairCreationGapHours": 45.9314,
+    "wordCountRange": [
+      5,
+      22
+    ],
+    "wordsPerPairRange": [
+      12,
+      43
+    ],
+    "viewCountRange": [
+      357,
+      1055575
+    ],
+    "selectedMissingOutcomeCount": 0,
+    "selectedDuplicateIdCount": 0,
+    "selectedEqualOutcomePairCount": 0,
+    "totalCollectionCostUSD": 0.01185,
+    "newCollectionCostUSDForAudit": 0
+  },
+  "materialLimitations": [
+    "Keyword searches and editorial pair selection do not constitute a uniform random sample of X.",
+    "Only five author accounts are represented; repeated posts from the same account make observations dependent.",
+    "Provider-reported cumulative views were captured when posts were between 12 and 28 days old, not at a fixed post age.",
+    "Same-author pairing controls account identity but cannot hold audience, posting time, distribution, paid promotion, or external amplification constant.",
+    "Pairs were selected with a minimum 1.5-to-1 view ratio, so outcome-based selection changes the question set and its difficulty.",
+    "The normalized source lacks a quote-post flag. Query exclusions and self-contained text do not independently establish that every post is an original standalone post.",
+    "English language and no-media/no-reply status are provider-returned fields, not independent live X verification.",
+    "Pair text totals 12 to 43 words. Three-second exposure also measures scanning and reading speed; timing has not been calibrated with users.",
+    "No human cohort or AI evaluation results exist; this bank cannot supply a human percentile or model comparison.",
+    "The full bank contains answer outcomes and source URLs. Use it only for a prototype or trusted server; a public scored test must withhold those fields until scoring/review."
+  ],
+  "pairChecks": [
+    {
+      "pairId": "practice-01",
+      "postIds": [
+        "2109702285643440573",
+        "2109685758265287052"
+      ],
+      "sameAuthor": true,
+      "createdGapHours": 1.0944,
+      "viewRatio": 2.3957,
+      "wordCounts": [
+        9,
+        13
+      ],
+      "totalWordCount": 22,
+      "sourceRunIds": [
+        "01M60JPNADG9ZX1D02VQBSAB58"
+      ]
+    },
+    {
+      "pairId": "pilot-07",
+      "postIds": [
+        "2110810201817219388",
+        "2110569009468911691"
+      ],
+      "sameAuthor": true,
+      "createdGapHours": 15.9736,
+      "viewRatio": 61.228,
+      "wordCounts": [
+        10,
+        10
+      ],
+      "totalWordCount": 20,
+      "sourceRunIds": [
+        "01M60JP7S76KDTSXX2PZ3164WN"
+      ]
+    },
+    {
+      "pairId": "pilot-12",
+      "postIds": [
+        "2110290775191781448",
+        "2110290206238581136"
+      ],
+      "sameAuthor": true,
+      "createdGapHours": 0.0375,
+      "viewRatio": 1.5898,
+      "wordCounts": [
+        19,
+        21
+      ],
+      "totalWordCount": 40,
+      "sourceRunIds": [
+        "01M60JNZZZ0GAD3GK6QACMCCR0"
+      ]
+    },
+    {
+      "pairId": "pilot-01",
+      "postIds": [
+        "2109855124600627558",
+        "2110436460507930697"
+      ],
+      "sameAuthor": true,
+      "createdGapHours": 38.5003,
+      "viewRatio": 1.7246,
+      "wordCounts": [
+        8,
+        9
+      ],
+      "totalWordCount": 17,
+      "sourceRunIds": [
+        "01M60JPNADG9ZX1D02VQBSAB58"
+      ]
+    },
+    {
+      "pairId": "pilot-02",
+      "postIds": [
+        "2109352256990847397",
+        "2109310248834195889"
+      ],
+      "sameAuthor": true,
+      "createdGapHours": 2.7819,
+      "viewRatio": 1.6252,
+      "wordCounts": [
+        20,
+        18
+      ],
+      "totalWordCount": 38,
+      "sourceRunIds": [
+        "01M60JPNADG9ZX1D02VQBSAB58"
+      ]
+    },
+    {
+      "pairId": "pilot-08",
+      "postIds": [
+        "2109922363651354885",
+        "2109610822825545948"
+      ],
+      "sameAuthor": true,
+      "createdGapHours": 20.6325,
+      "viewRatio": 1.6881,
+      "wordCounts": [
+        17,
+        17
+      ],
+      "totalWordCount": 34,
+      "sourceRunIds": [
+        "01M60JP7S76KDTSXX2PZ3164WN"
+      ]
+    },
+    {
+      "pairId": "pilot-03",
+      "postIds": [
+        "2108382969035677731",
+        "2108638230476403110"
+      ],
+      "sameAuthor": true,
+      "createdGapHours": 16.9053,
+      "viewRatio": 2.6376,
+      "wordCounts": [
+        20,
+        19
+      ],
+      "totalWordCount": 39,
+      "sourceRunIds": [
+        "01M60JPNADG9ZX1D02VQBSAB58"
+      ]
+    },
+    {
+      "pairId": "pilot-15",
+      "postIds": [
+        "2110408912235335862",
+        "2110539475356991980"
+      ],
+      "sameAuthor": true,
+      "createdGapHours": 8.6469,
+      "viewRatio": 1.7171,
+      "wordCounts": [
+        22,
+        21
+      ],
+      "totalWordCount": 43,
+      "sourceRunIds": [
+        "01M60JPENB6B5F6APH3ZBYBHE3"
+      ]
+    },
+    {
+      "pairId": "pilot-13",
+      "postIds": [
+        "2105464763090452510",
+        "2106061621756060057"
+      ],
+      "sameAuthor": true,
+      "createdGapHours": 39.5286,
+      "viewRatio": 142.8968,
+      "wordCounts": [
+        15,
+        19
+      ],
+      "totalWordCount": 34,
+      "sourceRunIds": [
+        "01M60JNS0G674JAAF6XJ3ECZ8R"
+      ]
+    },
+    {
+      "pairId": "pilot-14",
+      "postIds": [
+        "2107543664658432040",
+        "2107210833101037883"
+      ],
+      "sameAuthor": true,
+      "createdGapHours": 22.0425,
+      "viewRatio": 1.5167,
+      "wordCounts": [
+        10,
+        10
+      ],
+      "totalWordCount": 20,
+      "sourceRunIds": [
+        "01M60JNS0G674JAAF6XJ3ECZ8R"
+      ]
+    },
+    {
+      "pairId": "pilot-09",
+      "postIds": [
+        "2110781890487881808",
+        "2110784095013994736"
+      ],
+      "sameAuthor": true,
+      "createdGapHours": 0.1461,
+      "viewRatio": 140.5201,
+      "wordCounts": [
+        8,
+        9
+      ],
+      "totalWordCount": 17,
+      "sourceRunIds": [
+        "01M60JNZZZ0GAD3GK6QACMCCR0"
+      ]
+    },
+    {
+      "pairId": "pilot-04",
+      "postIds": [
+        "2107869794485907869",
+        "2107697518536761574"
+      ],
+      "sameAuthor": true,
+      "createdGapHours": 11.4092,
+      "viewRatio": 23.1454,
+      "wordCounts": [
+        5,
+        7
+      ],
+      "totalWordCount": 12,
+      "sourceRunIds": [
+        "01M60JPNADG9ZX1D02VQBSAB58"
+      ]
+    },
+    {
+      "pairId": "pilot-05",
+      "postIds": [
+        "2110700765278859449",
+        "2110936194653495484"
+      ],
+      "sameAuthor": true,
+      "createdGapHours": 15.5917,
+      "viewRatio": 4.9829,
+      "wordCounts": [
+        14,
+        13
+      ],
+      "totalWordCount": 27,
+      "sourceRunIds": [
+        "01M60JP7S76KDTSXX2PZ3164WN"
+      ]
+    },
+    {
+      "pairId": "pilot-10",
+      "postIds": [
+        "2110321806221410520",
+        "2110788569191395433"
+      ],
+      "sameAuthor": true,
+      "createdGapHours": 30.9125,
+      "viewRatio": 22.2736,
+      "wordCounts": [
+        17,
+        18
+      ],
+      "totalWordCount": 35,
+      "sourceRunIds": [
+        "01M60JNZZZ0GAD3GK6QACMCCR0"
+      ]
+    },
+    {
+      "pairId": "pilot-11",
+      "postIds": [
+        "2109005590278316295",
+        "2109603050553749955"
+      ],
+      "sameAuthor": true,
+      "createdGapHours": 39.5683,
+      "viewRatio": 31.0454,
+      "wordCounts": [
+        13,
+        14
+      ],
+      "totalWordCount": 27,
+      "sourceRunIds": [
+        "01M60JNZZZ0GAD3GK6QACMCCR0"
+      ]
+    },
+    {
+      "pairId": "pilot-06",
+      "postIds": [
+        "2110667986675618109",
+        "2109974443057352961"
+      ],
+      "sameAuthor": true,
+      "createdGapHours": 45.9314,
+      "viewRatio": 1056.6316,
+      "wordCounts": [
+        16,
+        16
+      ],
+      "totalWordCount": 32,
+      "sourceRunIds": [
+        "01M60JP7S76KDTSXX2PZ3164WN"
+      ]
+    }
+  ]
+}

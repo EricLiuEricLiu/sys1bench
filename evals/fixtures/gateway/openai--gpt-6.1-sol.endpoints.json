@@ -1,0 +1,530 @@
+{
+  "data": {
+    "id": "openai/gpt-6.1-sol",
+    "name": "GPT-6.1 Sol",
+    "created": 1755815280,
+    "released": 1790640000,
+    "description": "GPT-6.1 Sol is OpenAI's reasoning model for complex coding, computer use, and professional work. It accepts text and images, generates text, and supports a 1,050,000-token context window with up to 128,000 output tokens. Configurable reasoning effort, structured outputs, prompt caching, and Responses API tools support multi-step workflows.",
+    "architecture": {
+      "tokenizer": null,
+      "instruct_type": null,
+      "modality": "text+image+file\u2192text",
+      "input_modalities": [
+        "text",
+        "image",
+        "file"
+      ],
+      "output_modalities": [
+        "text"
+      ]
+    },
+    "reasoning": {
+      "supported_efforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ]
+    },
+    "endpoints": [
+      {
+        "name": "azure | openai/gpt-6.1-sol",
+        "model_name": "GPT-6.1 Sol",
+        "context_length": 1050000,
+        "pricing": {
+          "prompt": "0.000002",
+          "prompt_tiers": [
+            {
+              "cost": "0.000002",
+              "min": 0,
+              "max": 272001
+            },
+            {
+              "cost": "0.000004",
+              "min": 272001
+            }
+          ],
+          "completion": "0.00001",
+          "completion_tiers": [
+            {
+              "cost": "0.00001",
+              "min": 0,
+              "max": 272001
+            },
+            {
+              "cost": "0.000015",
+              "min": 272001
+            }
+          ],
+          "request": "0",
+          "image": "0",
+          "image_output": "0",
+          "web_search": "0.014",
+          "internal_reasoning": "0",
+          "input_cache_read": "0.0000001",
+          "input_cache_read_tiers": [
+            {
+              "cost": "0.0000001",
+              "min": 0,
+              "max": 272001
+            },
+            {
+              "cost": "0.0000002",
+              "min": 272001
+            }
+          ],
+          "input_cache_write": "0.0000025",
+          "input_cache_write_tiers": [
+            {
+              "cost": "0.0000025",
+              "min": 0,
+              "max": 272001
+            },
+            {
+              "cost": "0.000005",
+              "min": 272001
+            }
+          ],
+          "discount": 0
+        },
+        "provider_name": "azure",
+        "has_zdr": true,
+        "has_no_training": true,
+        "tags": [
+          "explicit-caching",
+          "file-input",
+          "implicit-caching",
+          "reasoning",
+          "structured-output",
+          "tool-use",
+          "vision",
+          "web-search"
+        ],
+        "quantization": null,
+        "max_completion_tokens": 128000,
+        "max_prompt_tokens": null,
+        "supported_parameters": [
+          "max_tokens",
+          "temperature",
+          "stop",
+          "tools",
+          "tool_choice",
+          "reasoning",
+          "include_reasoning",
+          "response_format",
+          "structured_outputs"
+        ],
+        "status": 0,
+        "uptime_last_15m": 100,
+        "uptime_last_1h": 100,
+        "uptime_last_1d": 99.8895,
+        "latency_last_1h": {
+          "p50": 3762,
+          "p95": 7831.4
+        },
+        "throughput_last_1h": {
+          "p50": 38,
+          "p95": 53.7
+        },
+        "supports_implicit_caching": true
+      },
+      {
+        "name": "bedrock | openai/gpt-6.1-sol",
+        "model_name": "GPT-6.1 Sol",
+        "context_length": 1050000,
+        "pricing": {
+          "prompt": "0.000002",
+          "prompt_tiers": [
+            {
+              "cost": "0.000002",
+              "max": 272001
+            },
+            {
+              "cost": "0.000004",
+              "min": 272001
+            }
+          ],
+          "completion": "0.00001",
+          "completion_tiers": [
+            {
+              "cost": "0.00001",
+              "max": 272001
+            },
+            {
+              "cost": "0.000015",
+              "min": 272001
+            }
+          ],
+          "request": "0",
+          "image": "0",
+          "image_output": "0",
+          "web_search": "0.01",
+          "internal_reasoning": "0",
+          "input_cache_read": "0.0000001",
+          "input_cache_read_tiers": [
+            {
+              "cost": "0.0000001",
+              "max": 272001
+            },
+            {
+              "cost": "0.0000002",
+              "min": 272001
+            }
+          ],
+          "input_cache_write": "0.0000025",
+          "input_cache_write_tiers": [
+            {
+              "cost": "0.0000025",
+              "max": 272001
+            },
+            {
+              "cost": "0.000005",
+              "min": 272001
+            }
+          ],
+          "discount": 0
+        },
+        "provider_name": "bedrock",
+        "has_zdr": false,
+        "has_no_training": true,
+        "tags": [
+          "explicit-caching",
+          "file-input",
+          "implicit-caching",
+          "reasoning",
+          "structured-output",
+          "tool-use",
+          "vision",
+          "web-search"
+        ],
+        "inference_regions": [
+          {
+            "scope": "zone",
+            "geo_region": "us",
+            "pricing": {
+              "prompt": "0.0000022",
+              "prompt_tiers": [
+                {
+                  "cost": "0.0000022",
+                  "max": 272001
+                },
+                {
+                  "cost": "0.0000044",
+                  "min": 272001
+                }
+              ],
+              "completion": "0.000011",
+              "completion_tiers": [
+                {
+                  "cost": "0.000011",
+                  "max": 272001
+                },
+                {
+                  "cost": "0.0000165",
+                  "min": 272001
+                }
+              ],
+              "input_cache_read": "0.00000011",
+              "input_cache_read_tiers": [
+                {
+                  "cost": "0.00000011",
+                  "max": 272001
+                },
+                {
+                  "cost": "0.00000022",
+                  "min": 272001
+                }
+              ],
+              "input_cache_write": "0.00000275",
+              "input_cache_write_tiers": [
+                {
+                  "cost": "0.00000275",
+                  "max": 272001
+                },
+                {
+                  "cost": "0.0000055",
+                  "min": 272001
+                }
+              ]
+            }
+          }
+        ],
+        "quantization": null,
+        "max_completion_tokens": 128000,
+        "max_prompt_tokens": null,
+        "supported_parameters": [
+          "max_tokens",
+          "temperature",
+          "stop",
+          "tools",
+          "tool_choice",
+          "reasoning",
+          "include_reasoning",
+          "response_format",
+          "structured_outputs"
+        ],
+        "status": 0,
+        "uptime_last_15m": 100,
+        "uptime_last_1h": 100,
+        "uptime_last_1d": 99.5919,
+        "latency_last_1h": {
+          "p50": 11575.5,
+          "p95": 17943.55
+        },
+        "throughput_last_1h": {
+          "p50": 74.5,
+          "p95": 288.84999999999997
+        },
+        "supports_implicit_caching": true
+      },
+      {
+        "name": "openai | openai/gpt-6.1-sol",
+        "model_name": "GPT-6.1 Sol",
+        "context_length": 1050000,
+        "pricing": {
+          "prompt": "0.000002",
+          "prompt_tiers": [
+            {
+              "cost": "0.000002",
+              "min": 0,
+              "max": 272001
+            },
+            {
+              "cost": "0.000004",
+              "min": 272001
+            }
+          ],
+          "completion": "0.00001",
+          "completion_tiers": [
+            {
+              "cost": "0.00001",
+              "min": 0,
+              "max": 272001
+            },
+            {
+              "cost": "0.000015",
+              "min": 272001
+            }
+          ],
+          "request": "0",
+          "image": "0",
+          "image_output": "0",
+          "web_search": "0.01",
+          "internal_reasoning": "0",
+          "input_cache_read": "0.0000001",
+          "input_cache_read_tiers": [
+            {
+              "cost": "0.0000001",
+              "min": 0,
+              "max": 272001
+            },
+            {
+              "cost": "0.0000002",
+              "min": 272001
+            }
+          ],
+          "input_cache_write": "0.0000025",
+          "input_cache_write_tiers": [
+            {
+              "cost": "0.0000025",
+              "min": 0,
+              "max": 272001
+            },
+            {
+              "cost": "0.000005",
+              "min": 272001
+            }
+          ],
+          "service_tiers": {
+            "flex": {
+              "prompt": "0.000001",
+              "completion": "0.000005",
+              "input_cache_read": "0.00000005",
+              "long_context": {
+                "threshold": 272001,
+                "prompt": "0.000002",
+                "completion": "0.0000075",
+                "input_cache_read": "0.0000001"
+              }
+            },
+            "priority": {
+              "prompt": "0.000004",
+              "completion": "0.00002",
+              "input_cache_read": "0.0000002",
+              "long_context": {
+                "threshold": 272001,
+                "prompt": "0.000008",
+                "completion": "0.00003",
+                "input_cache_read": "0.0000004"
+              }
+            },
+            "ultrafast": {
+              "prompt": "0.000012",
+              "completion": "0.00006",
+              "input_cache_read": "0.0000006",
+              "long_context": {
+                "threshold": 272001,
+                "prompt": "0.000024",
+                "completion": "0.00009",
+                "input_cache_read": "0.0000012"
+              }
+            }
+          },
+          "discount": 0
+        },
+        "provider_name": "openai",
+        "has_zdr": true,
+        "has_no_training": true,
+        "tags": [
+          "explicit-caching",
+          "fast",
+          "file-input",
+          "implicit-caching",
+          "reasoning",
+          "structured-output",
+          "tool-use",
+          "vision",
+          "web-search"
+        ],
+        "inference_regions": [
+          {
+            "scope": "zone",
+            "geo_region": "us",
+            "pricing": {
+              "prompt": "0.0000022",
+              "prompt_tiers": [
+                {
+                  "cost": "0.0000022",
+                  "min": 0,
+                  "max": 272001
+                },
+                {
+                  "cost": "0.0000044",
+                  "min": 272001
+                }
+              ],
+              "completion": "0.000011",
+              "completion_tiers": [
+                {
+                  "cost": "0.000011",
+                  "min": 0,
+                  "max": 272001
+                },
+                {
+                  "cost": "0.0000165",
+                  "min": 272001
+                }
+              ],
+              "input_cache_read": "0.00000011",
+              "input_cache_read_tiers": [
+                {
+                  "cost": "0.00000011",
+                  "min": 0,
+                  "max": 272001
+                },
+                {
+                  "cost": "0.00000022",
+                  "min": 272001
+                }
+              ],
+              "input_cache_write": "0.00000275",
+              "input_cache_write_tiers": [
+                {
+                  "cost": "0.00000275",
+                  "min": 0,
+                  "max": 272001
+                },
+                {
+                  "cost": "0.0000055",
+                  "min": 272001
+                }
+              ]
+            }
+          },
+          {
+            "scope": "zone",
+            "geo_region": "eu",
+            "pricing": {
+              "prompt": "0.0000022",
+              "prompt_tiers": [
+                {
+                  "cost": "0.0000022",
+                  "min": 0,
+                  "max": 272001
+                },
+                {
+                  "cost": "0.0000044",
+                  "min": 272001
+                }
+              ],
+              "completion": "0.000011",
+              "completion_tiers": [
+                {
+                  "cost": "0.000011",
+                  "min": 0,
+                  "max": 272001
+                },
+                {
+                  "cost": "0.0000165",
+                  "min": 272001
+                }
+              ],
+              "input_cache_read": "0.00000011",
+              "input_cache_read_tiers": [
+                {
+                  "cost": "0.00000011",
+                  "min": 0,
+                  "max": 272001
+                },
+                {
+                  "cost": "0.00000022",
+                  "min": 272001
+                }
+              ],
+              "input_cache_write": "0.00000275",
+              "input_cache_write_tiers": [
+                {
+                  "cost": "0.00000275",
+                  "min": 0,
+                  "max": 272001
+                },
+                {
+                  "cost": "0.0000055",
+                  "min": 272001
+                }
+              ]
+            }
+          }
+        ],
+        "quantization": null,
+        "max_completion_tokens": 128000,
+        "max_prompt_tokens": null,
+        "supported_parameters": [
+          "max_tokens",
+          "temperature",
+          "stop",
+          "tools",
+          "tool_choice",
+          "reasoning",
+          "include_reasoning",
+          "response_format",
+          "structured_outputs"
+        ],
+        "status": 0,
+        "uptime_last_15m": 99.9699,
+        "uptime_last_1h": 99.9863,
+        "uptime_last_1d": 99.8913,
+        "latency_last_1h": {
+          "p50": 1284,
+          "p95": 6481.549999999998
+        },
+        "throughput_last_1h": {
+          "p50": 105,
+          "p95": 204
+        },
+        "supports_implicit_caching": true
+      }
+    ]
+  }
+}

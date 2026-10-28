@@ -1,0 +1,10 @@
+{
+  "dataset_version": "0.1.1",
+  "archived_source": "work/data-search/archive/text-v0.1.1",
+  "answer_bank_byte_identical_to_initial_export": true,
+  "client_reconstructed_from_id_text_projection": true,
+  "client_byte_identical_to_initial_export": true,
+  "client_file_sha256": "66afb9e44a5ea5e17b177e270711d8c726e4acfe2f7f33da3772b03f0b42f352",
+  "answer_bank_sha256": "79606124272dbe139fe8d6e64c730abd240e8e931cbe6d177dfb10404f2f75b5",
+  "reason": "Shared active exports advanced to author-visible/multimodal 0.2.0 during preparation. Freeze this chat’s original author-hidden text protocol without altering shared exports. These plans are not comparable to version 0.2.0 human cohorts."
+}

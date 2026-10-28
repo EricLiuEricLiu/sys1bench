@@ -1,0 +1,445 @@
+{
+  "version": "0.1.1",
+  "productName": "System 1 Bench",
+  "canonicalDomain": "https://sys1bench.com",
+  "label": "System 1 Bench · English pilot · same-author pairs",
+  "collectedAt": "2026-10-28T06:21:07.073Z",
+  "language": "en",
+  "timing": {
+    "exposureMs": 3000,
+    "decisionMs": 2000
+  },
+  "outcome": "cumulative_snapshot_views",
+  "limitations": [
+    "Pilot for testing the interaction, not a validated measure of internet intuition.",
+    "Authors were selected from keyword/date-window searches. This is not a uniform random sample of X.",
+    "All pairs are from the same author, but the 32 posts cover only five accounts; observations are clustered.",
+    "Outcomes are cumulative view counts captured through Monid/AnyAPI, not views measured at a fixed post age.",
+    "Date operators were not reliably honored upstream; actual returned timestamps were used for pairing instead.",
+    "Posts within each pair were created at most 48 hours apart and were at least 12 days old at capture, but audience and distribution can still change.",
+    "Text, timestamps and views are as returned by Monid/AnyAPI; original X pages and counts have not been independently rechecked.",
+    "Editorial selection requires a minimum 1.5-to-1 view ratio, which changes the outcome mix and question difficulty.",
+    "Pair text totals 12 to 43 words. Three-second exposure also measures scanning and reading speed; timing has not been calibrated with users.",
+    "The source does not expose a quote-post flag. Empty media and no-reply fields were checked, quote posts were excluded in the query, and selected text was reviewed to be self-contained; quote status cannot be independently proven from these records.",
+    "No human comparison cohort or AI model runs have been collected.",
+    "This full bank includes outcomes and author-bearing source URLs. Use it for a prototype or trusted server; withhold these fields from a public scored test until scoring and review."
+  ],
+  "practice": {
+    "id": "practice-01",
+    "left": {
+      "id": "2109702285643440573",
+      "text": "I wish I can unmeet you and try again",
+      "url": "https://x.com/34rths/status/2109702285643440573",
+      "views": 3255,
+      "createdAt": "2026-10-12T17:46:35Z",
+      "capturedAt": "2026-10-28T06:21:07.073Z"
+    },
+    "right": {
+      "id": "2109685758265287052",
+      "text": "You genuinely just have to get really good at continuing despite it all",
+      "url": "https://x.com/34rths/status/2109685758265287052",
+      "views": 7798,
+      "createdAt": "2026-10-12T16:40:55Z",
+      "capturedAt": "2026-10-28T06:21:07.073Z"
+    },
+    "matching": {
+      "strategy": "same-author",
+      "topic": "Relationships and resilience",
+      "createdGapHours": 1.09,
+      "wordCountDifference": 4,
+      "viewRatio": 2.396
+    }
+  },
+  "pairs": [
+    {
+      "id": "pilot-07",
+      "left": {
+        "id": "2110810201817219388",
+        "text": "God's plan for me does not involve LinkedIn at all",
+        "url": "https://x.com/istgnolimit/status/2110810201817219388",
+        "views": 899,
+        "createdAt": "2026-10-15T19:09:03Z",
+        "capturedAt": "2026-10-28T06:20:52.876Z"
+      },
+      "right": {
+        "id": "2110569009468911691",
+        "text": "doomscrolling on twitter is more productive than doomscrolling on tiktok",
+        "url": "https://x.com/istgnolimit/status/2110569009468911691",
+        "views": 55044,
+        "createdAt": "2026-10-15T03:10:38Z",
+        "capturedAt": "2026-10-28T06:20:52.876Z"
+      },
+      "matching": {
+        "strategy": "same-author",
+        "topic": "Life online",
+        "createdGapHours": 15.97,
+        "wordCountDifference": 0,
+        "viewRatio": 61.228
+      }
+    },
+    {
+      "id": "pilot-12",
+      "left": {
+        "id": "2110290775191781448",
+        "text": "one thing adulthood doesn't prepare you for is having to make important decisions while you're still figuring yourself out",
+        "url": "https://x.com/Izhaasays/status/2110290775191781448",
+        "views": 1523,
+        "createdAt": "2026-10-14T08:45:02Z",
+        "capturedAt": "2026-10-28T06:20:45.070Z"
+      },
+      "right": {
+        "id": "2110290206238581136",
+        "text": "a person who can calm your nervous system and raise your heart rate in the best way, yeah, that's the one",
+        "url": "https://x.com/Izhaasays/status/2110290206238581136",
+        "views": 958,
+        "createdAt": "2026-10-14T08:42:47Z",
+        "capturedAt": "2026-10-28T06:20:45.070Z"
+      },
+      "matching": {
+        "strategy": "same-author",
+        "topic": "Personal reflection",
+        "createdGapHours": 0.04,
+        "wordCountDifference": 2,
+        "viewRatio": 1.59
+      }
+    },
+    {
+      "id": "pilot-01",
+      "left": {
+        "id": "2109855124600627558",
+        "text": "Nothing more powerful than Me in my room",
+        "url": "https://x.com/34rths/status/2109855124600627558",
+        "views": 5398,
+        "createdAt": "2026-10-13T03:53:55Z",
+        "capturedAt": "2026-10-28T06:21:07.073Z"
+      },
+      "right": {
+        "id": "2110436460507930697",
+        "text": "Someone is out there waiting to love you #KeepGoing",
+        "url": "https://x.com/34rths/status/2110436460507930697",
+        "views": 3130,
+        "createdAt": "2026-10-14T18:23:56Z",
+        "capturedAt": "2026-10-28T06:21:07.073Z"
+      },
+      "matching": {
+        "strategy": "same-author",
+        "topic": "Short personal observations",
+        "createdGapHours": 38.5,
+        "wordCountDifference": 1,
+        "viewRatio": 1.725
+      }
+    },
+    {
+      "id": "pilot-02",
+      "left": {
+        "id": "2109352256990847397",
+        "text": "You can tell a lot about a person by how they choose to see you.  Everything is lowkey a projection",
+        "url": "https://x.com/34rths/status/2109352256990847397",
+        "views": 5807,
+        "createdAt": "2026-10-11T18:35:42Z",
+        "capturedAt": "2026-10-28T06:21:07.073Z"
+      },
+      "right": {
+        "id": "2109310248834195889",
+        "text": "You can hate yourself as much as you want but the world is beautiful and it welcomes you",
+        "url": "https://x.com/34rths/status/2109310248834195889",
+        "views": 3573,
+        "createdAt": "2026-10-11T15:48:47Z",
+        "capturedAt": "2026-10-28T06:21:07.073Z"
+      },
+      "matching": {
+        "strategy": "same-author",
+        "topic": "How people see you",
+        "createdGapHours": 2.78,
+        "wordCountDifference": 2,
+        "viewRatio": 1.625
+      }
+    },
+    {
+      "id": "pilot-08",
+      "left": {
+        "id": "2109922363651354885",
+        "text": "9am: i can't wait till bedtime \n\n10pm: i have always wanted to write my own operating system",
+        "url": "https://x.com/istgnolimit/status/2109922363651354885",
+        "views": 1835,
+        "createdAt": "2026-10-13T08:21:06Z",
+        "capturedAt": "2026-10-28T06:20:52.876Z"
+      },
+      "right": {
+        "id": "2109610822825545948",
+        "text": "I've started rejecting all cookies instead of accepting them. idek what it means but I've had enough",
+        "url": "https://x.com/istgnolimit/status/2109610822825545948",
+        "views": 1087,
+        "createdAt": "2026-10-12T11:43:09Z",
+        "capturedAt": "2026-10-28T06:20:52.876Z"
+      },
+      "matching": {
+        "strategy": "same-author",
+        "topic": "Technology and daily life",
+        "createdGapHours": 20.63,
+        "wordCountDifference": 0,
+        "viewRatio": 1.688
+      }
+    },
+    {
+      "id": "pilot-03",
+      "left": {
+        "id": "2108382969035677731",
+        "text": "I like to be loved with curiosity and consideration but to be loved by simply existing also sounds very lovely",
+        "url": "https://x.com/34rths/status/2108382969035677731",
+        "views": 38968,
+        "createdAt": "2026-10-09T02:24:06Z",
+        "capturedAt": "2026-10-28T06:21:07.073Z"
+      },
+      "right": {
+        "id": "2108638230476403110",
+        "text": "I have yet to relax my eyebrows and keep a decent posture and unclench my jaw and fix everything",
+        "url": "https://x.com/34rths/status/2108638230476403110",
+        "views": 102781,
+        "createdAt": "2026-10-09T19:18:25Z",
+        "capturedAt": "2026-10-28T06:21:07.073Z"
+      },
+      "matching": {
+        "strategy": "same-author",
+        "topic": "Personal reflection",
+        "createdGapHours": 16.91,
+        "wordCountDifference": 1,
+        "viewRatio": 2.638
+      }
+    },
+    {
+      "id": "pilot-15",
+      "left": {
+        "id": "2110408912235335862",
+        "text": "finally getting more comfortable with just blocking followers i realised i don't have to let people that pmo interact with me #wow",
+        "url": "https://x.com/fermiidirac/status/2110408912235335862",
+        "views": 613,
+        "createdAt": "2026-10-14T16:34:28Z",
+        "capturedAt": "2026-10-28T06:20:59.459Z"
+      },
+      "right": {
+        "id": "2110539475356991980",
+        "text": "if dua lipa had a sibling called tam they could do an act dressed as anteaters called Tam and Dua Lipa",
+        "url": "https://x.com/fermiidirac/status/2110539475356991980",
+        "views": 357,
+        "createdAt": "2026-10-15T01:13:17Z",
+        "capturedAt": "2026-10-28T06:20:59.459Z"
+      },
+      "matching": {
+        "strategy": "same-author",
+        "topic": "Personal observations",
+        "createdGapHours": 8.65,
+        "wordCountDifference": 1,
+        "viewRatio": 1.717
+      }
+    },
+    {
+      "id": "pilot-13",
+      "left": {
+        "id": "2105464763090452510",
+        "text": "you ever fight so bad with your lover that you start missing your ex? 😭",
+        "url": "https://x.com/big_yyikes/status/2105464763090452510",
+        "views": 3286,
+        "createdAt": "2026-10-01T01:08:11Z",
+        "capturedAt": "2026-10-28T06:20:37.131Z"
+      },
+      "right": {
+        "id": "2106061621756060057",
+        "text": "Adulthood is realizing you can no longer invite friends to a party without also inviting their romantic support staff",
+        "url": "https://x.com/big_yyikes/status/2106061621756060057",
+        "views": 469559,
+        "createdAt": "2026-10-02T16:39:54Z",
+        "capturedAt": "2026-10-28T06:20:37.131Z"
+      },
+      "matching": {
+        "strategy": "same-author",
+        "topic": "Relationships",
+        "createdGapHours": 39.53,
+        "wordCountDifference": 4,
+        "viewRatio": 142.897
+      }
+    },
+    {
+      "id": "pilot-14",
+      "left": {
+        "id": "2107543664658432040",
+        "text": "I only have a boyfriend for the good morning texts",
+        "url": "https://x.com/big_yyikes/status/2107543664658432040",
+        "views": 2404,
+        "createdAt": "2026-10-06T18:49:00Z",
+        "capturedAt": "2026-10-28T06:20:37.131Z"
+      },
+      "right": {
+        "id": "2107210833101037883",
+        "text": "Sorry I’m late I was cleaning out my camera roll",
+        "url": "https://x.com/big_yyikes/status/2107210833101037883",
+        "views": 1585,
+        "createdAt": "2026-10-05T20:46:27Z",
+        "capturedAt": "2026-10-28T06:20:37.131Z"
+      },
+      "matching": {
+        "strategy": "same-author",
+        "topic": "Everyday humor",
+        "createdGapHours": 22.04,
+        "wordCountDifference": 0,
+        "viewRatio": 1.517
+      }
+    },
+    {
+      "id": "pilot-09",
+      "left": {
+        "id": "2110781890487881808",
+        "text": "life before covid feel's like a lifetime ago",
+        "url": "https://x.com/Izhaasays/status/2110781890487881808",
+        "views": 1096,
+        "createdAt": "2026-10-15T17:16:33Z",
+        "capturedAt": "2026-10-28T06:20:45.070Z"
+      },
+      "right": {
+        "id": "2110784095013994736",
+        "text": "the only way out is to let it hurt",
+        "url": "https://x.com/Izhaasays/status/2110784095013994736",
+        "views": 154010,
+        "createdAt": "2026-10-15T17:25:19Z",
+        "capturedAt": "2026-10-28T06:20:45.070Z"
+      },
+      "matching": {
+        "strategy": "same-author",
+        "topic": "Short personal reflection",
+        "createdGapHours": 0.15,
+        "wordCountDifference": 1,
+        "viewRatio": 140.52
+      }
+    },
+    {
+      "id": "pilot-04",
+      "left": {
+        "id": "2107869794485907869",
+        "text": "Saying Yayyy despite the anguish",
+        "url": "https://x.com/34rths/status/2107869794485907869",
+        "views": 179724,
+        "createdAt": "2026-10-07T16:24:55Z",
+        "capturedAt": "2026-10-28T06:21:07.073Z"
+      },
+      "right": {
+        "id": "2107697518536761574",
+        "text": "Does anyone have a crush on me",
+        "url": "https://x.com/34rths/status/2107697518536761574",
+        "views": 7765,
+        "createdAt": "2026-10-07T05:00:22Z",
+        "capturedAt": "2026-10-28T06:21:07.073Z"
+      },
+      "matching": {
+        "strategy": "same-author",
+        "topic": "Short personal observations",
+        "createdGapHours": 11.41,
+        "wordCountDifference": 2,
+        "viewRatio": 23.145
+      }
+    },
+    {
+      "id": "pilot-05",
+      "left": {
+        "id": "2110700765278859449",
+        "text": "you know a book is good when it has you ruining your sleep schedule",
+        "url": "https://x.com/istgnolimit/status/2110700765278859449",
+        "views": 2910,
+        "createdAt": "2026-10-15T11:54:12Z",
+        "capturedAt": "2026-10-28T06:20:52.876Z"
+      },
+      "right": {
+        "id": "2110936194653495484",
+        "text": "i can barely handle the attention on my birthday imagine getting married LMAOOOO",
+        "url": "https://x.com/istgnolimit/status/2110936194653495484",
+        "views": 584,
+        "createdAt": "2026-10-16T03:29:42Z",
+        "capturedAt": "2026-10-28T06:20:52.876Z"
+      },
+      "matching": {
+        "strategy": "same-author",
+        "topic": "Everyday humor",
+        "createdGapHours": 15.59,
+        "wordCountDifference": 1,
+        "viewRatio": 4.983
+      }
+    },
+    {
+      "id": "pilot-10",
+      "left": {
+        "id": "2110321806221410520",
+        "text": "sometimes, i feel like i'm not strong enough to fight for the life i've always dreamed of",
+        "url": "https://x.com/Izhaasays/status/2110321806221410520",
+        "views": 35816,
+        "createdAt": "2026-10-14T10:48:21Z",
+        "capturedAt": "2026-10-28T06:20:45.070Z"
+      },
+      "right": {
+        "id": "2110788569191395433",
+        "text": "be so in love with your life, that no one’s presence or absence can disturb your inner peace",
+        "url": "https://x.com/Izhaasays/status/2110788569191395433",
+        "views": 1608,
+        "createdAt": "2026-10-15T17:43:06Z",
+        "capturedAt": "2026-10-28T06:20:45.070Z"
+      },
+      "matching": {
+        "strategy": "same-author",
+        "topic": "Life and wellbeing",
+        "createdGapHours": 30.91,
+        "wordCountDifference": 1,
+        "viewRatio": 22.274
+      }
+    },
+    {
+      "id": "pilot-11",
+      "left": {
+        "id": "2109005590278316295",
+        "text": "who else feels like 2026 has been the hardest year of their life?",
+        "url": "https://x.com/Izhaasays/status/2109005590278316295",
+        "views": 3590,
+        "createdAt": "2026-10-10T19:38:10Z",
+        "capturedAt": "2026-10-28T06:20:45.070Z"
+      },
+      "right": {
+        "id": "2109603050553749955",
+        "text": "nothing hurts like growing older while your life feel's stuck in the same place",
+        "url": "https://x.com/Izhaasays/status/2109603050553749955",
+        "views": 111453,
+        "createdAt": "2026-10-12T11:12:16Z",
+        "capturedAt": "2026-10-28T06:20:45.070Z"
+      },
+      "matching": {
+        "strategy": "same-author",
+        "topic": "Growing older",
+        "createdGapHours": 39.57,
+        "wordCountDifference": 1,
+        "viewRatio": 31.045
+      }
+    },
+    {
+      "id": "pilot-06",
+      "left": {
+        "id": "2110667986675618109",
+        "text": "I did not realize how much of my adult life would be spent thinking about protein",
+        "url": "https://x.com/istgnolimit/status/2110667986675618109",
+        "views": 999,
+        "createdAt": "2026-10-15T09:43:56Z",
+        "capturedAt": "2026-10-28T06:20:52.876Z"
+      },
+      "right": {
+        "id": "2109974443057352961",
+        "text": "me: Imao i saw it on twitter \n\nthem: what's your twitter \n\nme: i don't have twitter",
+        "url": "https://x.com/istgnolimit/status/2109974443057352961",
+        "views": 1055575,
+        "createdAt": "2026-10-13T11:48:03Z",
+        "capturedAt": "2026-10-28T06:20:52.876Z"
+      },
+      "matching": {
+        "strategy": "same-author",
+        "topic": "Everyday observations",
+        "createdGapHours": 45.93,
+        "wordCountDifference": 0,
+        "viewRatio": 1056.632
+      }
+    }
+  ]
+}

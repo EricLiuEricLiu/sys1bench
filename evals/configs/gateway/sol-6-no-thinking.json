@@ -1,0 +1,16 @@
+{
+  "provider": "vercel-responses",
+  "model": "openai/gpt-6-sol",
+  "requested_name": "sol6.1",
+  "reasoning_effort": "none",
+  "max_output_tokens": 128,
+  "timeout_seconds": 30,
+  "diagnostic_retries": 0,
+  "image_detail": "high",
+  "gateway_only": [
+    "openai"
+  ],
+  "gateway_catalog_sha256": "42aaf82e177bc551e85fa2c1fe9c873b8fac92b41f26c2747e5a34f4f6802f45",
+  "pricing": null,
+  "no_thinking_policy_sha256": "98a6eba7d0926fa7fd347005cb94504901ec66c31e2ad4c8aef46b452a41e148"
+}

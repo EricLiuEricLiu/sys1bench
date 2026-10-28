@@ -1,0 +1,9 @@
+{
+  "provider": "openai-responses",
+  "model": "REPLACE_WITH_APPROVED_EXACT_MODEL_ID",
+  "reasoning_effort": "none",
+  "max_output_tokens": 64,
+  "timeout_seconds": 30,
+  "diagnostic_retries": 0,
+  "pricing": null
+}

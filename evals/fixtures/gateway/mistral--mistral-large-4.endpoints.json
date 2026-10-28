@@ -1,0 +1,82 @@
+{
+  "data": {
+    "id": "mistral/mistral-large-4",
+    "name": "Mistral Large 4",
+    "created": 1755815280,
+    "released": 1791244800,
+    "description": "Mistral Large 4 is Mistral AI's open-weight, natively multimodal model, available in public preview with 1.05 trillion total parameters and 49 billion active parameters. It leads aggregated benchmarks among open-weight models from the US and Europe, with strengths in cyber defense, manufacturing, finance, and visual grounding.",
+    "architecture": {
+      "tokenizer": null,
+      "instruct_type": null,
+      "modality": "text+image→text",
+      "input_modalities": [
+        "text",
+        "image"
+      ],
+      "output_modalities": [
+        "text"
+      ]
+    },
+    "reasoning": {
+      "mandatory": false,
+      "supported_efforts": [
+        "none",
+        "high"
+      ]
+    },
+    "endpoints": [
+      {
+        "name": "mistral | mistral/mistral-large-4",
+        "model_name": "Mistral Large 4",
+        "context_length": 524288,
+        "pricing": {
+          "prompt": "0.00000136",
+          "completion": "0.00000418",
+          "request": "0",
+          "image": "0",
+          "image_output": "0",
+          "web_search": "0",
+          "internal_reasoning": "0",
+          "input_cache_read": "0.00000014",
+          "discount": 0
+        },
+        "provider_name": "mistral",
+        "has_zdr": true,
+        "has_no_training": true,
+        "tags": [
+          "reasoning",
+          "structured-output",
+          "tool-use",
+          "vision"
+        ],
+        "quantization": null,
+        "max_completion_tokens": 262144,
+        "max_prompt_tokens": null,
+        "supported_parameters": [
+          "max_tokens",
+          "temperature",
+          "stop",
+          "tools",
+          "tool_choice",
+          "reasoning",
+          "include_reasoning",
+          "response_format",
+          "structured_outputs"
+        ],
+        "status": 0,
+        "uptime_last_15m": 100,
+        "uptime_last_1h": 100,
+        "uptime_last_1d": 99.9588,
+        "latency_last_1h": {
+          "p50": 867,
+          "p95": 5388.899999999999
+        },
+        "throughput_last_1h": {
+          "p50": 103,
+          "p95": 135.8
+        },
+        "supports_implicit_caching": false
+      }
+    ]
+  }
+}
