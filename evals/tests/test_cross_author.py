@@ -1,4 +1,4 @@
-"""Synthetic mechanics checks; actual frozen 0.4 data is tested separately."""
+"""Synthetic mechanics checks; actual frozen data is tested separately."""
 
 import copy
 import json
@@ -26,10 +26,10 @@ class CrossAuthorTests(unittest.TestCase):
 
     def test_prompt_timing_versions_and_author_context_match_new_task(self):
         p = self.plan
-        self.assertEqual(p["schema_version"], "2.1.0")
-        self.assertEqual(p["benchmark_version"], "0.3.1-pilot")
+        self.assertEqual(p["schema_version"], "2.2.0")
+        self.assertEqual(p["benchmark_version"], "0.4.0-pilot")
         self.assertEqual(p["protocol_version"], PROTOCOL_VERSION)
-        self.assertEqual(p["protocol"]["human_timing"], {"exposure_ms": 15000, "decision_ms": 5000})
+        self.assertEqual(p["protocol"]["human_timing"], {"round_ms": 15000, "reveal_ms": 2500})
         self.assertIn("different authors", p["protocol"]["system"])
         self.assertNotIn("same author", p["protocol"]["system"])
         for item in p["items"]:
@@ -63,8 +63,9 @@ class CrossAuthorTests(unittest.TestCase):
         labels_for(self.plan, self.bank)
         bank = load_json(self.bank)
         bank["practice"][0]["left"]["views"] = 99999
+        bank["practice"][0]["left"]["engagement"]["impressions"] = 99999
         write_json(self.bank, bank)
-        with self.assertRaisesRegex(ValueError, "100000 captured views"):
+        with self.assertRaisesRegex(ValueError, "100000 captured impressions"):
             labels_for(self.plan, self.bank)
 
     def test_both_author_clusters_are_orientation_invariant_and_iid_caveat_is_retained(self):

@@ -6,7 +6,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from evals.core import (DECISION_PROTOCOL_VERSION, HUMAN_PROTOCOL_VERSION, PROTOCOL_VERSION,
+from evals.core import (V041_DECISION_PROTOCOL_VERSION as DECISION_PROTOCOL_VERSION,
+                        V041_HUMAN_PROTOCOL_VERSION as HUMAN_PROTOCOL_VERSION,
+                        V041_PROTOCOL_VERSION as PROTOCOL_VERSION,
                         V04_DECISION_PROTOCOL_VERSION, V04_PROTOCOL_VERSION,
                         file_digest, load_json, prepare, request_for, write_json)
 from evals.export import export_records
@@ -17,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "evals/fixtures/cross-author-v0.4.1"
 
 
-class CurrentBankTests(unittest.TestCase):
+class TimingPatchBankTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.plan = prepare(DATA / "stimuli.client.json", "pilot-cohort-001", avatar_manifest=DATA / "avatars/avatar-manifest.private.json")

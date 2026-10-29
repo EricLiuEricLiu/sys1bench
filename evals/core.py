@@ -80,21 +80,63 @@ DECISION_PROTOCOL = {**DECISION_PROTOCOL, "version": DECISION_PROTOCOL_VERSION,
                      "human_timing": dict(PROTOCOL["human_timing"]),
                      "human_protocol_version": HUMAN_PROTOCOL_VERSION}
 PROTOCOLS = {**V04_PROTOCOLS, PROTOCOL_VERSION: PROTOCOL, DECISION_PROTOCOL_VERSION: DECISION_PROTOCOL}
+
+# 0.4.1 remains a frozen separate-look/choice cohort.
+V041_PROTOCOL_VERSION = PROTOCOL_VERSION
+V041_DECISION_PROTOCOL_VERSION = DECISION_PROTOCOL_VERSION
+V041_HUMAN_PROTOCOL_VERSION = HUMAN_PROTOCOL_VERSION
+V041_PROTOCOLS = dict(PROTOCOLS)
+CURRENT_DATASET_VERSION = "0.5.0"
+SCHEMA_VERSION = "2.2.0"
+BENCHMARK_VERSION = "0.4.0-pilot"
+HUMAN_PROTOCOL_VERSION = "human-15s-visible-feedback-cross-author-education2-v4"
+PROTOCOL_VERSION = "direct-ab-cross-author-impressions-v5"
+DECISION_PROTOCOL_VERSION = "choice-cross-author-impressions-v4"
+SYSTEM_PROMPT = PROTOCOL["system"].replace("more cumulative views at capture", "more cumulative impressions at capture")
+PROTOCOL = {**PROTOCOL, "version": PROTOCOL_VERSION, "system": SYSTEM_PROMPT,
+            "outcome_metric": "cumulative impressions",
+            "human_timing": {"round_ms": 15000, "reveal_ms": 2500},
+            "human_protocol_version": HUMAN_PROTOCOL_VERSION,
+            "visibility_scope": "counts hidden before answer/timeout and throughout model inference; human post-answer reveal is specified separately",
+            "human_presentation": "one 15-second window for viewing and choosing; both posts remain visible until choice or timeout",
+            "human_feedback": {"rounds": "practice_and_scored", "metrics": ["replies", "reposts", "likes", "impressions"],
+                               "trigger": "answer_or_timeout", "location": "inside both post cards", "advance_after_ms": 2500},
+            "comparability": "humans receive engagement feedback between rounds; models use independent label-free calls with no reveal/history; different feedback conditions"}
+DECISION_SYSTEM_PROMPT = SYSTEM_PROMPT.replace(
+    "Reply with exactly A or B, where A is the left post and B is the right post.",
+    "Select exactly one of A (left) or B (right) using the typed choice question.",
+)
+DECISION_PROTOCOL = {**PROTOCOL, "version": DECISION_PROTOCOL_VERSION, "system": DECISION_SYSTEM_PROMPT,
+                     "parser": "accept exactly A or B from the typed winner.choice field; never choose by probability",
+                     "response_format": "Gateway Decision choice with criteria A and B; separate from free-text direct-choice cohort"}
+PROTOCOLS = {**V041_PROTOCOLS, PROTOCOL_VERSION: PROTOCOL, DECISION_PROTOCOL_VERSION: DECISION_PROTOCOL}
 ACTIVE_PROTOCOL_VERSIONS = {PROTOCOL_VERSION, DECISION_PROTOCOL_VERSION}
-DECISION_SYSTEM_PROMPTS = {p["system"] for version, p in PROTOCOLS.items() if version in {V03_DECISION_PROTOCOL_VERSION, V04_DECISION_PROTOCOL_VERSION, DECISION_PROTOCOL_VERSION}}
+DECISION_SYSTEM_PROMPTS = {p["system"] for version, p in PROTOCOLS.items() if version in {V03_DECISION_PROTOCOL_VERSION, V04_DECISION_PROTOCOL_VERSION, V041_DECISION_PROTOCOL_VERSION, DECISION_PROTOCOL_VERSION}}
+DECISION_TARGETS = {p["system"]: p.get("outcome_metric", "cumulative views") for p in PROTOCOLS.values() if p["system"] in DECISION_SYSTEM_PROMPTS}
 DATASET_PROFILES = {
     "0.3.0": {"schema_version": "2.0.0", "benchmark_version": "0.2.0-pilot", "timing": {"exposureMs": 3000, "decisionMs": 2000},
               "direct": V03_PROTOCOL_VERSION, "decision": V03_DECISION_PROTOCOL_VERSION, "cross_author": False},
-    "0.4.0": {"schema_version": SCHEMA_VERSION, "benchmark_version": "0.3.0-pilot", "timing": {"exposureMs": 6000, "decisionMs": 4000},
+    "0.4.0": {"schema_version": "2.1.0", "benchmark_version": "0.3.0-pilot", "timing": {"exposureMs": 6000, "decisionMs": 4000},
               "direct": V04_PROTOCOL_VERSION, "decision": V04_DECISION_PROTOCOL_VERSION, "cross_author": True},
-    CURRENT_DATASET_VERSION: {"schema_version": SCHEMA_VERSION, "benchmark_version": BENCHMARK_VERSION, "timing": {"exposureMs": 15000, "decisionMs": 5000},
+    "0.4.1": {"schema_version": "2.1.0", "benchmark_version": "0.3.1-pilot", "timing": {"exposureMs": 15000, "decisionMs": 5000},
+              "direct": V041_PROTOCOL_VERSION, "decision": V041_DECISION_PROTOCOL_VERSION, "cross_author": True},
+    CURRENT_DATASET_VERSION: {"schema_version": SCHEMA_VERSION, "benchmark_version": BENCHMARK_VERSION, "timing": {"roundMs": 15000, "revealMs": 2500},
+              "outcome": "cumulative_snapshot_views", "target_field": "engagement.impressions",
+              "human_protocol_id": HUMAN_PROTOCOL_VERSION,
+              "feedback": {"afterEveryRound": True, "autoAdvance": True, "metrics": ["replies", "reposts", "likes", "impressions"]},
               "direct": PROTOCOL_VERSION, "decision": DECISION_PROTOCOL_VERSION, "cross_author": True},
 }
 
 
+def validate_human_metadata(data, profile):
+    if "human_protocol_id" in profile:
+        require(data.get("humanProtocolId") == profile["human_protocol_id"], "Human protocol ID differs from dataset protocol")
+        require(canonical(data.get("feedback")) == canonical(profile["feedback"]), "Human feedback differs from dataset protocol")
+
+
 def validate_pair_context(a, b, cross_author):
     if cross_author:
-        require(a["author"]["handle"].casefold() != b["author"]["handle"].casefold(), "Every 0.4 pair must contain different authors")
+        require(a["author"]["handle"].casefold() != b["author"]["handle"].casefold(), "Every cross-author pair must contain different authors")
     else:
         require(a["author"] == b["author"], "Same-author context differs within historical pair")
         require(bool(a["images"]) == bool(b["images"]), "Historical sides require matched text/image modality")
@@ -127,9 +169,12 @@ def read_stimuli(path, avatar_manifest=None):
         return legacy.read_stimuli(path)
     profile = DATASET_PROFILES[data["version"]]
     allowed = {"version", "productName", "canonicalDomain", "label", "language", "timing", "display", "usage", "practice", "pairs"}
+    if "human_protocol_id" in profile:
+        allowed |= {"humanProtocolId", "feedback"}
     require(set(data) <= allowed, "Expected client stimuli schema; unexpected top-level fields")
     require(data.get("language") == "en", "Expected English stimuli")
     require(data.get("timing") == profile["timing"], "Human timing differs from dataset protocol")
+    validate_human_metadata(data, profile)
     display = data.get("display", {})
     require(all(display.get(k) is True for k in ["authors", "avatars", "handles"]), "Author context must be visible")
     require(all(display.get(k) is False for k in ["followerCounts", "engagement"]), "Followers/engagement must be hidden")
@@ -170,7 +215,7 @@ def read_stimuli(path, avatar_manifest=None):
         validate_pair_context(posts[0], posts[1], profile["cross_author"])
         if profile["cross_author"]:
             left_id, right_id = (pair[s]["author"].get("id") for s in ["left", "right"])
-            require(isinstance(left_id, str) and isinstance(right_id, str) and left_id != right_id, "Source author IDs must differ in every 0.4 pair")
+            require(isinstance(left_id, str) and isinstance(right_id, str) and left_id != right_id, "Source author IDs must differ in every cross-author pair")
         items.append({"item_id": pair["id"], "kind": kind, "left": posts[0], "right": posts[1]})
     require(not items[0]["left"]["images"] and items[1]["left"]["images"], "Practice must be ordered text then image")
     return {"version": data["version"], "stimuli_sha256": digest({"version": data["version"], "language": "en", "items": items}), "source_file_sha256": file_digest(path), "items": items}

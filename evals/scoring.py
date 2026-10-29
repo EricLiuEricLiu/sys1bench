@@ -9,7 +9,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 from .adapters import validate_config
-from .core import DATASET_PROFILES, digest, file_digest, load_json, parse_choice, request_for, require, validate_plan, write_json
+from .core import DATASET_PROFILES, digest, file_digest, load_json, parse_choice, request_for, require, validate_human_metadata, validate_plan, write_json
 from .runner import now
 
 
@@ -55,13 +55,29 @@ def cluster_interval(answers, seed="cluster-bootstrap-v1", draws=5000):
             "interpretation": "Exploratory sensitivity only: few editorially selected authors do not establish population coverage; intervals can degenerate."}
 
 
+def outcome_value(post, profile):
+    if profile.get("target_field") == "engagement.impressions":
+        engagement = post.get("engagement")
+        require(isinstance(engagement, dict) and set(engagement) == {"replies", "reposts", "likes", "impressions"}, "Four captured engagement metrics are required")
+        require(all(type(v) is int and v >= 0 for v in engagement.values()), "Engagement metrics must be nonnegative integers; missing values cannot be filled with zero")
+        value = engagement["impressions"]
+        require(value > 0, "Missing/invalid impression outcome")
+        if "views" in post:
+            require(type(post["views"]) is int and post["views"] == value, "Provider viewCount alias differs from captured impressions")
+        return value
+    value = post.get("views")
+    require(type(value) is int and value > 0, "Missing/invalid view outcome")
+    return value
+
+
 def labels_for(plan, bank_path):
     bank = load_json(bank_path)
     require(bank["version"] == plan["dataset_version"], "Answer bank version differs from stimuli")
-    require(bank.get("outcome") == "cumulative_snapshot_views", "Unexpected outcome definition")
     profile = DATASET_PROFILES.get(plan["dataset_version"], {})
+    require(bank.get("outcome") == profile.get("outcome", "cumulative_snapshot_views"), "Unexpected outcome definition")
     if profile.get("cross_author"):
         require(bank.get("timing") == profile["timing"], "Current bank timing differs from the frozen human protocol")
+    validate_human_metadata(bank, profile)
     practice = bank["practice"] if isinstance(bank["practice"], list) else [bank["practice"]]
     pairs = [("practice", p) for p in practice] + [("scored", p) for p in bank["pairs"]]
     require(len(pairs) == len(plan["items"]), "Answer bank item count mismatch")
@@ -73,7 +89,7 @@ def labels_for(plan, bank_path):
         require(kind == item["kind"], "Practice/scored mismatch")
         by_id = {pair[s]["id"]: pair[s] for s in ["left", "right"]}
         require(set(by_id) == {item[s]["id"] for s in ["A", "B"]}, "Post IDs differ from frozen stimuli")
-        authors = []
+        authors, outcomes = [], {}
         for s in ["A", "B"]:
             post = by_id[item[s]["id"]]
             visible = post.get("displayText") if "author" in item[s] else post["text"]
@@ -81,7 +97,7 @@ def labels_for(plan, bank_path):
             if "author" in item[s]:
                 require({k: post["author"][k] for k in ["name", "handle"]} == {k: item[s]["author"][k] for k in ["name", "handle"]}, "Visible author differs from frozen stimuli")
                 require([m["sha256"] for m in post["media"]] == [m["sha256"] for m in item[s]["images"]], "Captured images differ from frozen stimuli")
-            require(type(post.get("views")) is int and post["views"] > 0, "Missing/invalid view outcome")
+            outcomes[s] = outcome_value(post, profile)
             url = urlparse(post["url"])
             path = url.path.strip("/").split("/")
             named_url = len(path) == 3 and path[0] != "i" and path[1:] == ["status", post["id"]]
@@ -99,10 +115,11 @@ def labels_for(plan, bank_path):
             require(authors[0] != authors[1], "Current protocol requires different-author pairs")
             ids = [by_id[item[s]["id"]]["author"]["id"] for s in ["A", "B"]]
             require(all(isinstance(a, str) and a for a in ids) and ids[0] != ids[1], "Current protocol requires distinct source author IDs")
-            require(all(by_id[item[s]["id"]]["views"] >= 100_000 for s in ["A", "B"]), "Current bank requires at least 100000 captured views per post")
+            metric = "impressions" if profile.get("target_field") else "views"
+            require(all(outcomes[s] >= 100_000 for s in ["A", "B"]), f"Current bank requires at least 100000 captured {metric} per post")
         else:
             require(authors[0] == authors[1], "Historical protocol requires same-author pairs")
-        av, bv = by_id[item["A"]["id"]]["views"], by_id[item["B"]["id"]]["views"]
+        av, bv = outcomes["A"], outcomes["B"]
         require(av != bv, "Tied outcomes require a new protocol/dataset")
         cluster_ids = sorted({digest(a)[:16] for a in authors})
         labels[item["item_id"]] = {"correct_choice": "A" if av > bv else "B", "author_cluster_id": None if cross_author else digest(authors[0])[:16], "author_cluster_ids": cluster_ids}
@@ -212,6 +229,14 @@ def score(run_dir, bank_path, out):
             "Mirrored-side and repeat-seed runs reuse the same posts; they are diagnostics, not additional independent observations.",
         ],
     }
+    if "outcome_metric" in plan["protocol"]:
+        protocol = plan["protocol"]
+        summary.update(outcome_metric=protocol["outcome_metric"], source_outcome=bank["outcome"], source_metric_field="viewCount",
+                       human_protocol_version=protocol["human_protocol_version"],
+                       human_timing=protocol["human_timing"], human_feedback=protocol["human_feedback"],
+                       model_feedback="none; independent label-free calls for practice and scored items",
+                       human_model_comparability=protocol["comparability"])
+        summary["limitations"].append(protocol["comparability"])
     out = Path(out)
     out.mkdir(parents=True, exist_ok=False)
     (out / "answers.jsonl").write_text("".join(json.dumps(a, ensure_ascii=False, sort_keys=True) + "\n" for a in answers), encoding="utf-8")

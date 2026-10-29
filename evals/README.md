@@ -1,76 +1,74 @@
 # System 1 Bench evaluations
 
-Python 3.11+, standard library only. Run from `/Users/ericliu/Documents/ChatGPT/sys1bench`. The current task shows author name/handle/avatar and attached images, hides followers/engagement, and uses two educational practices followed by 15 scored pairs. Human timing is now 15 seconds to look + 5 seconds to choose. Every practice/scored pair compares different authors.
+Python 3.11+, standard library only. Run from `/Users/ericliu/Documents/ChatGPT/sys1bench`. The `0.5.0` task asks which English X post received more captured cumulative **impressions**. Authors, handles, avatars and attached images are visible; all engagement counts are hidden before the answer. Humans have **one 15-second window to view and choose while both posts remain visible**, then see replies, reposts, likes and impressions inside both cards for 2.5 seconds. Feedback follows every answered or timed-out round, including scored questions. Two unscored educational practices precede 15 scored pairs; each pair uses different authors.
 
-Eric requires **thinking/reasoning disabled**, including no `low` or `minimal`. The approved substitutions are documented in [MODEL_SELECTION.md](MODEL_SELECTION.md). The original exact always-thinking versions remain recorded as ineligible; none is silently substituted during execution.
+Eric requires **thinking/reasoning disabled**, including no `low` or `minimal`. The four approved models and their selection rationale remain in [MODEL_SELECTION.md](MODEL_SELECTION.md). Gemini 2.5 and Llama 4 remain removed. Mandatory-thinking versions are ineligible; execution never substitutes another model automatically.
 
-**Current release:** `0.4.1` is a timing-only patch to the audited `0.4.0` bank, with identical posts, pairs, outcomes and captured media. The timing amendment inherits the original source audit and records its separate metadata-equivalence checks. Historical 0.4.0 and 0.3.0 campaigns remain replayable but cannot launch paid calls.
+**Current release:** the real audited `0.5.0` bank is frozen under `evals/fixtures/cross-author-v0.5.0/`, copied byte-for-byte from the data release. Its bank hash matches main's integrated bank. Historical `0.4.1`, `0.4.0`, `0.3.0` and `0.1.1` fixtures/protocols remain reproducible and cannot launch paid calls.
 
 ## Verify and prepare offline
 
 ```sh
 python3 -m unittest discover -s evals/tests -v
-python3 -m evals prepare-campaign --out evals/runs/no-thinking-campaign
-python3 -m evals campaign-preflight --manifest evals/runs/no-thinking-campaign/campaign.json
+python3 -m evals prepare-campaign --out evals/runs/no-thinking-campaign-v05
+python3 -m evals campaign-preflight --manifest evals/runs/no-thinking-campaign-v05/campaign.json
 ```
 
-Preparation uses tracked `evals/fixtures/cross-author-v0.4.1/` and four exact Gateway configs. It makes **zero network/model calls**. CI needs no `outputs/`, API keys, paid requests, package installation, or avatar downloads. The frozen bank has two practice pairs (text then image), 15 scored pairs, 34 distinct posts and 34 distinct authors. All posts exceed 100,000 captured views; 22 exceed one million. It contains three scored image pairs plus one image practice pair. It remains an interaction pilot, not a registered held-out test.
+Preparation uses tracked `evals/fixtures/cross-author-v0.5.0/` and four exact Gateway configs. It makes zero network/model calls. CI uses tracked fixtures and needs no `outputs/`, API keys, packages or avatar downloads. The bank has 34 distinct posts/authors, eight attached images, 26 posts at or above one million impressions, and three scored posts at or above ten million. Captured impressions range from 113,216 to 18,951,622, with median 1,611,190. These outcome-selection statistics never enter inference. The campaign is **one primary run per model: 68 requests total**, including 8 unscored practice calls and 60 scored calls. There are no automatic retries, repeats, parameter searches, fallback models or mirror runs. All four receive the same visible content and captured image bytes. Jev uses a separately versioned typed-choice protocol.
 
-The campaign freezes **one primary run per model: 68 requests total**, including 8 unscored practice calls and 60 scored calls. It has no automatic retries, repeats, setting tuning, fallback models, or mirror runs. All models receive identical visible stimuli and captured image bytes. Jev uses a separately versioned typed-choice protocol.
+Every language request explicitly sends `reasoning.effort: none`. Native Jev decisions have no thinking parameter. Saved catalog/endpoints and primary-document eligibility checks remain under `evals/fixtures/gateway/`. Each config pins one provider endpoint with no provider failover. A generic catalog off flag alone is insufficient; primary-document policy review must also approve that exact model.
 
-The model/provider configs are under `evals/configs/gateway/`. Every language model explicitly requests `reasoning.effort: none`; Jev uses its native decision API without a thinking parameter. An exact catalog snapshot, per-model provider endpoints, and primary-document policy review are under `evals/fixtures/gateway/`. Preflight checks their hashes, image support, declared off setting, and reviewed eligibility. Each config pins one provider endpoint to prevent automatic provider failover. No model fallbacks or virtual models are configured.
-
-## Run mock software verification
+## Mock verification and real execution
 
 ```sh
-python3 -m evals run --plan evals/runs/no-thinking-campaign/direct-primary-plan.json --config evals/configs/mock.json --out evals/runs/mock-direct
-python3 -m evals score --run evals/runs/mock-direct --bank evals/fixtures/cross-author-v0.4.1/question-bank.server.json --out evals/runs/mock-direct-score.private
-python3 -m evals export --run evals/runs/mock-direct --score evals/runs/mock-direct-score.private --out evals/runs/mock-direct-export.private
+python3 -m evals run --plan evals/runs/no-thinking-campaign-v05/direct-primary-plan.json --config evals/configs/mock.json --out evals/runs/mock-v05
+python3 -m evals score --run evals/runs/mock-v05 --bank evals/fixtures/cross-author-v0.5.0/question-bank.server.json --out evals/runs/mock-v05-score.private
+python3 -m evals export --run evals/runs/mock-v05 --score evals/runs/mock-v05-score.private --out evals/runs/mock-v05-export.private
 ```
 
-The mixed-failure mock deliberately returns synthetic choices, explanations, refusals, timeouts and HTTP errors. Its scores are software fixtures, never model ability. `participant_kind=mock`/`is_mock=true` persist throughout, and `eval_public_run_aggregates` excludes them. Existing output paths are never overwritten.
+Mock choices, failures and scores are synthetic software fixtures, never model ability. `participant_kind=mock` and `is_mock=true` persist throughout; public aggregate rows exclude mocks and incomplete runs. Existing output paths are never overwritten.
 
-## Real Gateway execution
+Eric authorized the intended real comparison without a spending cap. No paid requests have run, and the local process lacks `AI_GATEWAY_API_KEY`. Keep the key in a local environment or secret manager; never paste it into chat or commit it. The harness does not load `.env` files or use Codex sign-in credentials.
 
-Eric authorized the intended comparison without a spending cap. No Gateway key is currently configured in this chat's process environment, and no paid model requests have run. Set `AI_GATEWAY_API_KEY` locally through the environment or a secret manager; never paste it into chat, commit it, or place it in a config. The scripts do not automatically load `.env` files or use Codex sign-in credentials.
-
-Once the key is available, this explicit command executes the bounded comparison:
+With the frozen bank and a local key available, real execution requires:
 
 ```sh
-python3 -m evals campaign --manifest evals/runs/no-thinking-campaign/campaign.json --out evals/runs/CHOOSE_NEW_RUN_DIRECTORY --allow-paid
+python3 -m evals campaign --manifest evals/runs/no-thinking-campaign-v05/campaign.json --out evals/runs/CHOOSE_NEW_RUN_DIRECTORY --allow-paid
 ```
 
-That command can incur charges. Preflight validates local contracts; live provider access/compatibility is not yet tested. A 128-token output limit bounds each language model's generated output; Jev's typed decision endpoint has no output-token parameter, recorded as `max_output_tokens: 0` in its config. Socket I/O timeout is 30 seconds. It is not a total generation deadline or an equivalent of the human's fifteen-second look. Failed requests may still incur costs. A rerun needs a new output directory and must be disclosed.
+Preflight is local only; live provider access/compatibility is untested. Campaign preflight validates the private bank's version, timing, metric completeness and trusted label join before any requests. The model adapter never receives that bank or the computed labels. Output-token cap remains 128 for language models; Jev has no output-token parameter, recorded as zero. The 30-second socket I/O timeout is a transport control, independent of the human's 15-second visible-choice window. Failed calls can incur charges. Reruns need new IDs/directories and a disclosed reason.
 
-The adapters use documented Gateway [OpenResponses](https://vercel.com/docs/ai-gateway/sdks-and-apis/openresponses) and [OpenAI-compatible Decisions](https://vercel.com/docs/ai-gateway/sdks-and-apis/openai-decisions) HTTP APIs with `AI_GATEWAY_API_KEY`; no provider SDK dependency is needed. Direct OpenAI and mock adapters remain available. HTTP redirects are disabled and authentication headers are never persisted. Provider-returned model IDs, Gateway routing, generation IDs, usage and reported cost are stored when available. Reported cost is distinct from an independently reconciled bill; unknown values remain null.
+Adapters use Gateway [OpenResponses](https://vercel.com/docs/ai-gateway/sdks-and-apis/openresponses) and [Decisions](https://vercel.com/docs/ai-gateway/sdks-and-apis/openai-decisions). HTTP redirects are disabled. Authentication headers are not saved. Requested/returned model IDs, routing, generation IDs, token usage and reported costs are recorded when returned; unknown cost remains null, distinct from a reconciled bill.
 
-## Visible inputs and captured bytes
+## Outcome-free inference and human feedback
 
-`prepare` only reads client stimuli and frozen assets. `run` has no bank argument and never opens an answer key. Inference receives the versioned prompt, A/B visible text and author name/handle, side-specific image reference labels, and original PNG/JPEG bytes as inline base64. **No post/item IDs, source/media/avatar URLs, local filenames, view counts, follower counts, engagement, matching ratios, editorial alt captions, seeds or answer labels cross the adapter boundary.** Exact `displayText` is used because original source `text` may contain an image's t.co link that the human UI omits.
+`prepare` reads only initial client stimuli and frozen assets; `run` has no bank argument. Adapters receive the exact versioned prompt, A/B `displayText`, author name/handle, image reference labels and original captured PNG/JPEG bytes. No item/post IDs, source/media/avatar URLs, paths, follower counts, replies, reposts, likes, impression counts, ratios, editorial alt captions, seeds or labels cross the adapter boundary. Server data with engagement fields is rejected as client input. Images must be checked upstream for visible engagement leaks too.
 
-Attached image hashes must reconcile to the frozen data-owned client/server exports. Avatars are captured once from that dataset's public avatar URLs without model calls. Their private manifest binds capture to the source stimuli byte hash. The frozen fixture stores those bytes, SHA-256, MIME type and dimensions; the self-contained plan embeds them unchanged. A missing, changed or mismatched asset fails preparation instead of reducing the item to text.
+Humans receive engagement feedback after every round. Model calls remain independent and label-free, including two unscored practices; they receive no reveal and no previous-question history. The protocol and scored summary explicitly record these **different feedback conditions**. Do not describe this as a fully matched human/model learning or exposure experiment. Introducing model feedback/history requires a separate protocol.
 
-For a new data export, capture avatars explicitly before offline preparation:
+Freeze avatars explicitly before preparing new data, or use data-owned captured assets:
 
 ```sh
-python3 -m evals capture-avatars --stimuli outputs/system-1-bench-data/stimuli.client.json --out evals/runs/avatar-capture
-python3 -m evals prepare --stimuli outputs/system-1-bench-data/stimuli.client.json --avatar-manifest evals/runs/avatar-capture/avatar-manifest.private.json --seed pilot-cohort-001 --out evals/runs/new-primary-plan.json
+python3 -m evals capture-avatars --stimuli outputs/system-1-bench-data/stimuli.client.json --out evals/runs/avatar-capture-v05
+python3 -m evals prepare --stimuli outputs/system-1-bench-data/stimuli.client.json --avatar-manifest evals/runs/avatar-capture-v05/avatar-manifest.private.json --seed pilot-cohort-001 --out evals/runs/primary-v05.json
 ```
 
-`capture-avatars` performs free image downloads only; it never invokes a model. `prepare` and `run` never fetch remote image URLs. Main-chat integration must serve these **same frozen avatar and attached image bytes** to a matched human cohort. Original human avatar URLs alone cannot establish byte identity. The data-owned fixture and avatar manifest provide the source mapping; do not publish server labels.
+Capture downloads free public images only, never model calls. Preparation and inference never download assets. A missing/tampered asset fails closed. Serve these same frozen avatar and attachment bytes to humans; remote URLs alone cannot establish byte identity. Provider-specific image preprocessing and human perception still differ.
 
 ## Protocol, scoring and storage
 
-Current record schema: `2.1.0`; benchmark version: `0.3.1-pilot`; dataset: `0.4.1`. Language protocol: `direct-ab-cross-author-image-v4`; Jev typed-choice protocol: `choice-cross-author-image-v3`. Human protocol: `human-15s5s-cross-author-highreach-education2-v3`. The record shape is unchanged; harness version is `2.1.1`. See [PROTOCOL.md](PROTOCOL.md).
+Record schema `2.2.0`; harness `2.2.0`; benchmark `0.4.0-pilot`; dataset `0.5.0`; human protocol `human-15s-visible-feedback-cross-author-education2-v4`. Model protocols: `direct-ab-cross-author-impressions-v5` / `choice-cross-author-impressions-v4`. See [PROTOCOL.md](PROTOCOL.md).
 
-Model calls are independent and label-free, including two unscored practice calls. Humans receive educational feedback; models receive none. This difference is explicit. Strict direct parsing accepts only uppercase A or B after surrounding whitespace. Jev's declared `winner.choice` is parsed directly, never repaired by probability argmax. All planned scored items stay in the denominator, including invalid/refused/incomplete/error/timeout/unrun items. The first attempt is primary; optional manually configured transport retries remain diagnostics and cannot rescue it. Real executions reject `low`/`minimal` settings before constructing an adapter. Unexpected positive reported reasoning tokens are protocol violations and earn no credit.
+Trusted scoring uses `engagement.impressions`, not likes, reposts, replies or a generic count fallback. Four engagement metrics must be real nonnegative integers; impressions must be positive, and the provider `views` alias must agree if present. Missing values never become zero. Reposts mean source `retweetCount`, without adding quote counts. Versioned bank timing, distinct authors, captured-image hashes and the 100,000-impression selection floor are verified before labels join. The data contract retains the historical `cumulative_snapshot_views` source enum, recorded separately from the evaluation target; this does not enable a fallback to `views`. Source field `viewCount` is reported as impressions per the data contract; these are cumulative snapshots, not unique people or fixed-age outcomes.
 
-Outcome keys enter only in `score`, which verifies versions, post IDs, visible text, different source authors, at least 100,000 captured views per post, and attached-image hashes before joining labels. The selection floor is never included in adapter inputs. Raw attempt journals, timestamps, side assignments, code/protocol/config/dataset/content/journal hashes, responses, errors, usage and latency remain private. Wilson intervals are conditional IID references; the old one-author bootstrap is disabled for cross-author pairs, which have two overlapping author memberships. Both author hashes are retained for future dependency-aware analysis. No human percentile or validated ranking is inferred.
+First-attempt accuracy divides by all 15 planned scored pairs. Practice is excluded. Invalid/refused/incomplete/error/timeout/unrun and protocol violations count as incorrect. Direct output accepts only uppercase A/B after surrounding whitespace; native Jev parses its declared choice field, never a probability argmax. Positive reported reasoning tokens invalidate a response. Diagnostic retries cannot rescue the first attempt.
 
-`schema.sql` remains SQLite/D1 compatible with private `eval_runs`, `eval_answers`, `eval_attempts` and a derived per-run public aggregate view. Exported D1 records contain image hashes/metadata; exact image bytes stay in the raw run bundle and frozen fixture rather than being repeated as large SQL strings. Mock and incomplete runs are excluded from the view. Keep participant kind, dataset, benchmark, protocol, config and variant explicit, and never combine Jev/direct or mirror/primary cohorts implicitly. Server-side correctness must not be accepted from a browser.
+Private journals and summaries record timestamps, side assignment, code/config/protocol/dataset/plan/content/bank hashes, raw replies, errors, usage, cost and latency. Current summaries also name the impression target, human timing, feedback conditions and comparison limits. Wilson intervals are conditional IID references. The historical one-author bootstrap remains disabled for cross-author pairs; both author memberships are retained. A curated pilot with previous exposure and no registered holdout does not establish population rankings or human percentiles.
 
-## Baseline and review artifacts
+`schema.sql` and private JSONL/SQL exports remain SQLite/D1 compatible. D1 stores image metadata/hashes; exact bytes stay in the private journal and frozen fixture. Keep participant kind, dataset, benchmark, protocol, config and side variant explicit. Server-side correctness cannot come from browser claims. Human engagement reveals must occur only after an answer/timeout; keep unrevealed labels and raw journals private.
 
-The historical cross-author `0.4.0` protocol remains reproducible at 6s+4s with unchanged fixture/protocol hashes. Its model requests are byte-identical to the timing-only revision, but its dataset/protocol cohort stays separate and paid execution is blocked. The historical same-author `0.3.0` protocol remains reproducible with 3s+2s timing and unchanged hashes, while paid execution is blocked. The original author-hidden `0.1.1` baseline remains reproducible through `legacy_core.py` and tracked `evals/fixtures/text-v0.1.1/`; its prompt, side rule and content hash are unchanged. Original local outputs and a full original harness snapshot were preserved under `outputs/system-1-bench-evals/`.
+## Historical preservation
 
-Current review outputs are under `outputs/system-1-bench-evals/cross-author-v0.4.1/`; these are ignored by Git. Private scored/exported examples contain labels/raw responses and must never be served as static assets. The tracked fixtures contain necessary source data, not API secrets or run journals. No new human cohort, paid model results, leaderboard deployment, D1 provisioning, or DNS change has been made here.
+`0.4.1` remains 15s look / 5s hidden choice; `0.4.0` remains 6s/4s; `0.3.0` remains same-author 3s/2s; `0.1.1` remains anonymous text. Their original fixtures, prompts and hashes are unchanged. They replay/score offline but cannot launch paid calls. Do not combine these cohorts with the visible-choice, feedback-after-every-round `0.5.0` protocol.
+
+Review outputs belong under `outputs/system-1-bench-evals/` and stay ignored by Git. Never publish private banks, scored SQL or raw attempt journals as static assets. Main chat owns app integration, deployment and production result ingestion.

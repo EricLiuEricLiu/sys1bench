@@ -34,7 +34,7 @@ def validate_execution(plan, config):
     if config["provider"] != "mock":
         from .core import ACTIVE_PROTOCOL_VERSIONS, CURRENT_DATASET_VERSION
         require(plan["dataset_version"] == CURRENT_DATASET_VERSION and plan["protocol_version"] in ACTIVE_PROTOCOL_VERSIONS,
-                "Historical datasets are frozen; paid execution requires current 0.4.1 cross-author protocol")
+                "Historical datasets are frozen; paid execution requires current 0.5.0 impressions protocol")
         expected = "omit-nonreasoning" if config["provider"] == "vercel-decision" else "none"
         require(config["reasoning_effort"] == expected, "Thinking must be disabled for real runs; low/minimal reasoning is not allowed")
         from .core import DECISION_PROTOCOL_VERSION

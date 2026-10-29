@@ -5,14 +5,14 @@ from pathlib import Path
 
 from .core import CURRENT_DATASET_VERSION, DECISION_PROTOCOL_VERSION, PROTOCOL_VERSION, digest, file_digest, load_json, prepare, require, write_json
 from .runner import run, validate_execution
-from .scoring import score
+from .scoring import labels_for, score
 
 
 def prepare_campaign(out, seed="pilot-cohort-001"):
     """Freeze the user-approved four-model disabled-thinking comparison offline."""
     package = Path(__file__).parent.resolve()
     data = package / ("fixtures/cross-author-v" + CURRENT_DATASET_VERSION)
-    require((data / "stimuli.client.json").is_file(), "Current 0.4.1 bank is not frozen yet; no historical paid campaign may be prepared")
+    require((data / "stimuli.client.json").is_file(), "Current 0.5.0 bank is not frozen yet; no historical paid campaign may be prepared")
     out = Path(out).resolve()
     out.mkdir(parents=True, exist_ok=False)
     plan_paths = {}
@@ -56,6 +56,7 @@ def preflight_campaign(manifest_path):
         for k, path in paths.items():
             require(file_digest(path) == entry[k + "_file_sha256"], "Campaign source file changed; freeze a new manifest")
         plan, config = validate_execution(load_json(paths["plan"]), load_json(paths["config"]))
+        labels_for(plan, paths["bank"])
         require(config["provider"].startswith("vercel-") and config["diagnostic_retries"] == 0, "Campaign requires Gateway and zero retries")
         require(config["model"] == entry["model"] and config["model"] not in seen, "Duplicate/different campaign model")
         require(plan["variant"] == "primary" and len(plan["items"]) == entry["planned_items"], "Invalid campaign plan/size")

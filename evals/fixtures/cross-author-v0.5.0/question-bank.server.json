@@ -1,0 +1,1133 @@
+{
+  "version": "0.5.0",
+  "productName": "System 1 Bench",
+  "canonicalDomain": "https://sys1bench.com",
+  "label": "System 1 Bench · English cross-author feedback pilot",
+  "language": "en",
+  "collectedAt": "2026-10-29T00:20:11.776Z",
+  "timing": {
+    "roundMs": 15000,
+    "revealMs": 2500
+  },
+  "humanProtocolId": "human-15s-visible-feedback-cross-author-education2-v4",
+  "feedback": {
+    "afterEveryRound": true,
+    "autoAdvance": true,
+    "metrics": [
+      "replies",
+      "reposts",
+      "likes",
+      "impressions"
+    ]
+  },
+  "display": {
+    "authors": true,
+    "avatars": true,
+    "handles": true,
+    "followerCounts": false,
+    "engagement": false,
+    "imagePolicy": "single-image; preload and decode before exposure; preserve full image"
+  },
+  "outcome": "cumulative_snapshot_views",
+  "selectionRules": {
+    "minimumViews": 100000,
+    "minimumViewRatio": 1.25,
+    "authorFollowerRange": [
+      100,
+      200000
+    ],
+    "maxCaptionWords": 35,
+    "maxPairCreationGapHours": 96
+  },
+  "limitations": [
+    "High-reach curated pilot, not a uniform random sample of X or a validated measure of intuition.",
+    "Every displayed post was selected to have at least 100,000 provider-reported views; discovery also used minimum-like filters. This deliberately conditions on successful posts.",
+    "All 17 pairs compare different author IDs. The 34 posts use 34 distinct accounts, with no author reused in this release.",
+    "Accounts were limited to 100–200,000 source-reported followers, and the selection avoids recognized celebrity and organizational accounts. This does not independently verify account ownership or representativeness.",
+    "Cross-author questions can be affected by author recognition, audience size, posting time, paid promotion and external amplification. Author reach is only approximately matched; the largest source-reported follower ratio is 11.75 to one.",
+    "Pair creation times differ by at most 80.90 hours. This is not a fixed-post-age experiment.",
+    "Views are cumulative snapshots captured at post ages between 7.46 and 174.92 days. They are not unique viewers, causal content effects or 48-hour view outcomes.",
+    "Search/date/language operators are not fully reliable upstream. Actual returned timestamps, language and content were checked for the selected records.",
+    "The normalized source does not expose a reliable quote-post flag. Selected text and images were reviewed to stand alone, but quote status and original X pages/counts were not independently verified.",
+    "Original text is preserved in text. For photo posts, displayText omits one trailing t.co token as an attachment-link rendering convention; source entity mapping is unavailable.",
+    "Pair captions total 8–64 words, with additional words inside some images. One 15-second window combines viewing and choosing with posts always visible; this also measures reading, scanning and image interpretation. Timing has not been calibrated with users.",
+    "All eight selected photo files were downloaded and visually reviewed for visible engagement/outcome leaks; original bytes, dimensions and SHA-256 hashes are preserved. Responsive rendering and preload must be verified by app integration.",
+    "Authors, handles and avatars are visible. Followers and engagement are excluded from initial client stimuli. After every answer or timeout, replies, reposts, likes and impressions are revealed for both posts. Preload and decode all content images before the round; failed-load rounds must not receive a score.",
+    "1 posts also appeared in v0.3.0. This is development/pilot data without a registered held-out split; prior exposure can affect results.",
+    "Two ordered practice rounds are unscored, followed by 15 scored rounds. Every round uses a single 15,000 ms viewing/decision window, followed by 2,500 ms feedback and automatic advance. Feedback after scored answers can teach strategies within a run, so this protocol does not isolate unaided intuition and must not be pooled with previous protocols.",
+    "Engagement is copied from one provider snapshot per post: replies=replyCount, reposts=retweetCount (excluding quoteCount), likes=likeCount, and impressions=viewCount. Server-side views equals impressions. No absent counts are converted to zero; original X counters were not independently authenticated.",
+    "Three or more scored posts were deliberately selected with at least 10 million captured views; this is further selection on outcomes, not random discovery.",
+    "No human percentiles or AI scores are supplied by this dataset. Do not pool older same-author/timer protocols with this cross-author high-reach release.",
+    "The server bank contains outcomes and source URLs. Keep it private; use only the display export for the browser and model inference."
+  ],
+  "practice": [
+    {
+      "id": "practice-01",
+      "left": {
+        "id": "2105849104840753403",
+        "text": "if a man writes a woman a poem, he loves her\n\nif a man writes a woman 763 poems, he loves poetry",
+        "displayText": "if a man writes a woman a poem, he loves her\n\nif a man writes a woman 763 poems, he loves poetry",
+        "author": {
+          "id": "960051487064944640",
+          "name": "Danish Hussain",
+          "handle": "astrodanish",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/1033848977261830144/9tC3wV4k_normal.jpg",
+          "verified": true
+        },
+        "media": [],
+        "url": "https://x.com/i/web/status/2105849104840753403",
+        "views": 4972689,
+        "createdAt": "2026-10-02T02:35:26Z",
+        "capturedAt": "2026-10-28T06:15:53.410Z",
+        "engagement": {
+          "replies": 588,
+          "reposts": 8833,
+          "likes": 165389,
+          "impressions": 4972689
+        }
+      },
+      "right": {
+        "id": "2105906812545630651",
+        "text": "I'm putting my 6 yo to bed and he says, \"Dad, I have kidneys. You have Dadneys.\"\nI'm. So. Proud.",
+        "displayText": "I'm putting my 6 yo to bed and he says, \"Dad, I have kidneys. You have Dadneys.\"\nI'm. So. Proud.",
+        "author": {
+          "id": "849732866070110208",
+          "name": "Boo",
+          "handle": "333too3",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/1407103544583352320/j7Y8Mptx_normal.jpg",
+          "verified": true
+        },
+        "media": [],
+        "url": "https://x.com/i/web/status/2105906812545630651",
+        "views": 1454441,
+        "createdAt": "2026-10-02T06:24:44Z",
+        "capturedAt": "2026-10-28T06:15:53.410Z",
+        "engagement": {
+          "replies": 308,
+          "reposts": 10471,
+          "likes": 144819,
+          "impressions": 1454441
+        }
+      },
+      "matching": {
+        "strategy": "cross-author",
+        "topic": "Wordplay and everyday humor",
+        "contentType": "text",
+        "createdGapHours": 3.8217,
+        "wordCountDifference": 2,
+        "viewRatio": 3.419,
+        "authorFollowerRatio": 6.1285
+      }
+    },
+    {
+      "id": "practice-02",
+      "left": {
+        "id": "2112551136175808794",
+        "text": "My 19yr old coworker giving me new pirate sites https://t.co/fMJxgt8gVh",
+        "displayText": "My 19yr old coworker giving me new pirate sites",
+        "author": {
+          "id": "1448721185546637321",
+          "name": "E-Thang",
+          "handle": "Ethan7182954",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2095941264432611337/URT1n6Ag_normal.jpg",
+          "verified": false
+        },
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HVFKD8PWAAAnQI8.jpg",
+            "width": 516,
+            "height": 572,
+            "alt": "An older photograph of adult runners following a child, with a caption about learning from someone younger.",
+            "assetFile": "media/2112551136175808794.jpg",
+            "sha256": "abb5fc777ef5def54f3777cb18ea8763491eb70b2b70344d3a4e599669e0496c"
+          }
+        ],
+        "url": "https://x.com/Ethan7182954/status/2112551136175808794",
+        "views": 638605,
+        "createdAt": "2026-10-20T14:26:54Z",
+        "capturedAt": "2026-10-28T08:02:37.221Z",
+        "engagement": {
+          "replies": 46,
+          "reposts": 5501,
+          "likes": 94435,
+          "impressions": 638605
+        }
+      },
+      "right": {
+        "id": "2112649169605448154",
+        "text": "Did absolutely nothing at work today https://t.co/wjilK0P1JE",
+        "displayText": "Did absolutely nothing at work today",
+        "author": {
+          "id": "1122971175393665029",
+          "name": "chavua lipa",
+          "handle": "balkanchav",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2103305670334263296/VOw6cBt5_normal.jpg",
+          "verified": false
+        },
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HVGjOPFawAA5tWe.jpg",
+            "width": 1200,
+            "height": 676,
+            "alt": "A person sitting at a desk with a computer, phone and papers in an office.",
+            "assetFile": "media/2112649169605448154.jpg",
+            "sha256": "7c02691bba62171d1baa4a691aeb0b358718df589dd9591ccc292d9c7725b422"
+          }
+        ],
+        "url": "https://x.com/balkanchav/status/2112649169605448154",
+        "views": 902425,
+        "createdAt": "2026-10-20T20:56:27Z",
+        "capturedAt": "2026-10-28T08:01:09.755Z",
+        "engagement": {
+          "replies": 53,
+          "reposts": 5114,
+          "likes": 80476,
+          "impressions": 902425
+        }
+      },
+      "matching": {
+        "strategy": "cross-author",
+        "topic": "Everyday work humor",
+        "contentType": "image",
+        "createdGapHours": 6.4925,
+        "wordCountDifference": 3,
+        "viewRatio": 1.4131,
+        "authorFollowerRatio": 11.7519
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "id": "reach-01",
+      "left": {
+        "id": "2112333916770013187",
+        "text": "I don’t know how the AT&T people at Costco do it man. Just sit there all day  constantly getting denied and ignored. Gritty.",
+        "displayText": "I don’t know how the AT&T people at Costco do it man. Just sit there all day  constantly getting denied and ignored. Gritty.",
+        "author": {
+          "id": "1058076689065013248",
+          "name": "baskin",
+          "handle": "alltimegoober",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2087599894529798144/j_DaP3wm_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/alltimegoober/status/2112333916770013187",
+        "views": 1279466,
+        "createdAt": "2026-10-20T00:03:45Z",
+        "capturedAt": "2026-10-28T08:02:16.789Z",
+        "engagement": {
+          "replies": 245,
+          "reposts": 963,
+          "likes": 62177,
+          "impressions": 1279466
+        }
+      },
+      "right": {
+        "id": "2112410984694558801",
+        "text": "Can we talk about the guilt that comes with calling in sick at work? 😭",
+        "displayText": "Can we talk about the guilt that comes with calling in sick at work? 😭",
+        "author": {
+          "id": "1153448461",
+          "name": "Chiko Biscuit ✨",
+          "handle": "Rainbow_Wxtch",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2107401900903567360/GN1fjJYG_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/Rainbow_Wxtch/status/2112410984694558801",
+        "views": 3369507,
+        "createdAt": "2026-10-20T05:10:00Z",
+        "capturedAt": "2026-10-28T08:00:41.435Z",
+        "engagement": {
+          "replies": 871,
+          "reposts": 1728,
+          "likes": 12719,
+          "impressions": 3369507
+        }
+      },
+      "matching": {
+        "strategy": "cross-author",
+        "topic": "Work and daily routines",
+        "contentType": "text",
+        "createdGapHours": 5.1042,
+        "wordCountDifference": 8,
+        "viewRatio": 2.6335,
+        "authorFollowerRatio": 4.6864
+      }
+    },
+    {
+      "id": "reach-02",
+      "left": {
+        "id": "2112593060836323499",
+        "text": "The literacy crisis isn’t that people can’t read the words. It’s that they can’t understand the context, infer meaning, recognise nuance, identify contradictions, or draw logical conclusions from what they’ve read",
+        "displayText": "The literacy crisis isn’t that people can’t read the words. It’s that they can’t understand the context, infer meaning, recognise nuance, identify contradictions, or draw logical conclusions from what they’ve read",
+        "author": {
+          "id": "2083125055018475520",
+          "name": ".",
+          "handle": "Omgemeraldddd",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2087307980752433153/-pXqlizw_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/Omgemeraldddd/status/2112593060836323499",
+        "views": 1429386,
+        "createdAt": "2026-10-20T17:13:30Z",
+        "capturedAt": "2026-10-28T08:02:16.789Z",
+        "engagement": {
+          "replies": 372,
+          "reposts": 41253,
+          "likes": 168482,
+          "impressions": 1429386
+        }
+      },
+      "right": {
+        "id": "2112558163774038029",
+        "text": "i'm so jealous of those people who speak like so smartly like what the fuck was that word you just said and where did you learn it",
+        "displayText": "i'm so jealous of those people who speak like so smartly like what the fuck was that word you just said and where did you learn it",
+        "author": {
+          "id": "2053008125079199753",
+          "name": "mia.",
+          "handle": "dreamsickang3l",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2112517151391166465/wY3Vgqf1_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/dreamsickang3l/status/2112558163774038029",
+        "views": 1076412,
+        "createdAt": "2026-10-20T14:54:50Z",
+        "capturedAt": "2026-10-28T08:02:16.789Z",
+        "engagement": {
+          "replies": 138,
+          "reposts": 16175,
+          "likes": 73090,
+          "impressions": 1076412
+        }
+      },
+      "matching": {
+        "strategy": "cross-author",
+        "topic": "Reading and language",
+        "contentType": "text",
+        "createdGapHours": 2.3111,
+        "wordCountDifference": 4,
+        "viewRatio": 1.3279,
+        "authorFollowerRatio": 5.6137
+      }
+    },
+    {
+      "id": "reach-03",
+      "left": {
+        "id": "2111822378611408978",
+        "text": "As a woman you have to choose between being skinny and looking good in clothes, or having a little extra fat and looking good naked",
+        "displayText": "As a woman you have to choose between being skinny and looking good in clothes, or having a little extra fat and looking good naked",
+        "author": {
+          "id": "1465928304679075846",
+          "name": "🧘🏻‍♀️🪷",
+          "handle": "stwrawrbewry",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2098401022578417665/U1oijabf_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/stwrawrbewry/status/2111822378611408978",
+        "views": 1614574,
+        "createdAt": "2026-10-18T14:11:05Z",
+        "capturedAt": "2026-10-28T08:04:51.243Z",
+        "engagement": {
+          "replies": 244,
+          "reposts": 2200,
+          "likes": 53089,
+          "impressions": 1614574
+        }
+      },
+      "right": {
+        "id": "2111873765512491348",
+        "text": "my friend (lesbian) got a boob job and they shaved her armpits without asking her. im trying to convince her she has grounds to sue",
+        "displayText": "my friend (lesbian) got a boob job and they shaved her armpits without asking her. im trying to convince her she has grounds to sue",
+        "author": {
+          "id": "1815899837365161984",
+          "name": "TS lars ulrich 🏳️‍⚧️",
+          "handle": "sweetjewishgirl",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2031109068371243009/Jb0ZiwJc_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/sweetjewishgirl/status/2111873765512491348",
+        "views": 4466772,
+        "createdAt": "2026-10-18T17:35:17Z",
+        "capturedAt": "2026-10-28T08:00:48.739Z",
+        "engagement": {
+          "replies": 235,
+          "reposts": 514,
+          "likes": 50994,
+          "impressions": 4466772
+        }
+      },
+      "matching": {
+        "strategy": "cross-author",
+        "topic": "Personal appearance and social anecdotes",
+        "contentType": "text",
+        "createdGapHours": 3.4033,
+        "wordCountDifference": 0,
+        "viewRatio": 2.7665,
+        "authorFollowerRatio": 2.0436
+      }
+    },
+    {
+      "id": "reach-04",
+      "left": {
+        "id": "2106025949519130642",
+        "text": "I have started ignoring girls who dont ask questions back in messages and and it has made my life a lot better",
+        "displayText": "I have started ignoring girls who dont ask questions back in messages and and it has made my life a lot better",
+        "author": {
+          "id": "1479990595875651584",
+          "name": "🕵🏻‍♂️",
+          "handle": "killwinstanley",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2089375288857653248/F3Ss5G1X_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/killwinstanley/status/2106025949519130642",
+        "views": 2911905,
+        "createdAt": "2026-10-02T14:18:09Z",
+        "capturedAt": "2026-10-28T06:19:03.266Z",
+        "engagement": {
+          "replies": 423,
+          "reposts": 9254,
+          "likes": 79838,
+          "impressions": 2911905
+        }
+      },
+      "right": {
+        "id": "2106061621756060057",
+        "text": "Adulthood is realizing you can no longer invite friends to a party without also inviting their romantic support staff",
+        "displayText": "Adulthood is realizing you can no longer invite friends to a party without also inviting their romantic support staff",
+        "author": {
+          "id": "2310773724",
+          "name": "Yikes is my catchphrase",
+          "handle": "big_yyikes",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2064834096807739393/2gFCk3X2_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/big_yyikes/status/2106061621756060057",
+        "views": 469559,
+        "createdAt": "2026-10-02T16:39:54Z",
+        "capturedAt": "2026-10-28T06:20:37.131Z",
+        "engagement": {
+          "replies": 55,
+          "reposts": 1028,
+          "likes": 30761,
+          "impressions": 469559
+        }
+      },
+      "matching": {
+        "strategy": "cross-author",
+        "topic": "Dating and relationships",
+        "contentType": "text",
+        "createdGapHours": 2.3625,
+        "wordCountDifference": 3,
+        "viewRatio": 6.2014,
+        "authorFollowerRatio": 4.6475
+      }
+    },
+    {
+      "id": "reach-05",
+      "left": {
+        "id": "2111832011447181687",
+        "text": "When my husband worked in the psych ward he had one patient who was committed because she thought she was being gangstalked. Except, there was very compelling evidence that she was actually being gangstalked.",
+        "displayText": "When my husband worked in the psych ward he had one patient who was committed because she thought she was being gangstalked. Except, there was very compelling evidence that she was actually being gangstalked.",
+        "author": {
+          "id": "1234659774014382081",
+          "name": "ned!",
+          "handle": "nedsore",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/1920122461447766016/-41LevNy_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/nedsore/status/2111832011447181687",
+        "views": 2527228,
+        "createdAt": "2026-10-18T14:49:22Z",
+        "capturedAt": "2026-10-28T08:04:51.243Z",
+        "engagement": {
+          "replies": 161,
+          "reposts": 3581,
+          "likes": 137638,
+          "impressions": 2527228
+        }
+      },
+      "right": {
+        "id": "2112245420655358140",
+        "text": "Trying to harass my best friend into getting a fill before her trip (her man is proposing) and this stubborn hoe talking about “I don’t need a fill yet” 😭😭😭",
+        "displayText": "Trying to harass my best friend into getting a fill before her trip (her man is proposing) and this stubborn hoe talking about “I don’t need a fill yet” 😭😭😭",
+        "author": {
+          "id": "866903113",
+          "name": "dre",
+          "handle": "veraliciousssss",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2087186682684846081/2gt4K2nV_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/veraliciousssss/status/2112245420655358140",
+        "views": 1607806,
+        "createdAt": "2026-10-19T18:12:06Z",
+        "capturedAt": "2026-10-28T08:00:48.739Z",
+        "engagement": {
+          "replies": 253,
+          "reposts": 1088,
+          "likes": 74625,
+          "impressions": 1607806
+        }
+      },
+      "matching": {
+        "strategy": "cross-author",
+        "topic": "Stories about people close to us",
+        "contentType": "text",
+        "createdGapHours": 27.3789,
+        "wordCountDifference": 4,
+        "viewRatio": 1.5718,
+        "authorFollowerRatio": 1.7657
+      }
+    },
+    {
+      "id": "reach-06",
+      "left": {
+        "id": "2106112191384658220",
+        "text": "Girl who is still weird: I was so weird back then",
+        "displayText": "Girl who is still weird: I was so weird back then",
+        "author": {
+          "id": "1376968537512701953",
+          "name": "g",
+          "handle": "34rths",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/1645905896076382210/j4zj3Mca_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/i/web/status/2106112191384658220",
+        "views": 1761867,
+        "createdAt": "2026-10-02T20:00:50Z",
+        "capturedAt": "2026-10-28T06:15:53.410Z",
+        "engagement": {
+          "replies": 187,
+          "reposts": 34974,
+          "likes": 170883,
+          "impressions": 1761867
+        }
+      },
+      "right": {
+        "id": "2106077308348191094",
+        "text": "that weird girl whos like 3 different types of animal and also an angel on the internet will save you btw",
+        "displayText": "that weird girl whos like 3 different types of animal and also an angel on the internet will save you btw",
+        "author": {
+          "id": "1196078976235712513",
+          "name": "🐇🐾sammie",
+          "handle": "bunnymoder_",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2093751109256921088/tBhQnp5z_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/bunnymoder_/status/2106077308348191094",
+        "views": 113216,
+        "createdAt": "2026-10-02T17:42:13Z",
+        "capturedAt": "2026-10-28T06:19:23.032Z",
+        "engagement": {
+          "replies": 30,
+          "reposts": 1398,
+          "likes": 7820,
+          "impressions": 113216
+        }
+      },
+      "matching": {
+        "strategy": "cross-author",
+        "topic": "Internet identity and being unusual",
+        "contentType": "text",
+        "createdGapHours": 2.3103,
+        "wordCountDifference": 10,
+        "viewRatio": 15.562,
+        "authorFollowerRatio": 10.2727
+      }
+    },
+    {
+      "id": "reach-07",
+      "left": {
+        "id": "2106010795499028525",
+        "text": "hey everyone i discovered a life hack that's absolutely game changing.\n\ngo to your browser of choice. type in an animal. than click 'images'.",
+        "displayText": "hey everyone i discovered a life hack that's absolutely game changing.\n\ngo to your browser of choice. type in an animal. than click 'images'.",
+        "author": {
+          "id": "1682425948887478274",
+          "name": "werner | 🐆🛰️",
+          "handle": "fermiidirac",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2097898508070092811/5CCeMWZm_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/fermiidirac/status/2106010795499028525",
+        "views": 329441,
+        "createdAt": "2026-10-02T13:17:56Z",
+        "capturedAt": "2026-10-28T06:19:03.266Z",
+        "engagement": {
+          "replies": 120,
+          "reposts": 1957,
+          "likes": 20209,
+          "impressions": 329441
+        }
+      },
+      "right": {
+        "id": "2105262913879425066",
+        "text": "That laptop you refused to properly shutdown will sleep and not wake up one day. Continue! 👍",
+        "displayText": "That laptop you refused to properly shutdown will sleep and not wake up one day. Continue! 👍",
+        "author": {
+          "id": "1830527313143848960",
+          "name": "molola🫧🌸",
+          "handle": "Lolaschanne",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2101195457942761472/ZblXxApH_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/Lolaschanne/status/2105262913879425066",
+        "views": 1787268,
+        "createdAt": "2026-09-30T11:46:07Z",
+        "capturedAt": "2026-10-28T08:02:23.533Z",
+        "engagement": {
+          "replies": 1506,
+          "reposts": 4470,
+          "likes": 58589,
+          "impressions": 1787268
+        }
+      },
+      "matching": {
+        "strategy": "cross-author",
+        "topic": "Digital habits and everyday technology",
+        "contentType": "text",
+        "createdGapHours": 49.5303,
+        "wordCountDifference": 7,
+        "viewRatio": 5.4252,
+        "authorFollowerRatio": 3.2178
+      }
+    },
+    {
+      "id": "viral-twitter",
+      "left": {
+        "id": "2088270464095305815",
+        "text": "i love how everyone still calls twitter twitter",
+        "displayText": "i love how everyone still calls twitter twitter",
+        "author": {
+          "id": "2029666113324232704",
+          "name": "ren ᶻ𝗓𐰁",
+          "handle": "acorpseofagirl",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2110907947144368128/R1RxOhd4_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/acorpseofagirl/status/2088270464095305815",
+        "views": 14821801,
+        "createdAt": "2026-08-14T14:24:11Z",
+        "capturedAt": "2026-10-29T00:20:11.776Z",
+        "engagement": {
+          "replies": 2226,
+          "reposts": 88988,
+          "likes": 881818,
+          "impressions": 14821801
+        }
+      },
+      "right": {
+        "id": "2087562238664028343",
+        "text": "when trump dies the first thing im doing is opening twitter",
+        "displayText": "when trump dies the first thing im doing is opening twitter",
+        "author": {
+          "id": "1424929317063208974",
+          "name": "kalisa ᢉ𐭩",
+          "handle": "ms_d0pamine",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2105101306679504896/pvlTFmAz_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/ms_d0pamine/status/2087562238664028343",
+        "views": 4215314,
+        "createdAt": "2026-08-12T15:29:57Z",
+        "capturedAt": "2026-10-29T00:20:11.776Z",
+        "engagement": {
+          "replies": 641,
+          "reposts": 47736,
+          "likes": 407764,
+          "impressions": 4215314
+        }
+      },
+      "matching": {
+        "strategy": "cross-author",
+        "topic": "Twitter naming and audience reactions",
+        "contentType": "text",
+        "createdGapHours": 46.9039,
+        "wordCountDifference": 3,
+        "viewRatio": 3.5162,
+        "authorFollowerRatio": 1.2547
+      }
+    },
+    {
+      "id": "reach-09",
+      "left": {
+        "id": "2105954444869587378",
+        "text": "my advice to toddlers is to start saving your money now.",
+        "displayText": "my advice to toddlers is to start saving your money now.",
+        "author": {
+          "id": "1388860668506411011",
+          "name": "Buhle",
+          "handle": "Guluvakazi_sa",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2100581961018257408/EwcIorqz_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/Guluvakazi_sa/status/2105954444869587378",
+        "views": 1276655,
+        "createdAt": "2026-10-02T09:34:01Z",
+        "capturedAt": "2026-10-28T08:04:58.286Z",
+        "engagement": {
+          "replies": 238,
+          "reposts": 13932,
+          "likes": 78906,
+          "impressions": 1276655
+        }
+      },
+      "right": {
+        "id": "2104882126361419829",
+        "text": "Name a business that will always make money regardless of how bad the economy gets",
+        "displayText": "Name a business that will always make money regardless of how bad the economy gets",
+        "author": {
+          "id": "283427229",
+          "name": "Mankhumiše 🤍",
+          "handle": "Ms_Logical",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/1985227173439897600/bnG-TB7O_normal.jpg",
+          "verified": true
+        },
+        "media": [],
+        "url": "https://x.com/Ms_Logical/status/2104882126361419829",
+        "views": 8211513,
+        "createdAt": "2026-09-29T10:33:00Z",
+        "capturedAt": "2026-10-28T08:04:58.286Z",
+        "engagement": {
+          "replies": 12348,
+          "reposts": 2358,
+          "likes": 48928,
+          "impressions": 8211513
+        }
+      },
+      "matching": {
+        "strategy": "cross-author",
+        "topic": "Money and the economy",
+        "contentType": "text",
+        "createdGapHours": 71.0169,
+        "wordCountDifference": 4,
+        "viewRatio": 6.4321,
+        "authorFollowerRatio": 4.9254
+      }
+    },
+    {
+      "id": "reach-10",
+      "left": {
+        "id": "2111423181063946740",
+        "text": "i just looked up how much money doctors make in the US are y'all fucking insane",
+        "displayText": "i just looked up how much money doctors make in the US are y'all fucking insane",
+        "author": {
+          "id": "1510376773724393473",
+          "name": "mir🇵🇸🇺🇦",
+          "handle": "Mirs_____",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2112478572778606592/Ochv-0aJ_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/Mirs_____/status/2111423181063946740",
+        "views": 8026998,
+        "createdAt": "2026-10-17T11:44:49Z",
+        "capturedAt": "2026-10-28T08:04:58.286Z",
+        "engagement": {
+          "replies": 476,
+          "reposts": 1776,
+          "likes": 142245,
+          "impressions": 8026998
+        }
+      },
+      "right": {
+        "id": "2112174235095339304",
+        "text": "just bought 3 rolex's at 40% under market\n\nall being shipped from france this week",
+        "displayText": "just bought 3 rolex's at 40% under market\n\nall being shipped from france this week",
+        "author": {
+          "id": "1386542533124272128",
+          "name": "schmosby",
+          "handle": "schmosby_xbt",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/1872076784583249921/-hsw7jZH_normal.jpg",
+          "verified": true
+        },
+        "media": [],
+        "url": "https://x.com/schmosby_xbt/status/2112174235095339304",
+        "views": 1389063,
+        "createdAt": "2026-10-19T13:29:14Z",
+        "capturedAt": "2026-10-28T08:04:51.243Z",
+        "engagement": {
+          "replies": 411,
+          "reposts": 1652,
+          "likes": 60575,
+          "impressions": 1389063
+        }
+      },
+      "matching": {
+        "strategy": "cross-author",
+        "topic": "Income and spending",
+        "contentType": "text",
+        "createdGapHours": 49.7403,
+        "wordCountDifference": 1,
+        "viewRatio": 5.7787,
+        "authorFollowerRatio": 6.7237
+      }
+    },
+    {
+      "id": "viral-virus-text",
+      "left": {
+        "id": "2052315315212624354",
+        "text": "2014: Ebola Virus\n2020: Covid 19 virus\n2026: Hentavirus\n\nNotice anything?",
+        "displayText": "2014: Ebola Virus\n2020: Covid 19 virus\n2026: Hentavirus\n\nNotice anything?",
+        "author": {
+          "id": "1258999863376740352",
+          "name": "tkon™️",
+          "handle": "sheluvstkon",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/1833538290600820736/wPn6pYGH_normal.jpg",
+          "verified": true
+        },
+        "media": [],
+        "url": "https://x.com/sheluvstkon/status/2052315315212624354",
+        "views": 3921878,
+        "createdAt": "2026-05-07T09:11:15Z",
+        "capturedAt": "2026-10-29T00:17:31.065Z",
+        "engagement": {
+          "replies": 3447,
+          "reposts": 4874,
+          "likes": 57904,
+          "impressions": 3921878
+        }
+      },
+      "right": {
+        "id": "2052211394096042179",
+        "text": "I’m not dying from some fucking hentai virus",
+        "displayText": "I’m not dying from some fucking hentai virus",
+        "author": {
+          "id": "971761",
+          "name": "dan nolan",
+          "handle": "dannolan",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/1155413896972234754/RyEHEpC6_normal.jpg",
+          "verified": true
+        },
+        "media": [],
+        "url": "https://x.com/dannolan/status/2052211394096042179",
+        "views": 10230865,
+        "createdAt": "2026-05-07T02:18:19Z",
+        "capturedAt": "2026-10-29T00:17:31.065Z",
+        "engagement": {
+          "replies": 1554,
+          "reposts": 82365,
+          "likes": 622965,
+          "impressions": 10230865
+        }
+      },
+      "matching": {
+        "strategy": "cross-author",
+        "topic": "Humorous reactions to a new virus",
+        "contentType": "text",
+        "createdGapHours": 6.8822,
+        "wordCountDifference": 3,
+        "viewRatio": 2.6087,
+        "authorFollowerRatio": 4.152
+      }
+    },
+    {
+      "id": "reach-12",
+      "left": {
+        "id": "2112246423064645828",
+        "text": "People my age: i need to get serious about settling down and starting a family\n\nMe: i need to get serious about watching movies again",
+        "displayText": "People my age: i need to get serious about settling down and starting a family\n\nMe: i need to get serious about watching movies again",
+        "author": {
+          "id": "806976170541465600",
+          "name": "angela",
+          "handle": "horrorcomedies",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2077893190183772160/A5OJuUNy_normal.jpg",
+          "verified": false
+        },
+        "media": [],
+        "url": "https://x.com/horrorcomedies/status/2112246423064645828",
+        "views": 1014335,
+        "createdAt": "2026-10-19T18:16:05Z",
+        "capturedAt": "2026-10-28T08:02:16.789Z",
+        "engagement": {
+          "replies": 85,
+          "reposts": 18827,
+          "likes": 122420,
+          "impressions": 1014335
+        }
+      },
+      "right": {
+        "id": "2111523329781715176",
+        "text": "I cannot tell you how uninterested I am in flying cars when people who work 40+ hours a week can't afford rent or groceries.",
+        "displayText": "I cannot tell you how uninterested I am in flying cars when people who work 40+ hours a week can't afford rent or groceries.",
+        "author": {
+          "id": "1183539821609996288",
+          "name": "𝕯𝖞𝖑𝖆𝖓™",
+          "handle": "Dylanszn01",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2096694529315266560/c8ID5I1f_normal.jpg",
+          "verified": true
+        },
+        "media": [],
+        "url": "https://x.com/Dylanszn01/status/2111523329781715176",
+        "views": 798752,
+        "createdAt": "2026-10-17T18:22:46Z",
+        "capturedAt": "2026-10-28T08:02:16.789Z",
+        "engagement": {
+          "replies": 879,
+          "reposts": 17885,
+          "likes": 115021,
+          "impressions": 798752
+        }
+      },
+      "matching": {
+        "strategy": "cross-author",
+        "topic": "Personal priorities and modern life",
+        "contentType": "text",
+        "createdGapHours": 47.8886,
+        "wordCountDifference": 1,
+        "viewRatio": 1.2699,
+        "authorFollowerRatio": 1.5779
+      }
+    },
+    {
+      "id": "reach-13",
+      "left": {
+        "id": "2112538493431787531",
+        "text": "my vent art https://t.co/RgS03AfuTb",
+        "displayText": "my vent art",
+        "author": {
+          "id": "1898901146552680448",
+          "name": "Kin (キン)",
+          "handle": "KinNyaan",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2104297752431661056/znKRYawW_normal.jpg",
+          "verified": false
+        },
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HVE-S6HWcAAW3mw.png",
+            "width": 749,
+            "height": 509,
+            "alt": "An internet connection error screenshot annotated to point out that the computer reports a connection.",
+            "assetFile": "media/2112538493431787531.png",
+            "sha256": "021f4081e09ba7b02d80144cc45b0c7aea8efafb33766b7342b34e53a1e1bd4a"
+          }
+        ],
+        "url": "https://x.com/KinNyaan/status/2112538493431787531",
+        "views": 235332,
+        "createdAt": "2026-10-20T13:36:40Z",
+        "capturedAt": "2026-10-28T08:02:30.923Z",
+        "engagement": {
+          "replies": 52,
+          "reposts": 9039,
+          "likes": 54642,
+          "impressions": 235332
+        }
+      },
+      "right": {
+        "id": "2112465446368911840",
+        "text": "my kinda specific vent art https://t.co/xrPoNZVXik",
+        "displayText": "my kinda specific vent art",
+        "author": {
+          "id": "1909158590306254848",
+          "name": "rami",
+          "handle": "ramidrawzz",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2072176553325150209/CHUMNwve_normal.jpg",
+          "verified": false
+        },
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HVD8DWNX0AALIoH.png",
+            "width": 849,
+            "height": 441,
+            "alt": "A drawing showing three versions of a character labelled Concept art, First game and Latest game.",
+            "assetFile": "media/2112465446368911840.png",
+            "sha256": "bbd2b6eda280630835284cef31fe837ba77b27d1ed55c2215ed9542e8bae6f42"
+          }
+        ],
+        "url": "https://x.com/ramidrawzz/status/2112465446368911840",
+        "views": 2309493,
+        "createdAt": "2026-10-20T08:46:24Z",
+        "capturedAt": "2026-10-28T08:02:30.923Z",
+        "engagement": {
+          "replies": 270,
+          "reposts": 3850,
+          "likes": 53305,
+          "impressions": 2309493
+        }
+      },
+      "matching": {
+        "strategy": "cross-author",
+        "topic": "Creative vent art about games and technology",
+        "contentType": "image",
+        "createdGapHours": 4.8378,
+        "wordCountDifference": 2,
+        "viewRatio": 9.8138,
+        "authorFollowerRatio": 1.7221
+      }
+    },
+    {
+      "id": "reach-14",
+      "left": {
+        "id": "2112540906264101014",
+        "text": "every time i post my thoughts or feelings i think of this https://t.co/oYF3DkgcUF",
+        "displayText": "every time i post my thoughts or feelings i think of this",
+        "author": {
+          "id": "2097042099535302656",
+          "name": "𓏲🪽",
+          "handle": "nymphejpg",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2115219573469216768/YdM99s_-_normal.jpg",
+          "verified": false
+        },
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HVFAwWqXMAAhLaK.jpg",
+            "width": 1200,
+            "height": 408,
+            "alt": "Two online comments, one about never having been loved and another asking if the journal factory exploded.",
+            "assetFile": "media/2112540906264101014.jpg",
+            "sha256": "78964f4c05d4c792f2319b5ffca3378ccd2bfc245364330c91000768a078ecd8"
+          }
+        ],
+        "url": "https://x.com/nymphejpg/status/2112540906264101014",
+        "views": 1061505,
+        "createdAt": "2026-10-20T13:46:15Z",
+        "capturedAt": "2026-10-28T08:02:30.923Z",
+        "engagement": {
+          "replies": 59,
+          "reposts": 13021,
+          "likes": 148996,
+          "impressions": 1061505
+        }
+      },
+      "right": {
+        "id": "2112461574195781691",
+        "text": "how life should be treating me https://t.co/9QGTn2K2Tp",
+        "displayText": "how life should be treating me",
+        "author": {
+          "id": "1846394266815549441",
+          "name": "AmperSand",
+          "handle": "TwinkLuvr28",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2111449714877247488/nYbRlqhZ_normal.jpg",
+          "verified": false
+        },
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HVD4krNbgAAhMBV.png",
+            "width": 372,
+            "height": 680,
+            "alt": "A two-panel cartoon showing characters talking and hugging on a sofa.",
+            "assetFile": "media/2112461574195781691.png",
+            "sha256": "7da2c6b77e18aebeb2d810d7831fd679071e242aec6fd3696fa00a318ae0115e"
+          }
+        ],
+        "url": "https://x.com/TwinkLuvr28/status/2112461574195781691",
+        "views": 333722,
+        "createdAt": "2026-10-20T08:31:01Z",
+        "capturedAt": "2026-10-28T08:02:37.221Z",
+        "engagement": {
+          "replies": 21,
+          "reposts": 1482,
+          "likes": 42121,
+          "impressions": 333722
+        }
+      },
+      "matching": {
+        "strategy": "cross-author",
+        "topic": "Feelings and companionship",
+        "contentType": "image",
+        "createdGapHours": 5.2539,
+        "wordCountDifference": 6,
+        "viewRatio": 3.1808,
+        "authorFollowerRatio": 2.3739
+      }
+    },
+    {
+      "id": "viral-reaction-image",
+      "left": {
+        "id": "2063994615578157528",
+        "text": "saying \"are our\" in a sentence https://t.co/9CD8naJnYj",
+        "displayText": "saying \"are our\" in a sentence",
+        "author": {
+          "id": "1639352455841341449",
+          "name": ".",
+          "handle": "playboicurrryy",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2093891371056996352/7XJZI3rU_normal.jpg",
+          "verified": false
+        },
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HKTIKnQbcAAmO1W.jpg",
+            "width": 887,
+            "height": 854,
+            "alt": "A seal faces the camera with its mouth held in a small round shape.",
+            "assetFile": "media/2063994615578157528.jpg",
+            "sha256": "8abfabf2c5926621eba410435f0c741bed9a82e4ef04f74024c03d78d240cb2a"
+          }
+        ],
+        "url": "https://x.com/playboicurrryy/status/2063994615578157528",
+        "views": 2268621,
+        "createdAt": "2026-06-08T14:40:38Z",
+        "capturedAt": "2026-10-29T00:18:27.212Z",
+        "engagement": {
+          "replies": 247,
+          "reposts": 24672,
+          "likes": 246113,
+          "impressions": 2268621
+        }
+      },
+      "right": {
+        "id": "2062773060474651086",
+        "text": "the way hantavirus saw nobody giving af and just left https://t.co/yKdKdJB3vI",
+        "displayText": "the way hantavirus saw nobody giving af and just left",
+        "author": {
+          "id": "217577887",
+          "name": "Eren 🎯",
+          "handle": "erenfromtargets",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2113828851713212416/OzDgbULS_normal.jpg",
+          "verified": false
+        },
+        "media": [
+          {
+            "type": "photo",
+            "url": "https://pbs.twimg.com/media/HKBxKtCW8AAp3AW.jpg",
+            "width": 1200,
+            "height": 975,
+            "alt": "A green fish with a human-like face stands alone outside a building in an underwater cartoon scene.",
+            "assetFile": "media/2062773060474651086.jpg",
+            "sha256": "12bd2b9a94fa39a61dc6e2a7af56d1a333926aba757a7105fedb6fb9130737d8"
+          }
+        ],
+        "url": "https://x.com/erenfromtargets/status/2062773060474651086",
+        "views": 18951622,
+        "createdAt": "2026-06-05T05:46:36Z",
+        "capturedAt": "2026-10-29T00:18:20.190Z",
+        "engagement": {
+          "replies": 2064,
+          "reposts": 67410,
+          "likes": 921208,
+          "impressions": 18951622
+        }
+      },
+      "matching": {
+        "strategy": "cross-author",
+        "topic": "Short captions with comic reaction images",
+        "contentType": "image",
+        "createdGapHours": 80.9006,
+        "wordCountDifference": 4,
+        "viewRatio": 8.3538,
+        "authorFollowerRatio": 1.8012
+      }
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "productName": "System 1 Bench",
+  "datasetVersion": "0.5.0",
+  "frozenAt": "2026-10-29T00:21:13.492079+00:00",
+  "timing": {
+    "roundMs": 15000,
+    "revealMs": 2500
+  },
+  "humanProtocolId": "human-15s-visible-feedback-cross-author-education2-v4",
+  "previousDatasetVersion": "0.4.1",
+  "changeType": "single visible round with feedback after each answer; viral additions and four recorded engagement metrics",
+  "tenMillionPlusScoredPosts": 3,
+  "engagementCompletePosts": 34,
+  "practicePairs": 2,
+  "scoredPairs": 15,
+  "uniquePosts": 34,
+  "uniqueAuthors": 34,
+  "crossAuthorPairs": 17,
+  "imageAssets": 8,
+  "minimumRequiredViews": 100000,
+  "observedViewMinimum": 113216,
+  "observedViewMedian": 1611190.0,
+  "observedViewMaximum": 18951622,
+  "millionPlusPosts": 26,
+  "newCollectionCostUSD": 0.0135,
+  "files": [
+    {
+      "path": "question-bank.server.json",
+      "sha256": "621b9d6dcb0589ff87e8e197fd40c4e9cbdcde03999317d4f44465c0d9a6890b",
+      "bytes": 45323
+    },
+    {
+      "path": "stimuli.client.json",
+      "sha256": "3c5eb984a75325928d44ddfcf1112e02b205cc3c48ae9344a0978b1b256415eb",
+      "bytes": 24911
+    },
+    {
+      "path": "audit.json",
+      "sha256": "7f537be10bda7fc50a216deb65e46a302ec5c0cb20633de0b04a28b6e4dc91a8",
+      "bytes": 11376
+    },
+    {
+      "path": "media-manifest.json",
+      "sha256": "9aba841977a773495fa66fa0844d5a308445e7611e770dacf94f18ab16fb79a1",
+      "bytes": 3223
+    },
+    {
+      "path": "media/2112551136175808794.jpg",
+      "sha256": "abb5fc777ef5def54f3777cb18ea8763491eb70b2b70344d3a4e599669e0496c",
+      "bytes": 45437
+    },
+    {
+      "path": "media/2112649169605448154.jpg",
+      "sha256": "7c02691bba62171d1baa4a691aeb0b358718df589dd9591ccc292d9c7725b422",
+      "bytes": 86144
+    },
+    {
+      "path": "media/2112538493431787531.png",
+      "sha256": "021f4081e09ba7b02d80144cc45b0c7aea8efafb33766b7342b34e53a1e1bd4a",
+      "bytes": 53714
+    },
+    {
+      "path": "media/2112465446368911840.png",
+      "sha256": "bbd2b6eda280630835284cef31fe837ba77b27d1ed55c2215ed9542e8bae6f42",
+      "bytes": 7916
+    },
+    {
+      "path": "media/2112540906264101014.jpg",
+      "sha256": "78964f4c05d4c792f2319b5ffca3378ccd2bfc245364330c91000768a078ecd8",
+      "bytes": 35277
+    },
+    {
+      "path": "media/2112461574195781691.png",
+      "sha256": "7da2c6b77e18aebeb2d810d7831fd679071e242aec6fd3696fa00a318ae0115e",
+      "bytes": 394100
+    },
+    {
+      "path": "media/2063994615578157528.jpg",
+      "sha256": "8abfabf2c5926621eba410435f0c741bed9a82e4ef04f74024c03d78d240cb2a",
+      "bytes": 37444
+    },
+    {
+      "path": "media/2062773060474651086.jpg",
+      "sha256": "12bd2b9a94fa39a61dc6e2a7af56d1a333926aba757a7105fedb6fb9130737d8",
+      "bytes": 63009
+    }
+  ]
+}
