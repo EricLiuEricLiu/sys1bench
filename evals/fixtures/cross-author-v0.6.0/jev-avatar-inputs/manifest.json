@@ -1,0 +1,350 @@
+{
+  "schema_version": "jev-avatar-pixels6x-v1",
+  "method": "Decode captured JPEG to RGB; repeat each pixel into an exact 6x6 block; write PNG. No crop, new detail, generation, sharpening or interpolation. Original source files remain untouched.",
+  "scope": "Jev API submission only; other models and human cards use original captured avatars. Different wire preprocessing is disclosed.",
+  "reason": "TypeSafe image API requires width and height at least 280 pixels.",
+  "source": "https://docs.typesafe.ai/images",
+  "pillow_version": "12.3.0",
+  "entries": [
+    {
+      "source_sha256": "be7d5148f4cf3d73ea3b2497cdb92e6c55118aa9f306e3da508da488ea2ceb7f",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "172c1309f3bc0fe99739632cc1915040632673442ae4b1517b8cae03dab3c03e.png",
+      "sha256": "172c1309f3bc0fe99739632cc1915040632673442ae4b1517b8cae03dab3c03e",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 9704
+    },
+    {
+      "source_sha256": "7c1ae0c29fa16a8aae2c4ff2801f650631d1d494b4a4b96c9ce2ebb418f9613d",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "b161de21ccd0bc10562b17731b72d1d9b3ef66d996336ef07009b6d04ec15b46.png",
+      "sha256": "b161de21ccd0bc10562b17731b72d1d9b3ef66d996336ef07009b6d04ec15b46",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 8245
+    },
+    {
+      "source_sha256": "c8b29f0e6c3d28b5e5d9ec8b10e7751e88801b79db41a90699b9522f7206a977",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "eb39b2027073362f366b79e57ab48d39d765ba8c6ae9ef14c79a816e23ebc26f.png",
+      "sha256": "eb39b2027073362f366b79e57ab48d39d765ba8c6ae9ef14c79a816e23ebc26f",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 8783
+    },
+    {
+      "source_sha256": "d3d629f3a7a064da230185eea6760cc122379be07aaa46c4d5e13da8a69aae47",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "75d808bf8b73baf7ba8df5b34dd9423919c3d3d8b6efe7a9594bb4d7772cf7f1.png",
+      "sha256": "75d808bf8b73baf7ba8df5b34dd9423919c3d3d8b6efe7a9594bb4d7772cf7f1",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 8087
+    },
+    {
+      "source_sha256": "427e5cbc2dbf4f75152a4bbe31b4080c4477e3e84096643ec2df0e5b56b921be",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "ac32fa5ff416c2dbf62343658b4158166102fe2a2fdab4d3d0712d4034bba56e.png",
+      "sha256": "ac32fa5ff416c2dbf62343658b4158166102fe2a2fdab4d3d0712d4034bba56e",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 9917
+    },
+    {
+      "source_sha256": "7bf14726ef2f2b9d4becd5889b7e37fb5c11ab74874b21952c4a51178a591dc0",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "ee2164e0ca3829189858e6a94a8a360c58e7481ecc8505fa4eff2dcfa77d4c6f.png",
+      "sha256": "ee2164e0ca3829189858e6a94a8a360c58e7481ecc8505fa4eff2dcfa77d4c6f",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 8984
+    },
+    {
+      "source_sha256": "7c2bb81c6bcfd3dc15f43f4d85dfe7aeda0e481b72bfac99ab0312b93d3accdb",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "34cc0de1fe88c7adbb02ea92b8e3ca3922049efa21da352baa217653adff6136.png",
+      "sha256": "34cc0de1fe88c7adbb02ea92b8e3ca3922049efa21da352baa217653adff6136",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 4998
+    },
+    {
+      "source_sha256": "e7d7787f3e4d4337c878700af83fc65f2ff7151f183ae811525517f6dec8401f",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "18b8bfd11fd79b550493909571aaa821cfed135b140f78b07d4b5dbd502f00ab.png",
+      "sha256": "18b8bfd11fd79b550493909571aaa821cfed135b140f78b07d4b5dbd502f00ab",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 9617
+    },
+    {
+      "source_sha256": "335c55b5cd8e26569c6d97eae2a441c7378d9af41958b677066cb848cc031e6b",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "9c9720e885fa574930cd2a34142bdc5a1ef8add693065b6b32c89ed85eff453e.png",
+      "sha256": "9c9720e885fa574930cd2a34142bdc5a1ef8add693065b6b32c89ed85eff453e",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 10147
+    },
+    {
+      "source_sha256": "a8c8781360ce84d787c73ba4f7ddf131548512ff89c6135074151979b7db909b",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "2cb8156dc958694c4471f3d49d53636fa10be895aae30506114805244e403672.png",
+      "sha256": "2cb8156dc958694c4471f3d49d53636fa10be895aae30506114805244e403672",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 8345
+    },
+    {
+      "source_sha256": "0de213eabaf3c6fd74c409e20b8730a8df8582e66d229a7097a346c19740f9ab",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "3d507bf90986be05d82feaeb38595740f489970968b1cfa48aa129e57f1beeb2.png",
+      "sha256": "3d507bf90986be05d82feaeb38595740f489970968b1cfa48aa129e57f1beeb2",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 9009
+    },
+    {
+      "source_sha256": "44a9386da2c2d2f05a5b08f219240e094c997fe25ab931cc14cefe405b50c7f0",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "eaf52618cf276ba414918bc2d0e936ddb620cf613128bebd9bbf7c6aec3b164a.png",
+      "sha256": "eaf52618cf276ba414918bc2d0e936ddb620cf613128bebd9bbf7c6aec3b164a",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 7707
+    },
+    {
+      "source_sha256": "1116d99a1c730d475f01959dfaeddafa6e41237f0190d6a79721a1abffd8537e",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "7fea544fe4679e0c7e0399962feef7840995d825375d5d4577222a809e73d49a.png",
+      "sha256": "7fea544fe4679e0c7e0399962feef7840995d825375d5d4577222a809e73d49a",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 9439
+    },
+    {
+      "source_sha256": "939e17280bebcb15e0e44f890c309aae0583e0724d26d7bc2aee4b399fb19d5d",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "d491c9320be580f656b3c42bb6988404d6d9bbe666b664f90aa074fca1857dd3.png",
+      "sha256": "d491c9320be580f656b3c42bb6988404d6d9bbe666b664f90aa074fca1857dd3",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 8085
+    },
+    {
+      "source_sha256": "aedbbd6dbbe6f37cb3d597dbd97a3e63bf4971972f903d7d7a22d4fbbc0decd2",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "6a786c8ec9e1bbc1bc69050084750be5dd8f2e4d39655a16ff599e8a9ee1adf8.png",
+      "sha256": "6a786c8ec9e1bbc1bc69050084750be5dd8f2e4d39655a16ff599e8a9ee1adf8",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 8642
+    },
+    {
+      "source_sha256": "683023159b0acf067e059635361109283664241f8c3facd077c70429bab1cfa4",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "a8fe2d77a697a8729496338204daece42748a7944bd14aa3c4d29fb042c8c7ba.png",
+      "sha256": "a8fe2d77a697a8729496338204daece42748a7944bd14aa3c4d29fb042c8c7ba",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 8460
+    },
+    {
+      "source_sha256": "d56c2b9e296ffa5c982be281c46a8521417b2db8eafa951dba0fddad788b8e62",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "0a8f6f3790f0e9cbdd7bc90f07507edcc33595caf00b907f0b23ad992db26ff7.png",
+      "sha256": "0a8f6f3790f0e9cbdd7bc90f07507edcc33595caf00b907f0b23ad992db26ff7",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 9263
+    },
+    {
+      "source_sha256": "1bc1fa5be0ddb3736b3b8351ee7a22f4a7ada927654bbf356e666139b079c177",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "6261588a971f4c6a65b8373d5b0342cb4477b59c1887b914a171db1e4769727b.png",
+      "sha256": "6261588a971f4c6a65b8373d5b0342cb4477b59c1887b914a171db1e4769727b",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 9125
+    },
+    {
+      "source_sha256": "4e6bf6a47983c8f1d7f92e9d51b07a626410df5764855d222d7990bab10042c8",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "067a8cce3fa6b4d10b23575b8f05c97691320ad546a7760b692c1e5b0796328e.png",
+      "sha256": "067a8cce3fa6b4d10b23575b8f05c97691320ad546a7760b692c1e5b0796328e",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 10078
+    },
+    {
+      "source_sha256": "8f158ea24b78715c4f4a792fd938b2b8680c0b71772af2d7680b6f9d80afd938",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "53d5a2c5ff8c39481abd84eed0d08be34b5dda3cbe814d4b94f9210f8c8cb89d.png",
+      "sha256": "53d5a2c5ff8c39481abd84eed0d08be34b5dda3cbe814d4b94f9210f8c8cb89d",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 9405
+    },
+    {
+      "source_sha256": "2dcbaff7dce0691f8f6fa2ee93f4aa8a7d1a4af31584c33469c98d4eda88b63e",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "e68ccb0f52a05e6282c00470a7bde8d8b60d2c57a3e05e6b5565b6459cf5271c.png",
+      "sha256": "e68ccb0f52a05e6282c00470a7bde8d8b60d2c57a3e05e6b5565b6459cf5271c",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 7771
+    },
+    {
+      "source_sha256": "885bd909f28829b0eaea8b1705f271f4c97451d98811356727a2e895d438774b",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "2887c7284a00e1b1326b63787e242e5b1d6aab7f68bb989fe7268625f29be666.png",
+      "sha256": "2887c7284a00e1b1326b63787e242e5b1d6aab7f68bb989fe7268625f29be666",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 4395
+    },
+    {
+      "source_sha256": "7917e204167fd7dd33f1c5f1705393cc7b486c566a712ba297df3efe42e44538",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "63a4d7198bd1812dfae9c31cd2fb991c42ab9dc319eea90185a63dfb8dcd8fed.png",
+      "sha256": "63a4d7198bd1812dfae9c31cd2fb991c42ab9dc319eea90185a63dfb8dcd8fed",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 6494
+    },
+    {
+      "source_sha256": "137536db908a5dbbcfc30755cd962f93171303e2549f44aac3963d18bdb40153",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "a17d43700441da968d310209254355dfee22640d909c0736b36d1429ccd0991b.png",
+      "sha256": "a17d43700441da968d310209254355dfee22640d909c0736b36d1429ccd0991b",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 8404
+    },
+    {
+      "source_sha256": "33911eea7f81c5e433cc224f2f9378d554765efbe8051ab7246dc4a700249d31",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "d9817548db5f2a887751c0d6e9bf7811b80931c0ba9b7e423cb70756491ffcbe.png",
+      "sha256": "d9817548db5f2a887751c0d6e9bf7811b80931c0ba9b7e423cb70756491ffcbe",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 8639
+    },
+    {
+      "source_sha256": "d710e2cf24ee37ec44fe7faae6253a66b96012a147ad2e67549dcca43d843a78",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "1d1a1bf432557982b434cd3f1fa9178e8ce3a43d69c54d4fd3c9efae50afbf47.png",
+      "sha256": "1d1a1bf432557982b434cd3f1fa9178e8ce3a43d69c54d4fd3c9efae50afbf47",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 9884
+    },
+    {
+      "source_sha256": "1708187bea27760bd3d48ae5a1c00d8ff6a8fe84fe0053cd469cf43422790fc0",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "419c4f4c9b81558a406c8d8e64420cd1fa5f3e8e0a0c7ed82572d36e4f7d082f.png",
+      "sha256": "419c4f4c9b81558a406c8d8e64420cd1fa5f3e8e0a0c7ed82572d36e4f7d082f",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 9073
+    },
+    {
+      "source_sha256": "ed377c9bfc1a03a8c6a591ad1831a1a98bb2025ea5834644f2f8bf8f76b17102",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "1d3b8005d6e9a168b136e6119474e010489e5296e0247623c469146f2dd08cf1.png",
+      "sha256": "1d3b8005d6e9a168b136e6119474e010489e5296e0247623c469146f2dd08cf1",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 10585
+    },
+    {
+      "source_sha256": "b6906051db02ba5abd572f38903dc93756082c7425d613b07c374d6a83c5a487",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "d63cc7a3eef6dcef0271eaf0aacb6c2d979dfef20ed75f6d8a2e4954935b1476.png",
+      "sha256": "d63cc7a3eef6dcef0271eaf0aacb6c2d979dfef20ed75f6d8a2e4954935b1476",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 9963
+    },
+    {
+      "source_sha256": "24a2dcae5a2eaae85ae6a95be3a941d836d41ab975d9f405ad674a89e6f6250a",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "8581c0d15848680458a188eb46544d1504db02583514c2ad2d82aeaecde56a1b.png",
+      "sha256": "8581c0d15848680458a188eb46544d1504db02583514c2ad2d82aeaecde56a1b",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 8075
+    },
+    {
+      "source_sha256": "b220bb7a687dcbf325c11f8e47467bfaf300dae7bfadd4f4a6fda6399f4817f5",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "11c4f290b001882865b2f6fb153cf211f5cd25ee3d283927118a7830dcbf9416.png",
+      "sha256": "11c4f290b001882865b2f6fb153cf211f5cd25ee3d283927118a7830dcbf9416",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 9723
+    },
+    {
+      "source_sha256": "c41c041ae1bca03c367d1b8d81ac1fd8713b5e9346db0f0ce817c2ae68decff7",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "245ce84eb1a45de4f07711dd090904a925b618b41102cf77d9ea86db7cd83d19.png",
+      "sha256": "245ce84eb1a45de4f07711dd090904a925b618b41102cf77d9ea86db7cd83d19",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 6501
+    },
+    {
+      "source_sha256": "75d126ecc13d4dcce3f602bcc120cc8ff7bc971dba79a3de0078a95334372c39",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "be237c1de2f1e2570d3a408fb2177e1f9ff6286bc630189c38ae6ead9f32dcb6.png",
+      "sha256": "be237c1de2f1e2570d3a408fb2177e1f9ff6286bc630189c38ae6ead9f32dcb6",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 8272
+    },
+    {
+      "source_sha256": "24fd9aa27a658117a98736b8d027ed3de5ac8bc634e8e7a09390e92dc9bdb6b3",
+      "source_width": 48,
+      "source_height": 48,
+      "assetFile": "8bf42088e67bb8a81539f6ac518a8a144b660ff763c90b522253fac2e53f0f20.png",
+      "sha256": "8bf42088e67bb8a81539f6ac518a8a144b660ff763c90b522253fac2e53f0f20",
+      "width": 288,
+      "height": 288,
+      "size_bytes": 8455
+    }
+  ]
+}

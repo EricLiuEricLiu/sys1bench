@@ -1,6 +1,7 @@
 """Explicit synthetic unit-test data, never real benchmark observations."""
 
-import base64
+import struct
+import zlib
 import copy
 from pathlib import Path
 
@@ -10,8 +11,11 @@ from evals.core import file_digest, write_json
 def cross_author_fixture(root):
     root = Path(root)
     root.mkdir(parents=True, exist_ok=True)
-    # A known 1px PNG is sufficient for byte-boundary tests; no image generation.
-    image = base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aJ1kAAAAASUVORK5CYII=")
+    # Synthetic 288px RGB PNG meets the image API's dimensional boundary.
+    def chunk(kind, data):
+        return struct.pack(">I", len(data)) + kind + data + struct.pack(">I", zlib.crc32(kind + data) & 0xffffffff)
+    image = (b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", 288, 288, 8, 2, 0, 0, 0))
+             + chunk(b"IDAT", zlib.compress((b"\x00" + b"\x00\x00\x00" * 288) * 288)) + chunk(b"IEND", b""))
     (root / "synthetic.png").write_bytes(image)
     sha = file_digest(root / "synthetic.png")
     pairs = []
@@ -23,9 +27,9 @@ def cross_author_fixture(root):
                           "displayText": f"Synthetic content {number} {suffix}",
                           "author": {"id": "synthetic-author-" + suffix, "name": "Synthetic " + suffix,
                                      "handle": "synthetic_" + suffix, "avatarAssetFile": "synthetic.png", "avatarSha256": sha},
-                          "media": ([{"type": "photo", "assetFile": "synthetic.png", "sha256": sha, "width": 1, "height": 1}] if number == 1 else [])}
+                          "media": ([{"type": "photo", "assetFile": "synthetic.png", "sha256": sha, "width": 288, "height": 288}] if number == 1 else [])}
         pairs.append(pair)
-    client = {"version": "0.5.0", "language": "en", "timing": {"roundMs": 15000, "revealMs": 2500},
+    client = {"version": "0.6.0", "language": "en", "timing": {"roundMs": 15000, "revealMs": 2500},
               "humanProtocolId": "human-15s-visible-feedback-cross-author-education2-v4",
               "feedback": {"afterEveryRound": True, "autoAdvance": True, "metrics": ["replies", "reposts", "likes", "impressions"]},
               "display": {"authors": True, "avatars": True, "handles": True, "followerCounts": False, "engagement": False},

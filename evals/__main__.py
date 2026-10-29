@@ -35,6 +35,7 @@ def main():
     p.add_argument("--config", required=True)
     p.add_argument("--out", required=True)
     p.add_argument("--allow-paid", action="store_true")
+    p.add_argument("--env-file", help="Explicit ignored local file; loads only the Gateway key, never prints it")
     p = sub.add_parser("score", help="Join labels locally; all planned scored items remain in denominator")
     p.add_argument("--run", required=True)
     p.add_argument("--bank", required=True)
@@ -56,6 +57,11 @@ def main():
     p.add_argument("--manifest", required=True)
     p.add_argument("--out", required=True)
     p.add_argument("--allow-paid", action="store_true")
+    p.add_argument("--env-file", help="Explicit ignored local file; loads only the Gateway key, never prints it")
+    p = sub.add_parser("leaderboard-export", help="Revalidate real native Gateway runs and emit a compact public summary")
+    p.add_argument("--manifest", required=True)
+    p.add_argument("--runs", required=True)
+    p.add_argument("--out", required=True)
     args = parser.parse_args()
     try:
         if args.command == "inspect":
@@ -84,6 +90,9 @@ def main():
                       "api_key_available": bool(os.environ.get("AI_GATEWAY_API_KEY" if config["provider"].startswith("vercel-") else "OPENAI_API_KEY")) if config["provider"] != "mock" else None,
                       "note": "Local validation only. Model access and reasoning support have not been tested. No billed-cost cap is enforced."}
         elif args.command == "run":
+            if args.env_file:
+                from .credentials import load_gateway_env
+                load_gateway_env(args.env_file)
             plan, config = load_json(args.plan), load_json(args.config)
             require(not config["model"].startswith("REPLACE_"), "Replace the example model identifier after model selection")
             result = run(plan, config, args.out, allow_paid=args.allow_paid)
@@ -99,11 +108,17 @@ def main():
                 manifest = prepare_campaign(args.out, args.seed)
                 result = {"model_calls": 0, "models": len(manifest["entries"]), "maximum_requests": manifest["maximum_requests"], "manifest": str(Path(args.out) / "campaign.json")}
             elif args.command == "campaign":
+                if args.env_file:
+                    from .credentials import load_gateway_env
+                    load_gateway_env(args.env_file)
                 result = run_campaign(args.manifest, args.out, allow_paid=args.allow_paid)
             else:
                 manifest, jobs = preflight_campaign(args.manifest)
                 result = {"network_requests": 0, "models": [job[3]["model"] for job in jobs], "maximum_requests": manifest["maximum_requests"],
                           "api_key_available": bool(os.environ.get("AI_GATEWAY_API_KEY"))}
+        elif args.command == "leaderboard-export":
+            from .leaderboard import export_leaderboard
+            result = export_leaderboard(args.manifest, args.runs, args.out)
         else:
             require(not Path(args.out).exists(), "Output already exists")
             result = compare_mirror(args.primary_score, args.mirrored_score)

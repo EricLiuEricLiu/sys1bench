@@ -8,7 +8,7 @@ import unittest
 from contextlib import closing
 from pathlib import Path
 
-from evals.core import (DECISION_PROTOCOL_VERSION, HUMAN_PROTOCOL_VERSION, PROTOCOL_VERSION,
+from evals.core import (V05_DECISION_PROTOCOL_VERSION as DECISION_PROTOCOL_VERSION, HUMAN_PROTOCOL_VERSION, PROTOCOL_VERSION,
                         file_digest, load_json, prepare, request_for)
 from evals.export import export_records
 from evals.gateway import decision_payload
@@ -89,9 +89,10 @@ class FeedbackBankTests(unittest.TestCase):
         for path in paths:
             config = load_json(path)
             plan = typed if config["provider"] == "vercel-decision" else self.plan
-            validate_execution(plan, config)
+            with self.assertRaisesRegex(ValueError, "Historical datasets are frozen"):
+                validate_execution(plan, config)
             if config["provider"] == "vercel-decision":
-                payload = decision_payload(request_for(plan["items"][0]), config)
+                payload = decision_payload(request_for(plan["items"][0]), {k: v for k, v in config.items() if k != "image_preprocessing"})
                 self.assertTrue(all("impressions" in c["description"] for c in payload["questions"][0]["choices"]))
         for primary, reverse in zip(self.plan["items"], mirror["items"]):
             self.assertEqual(primary["A"], reverse["B"])

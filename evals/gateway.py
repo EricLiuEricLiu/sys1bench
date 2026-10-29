@@ -10,6 +10,11 @@ from .core import DECISION_SYSTEM_PROMPTS, DECISION_TARGETS, file_digest, load_j
 CATALOG = Path(__file__).parent / "fixtures/gateway/models.catalog.json"
 
 
+def allowed_model_ids(model):
+    policy = load_json(CATALOG.parent / "model-identity-policy.json")
+    return {model, *policy["aliases"].get(model, [])}
+
+
 def validate_gateway_config(config):
     require(config["gateway_catalog_sha256"] == file_digest(CATALOG), "Gateway catalog snapshot/hash mismatch")
     models = load_json(CATALOG)["data"]
@@ -40,7 +45,9 @@ def decision_payload(request, config):
     validate_request(request)
     require(request["system"] in DECISION_SYSTEM_PROMPTS, "Native decision adapter requires its own versioned choice protocol")
     target = DECISION_TARGETS[request["system"]]
-    return {"model": config["model"], "input": [{"role": "user", "content": image_content(request, config)}],
+    from .image_submission import submitted_images
+    images, _ = submitted_images(request, config)
+    return {"model": config["model"], "input": [{"role": "user", "content": image_content({**request, "images": images}, config)}],
             "questions": [{"type": "choice", "name": "winner", "instructions": request["system"],
                            "choices": [{"value": "A", "description": f"The left post received more {target} at capture."},
                                        {"value": "B", "description": f"The right post received more {target} at capture."}]}],
@@ -57,9 +64,10 @@ def add_gateway_metadata(reply, raw, config):
     routing = metadata.get("routing", {})
     if isinstance(routing, dict):
         # Reject routing/model substitution if the gateway reports it.
-        for key in ["originalModelId", "canonicalSlug"]:
-            if routing.get(key) and routing[key] != config["model"]:
-                reply.status = "unexpected_output"
+        if routing.get("originalModelId") and routing["originalModelId"] != config["model"]:
+            reply.status = "unexpected_output"
+        if routing.get("canonicalSlug") and routing["canonicalSlug"] not in allowed_model_ids(config["model"]):
+            reply.status = "unexpected_output"
         final = routing.get("finalProvider")
         if final and final not in config["gateway_only"]:
             reply.status = "unexpected_output"
@@ -83,7 +91,10 @@ class GatewayResponsesAdapter(OpenAIResponsesAdapter):
     def generate(self, request):
         payload = openai_payload(request, self.config)
         payload["providerOptions"] = routing_options(self.config)
-        return self.post(payload)
+        reply = self.post(payload)
+        from .image_submission import submitted_images
+        _, reply.submitted_images = submitted_images(request, self.config)
+        return reply
 
     def decode(self, raw, request_id):
         return add_gateway_metadata(decode_openai(raw, request_id), raw, self.config)
@@ -93,7 +104,10 @@ class GatewayDecisionAdapter(GatewayResponsesAdapter):
     endpoint = GATEWAY_DECISION_ENDPOINT
 
     def generate(self, request):
-        return self.post(decision_payload(request, self.config))
+        reply = self.post(decision_payload(request, self.config))
+        from .image_submission import submitted_images
+        _, reply.submitted_images = submitted_images(request, self.config)
+        return reply
 
     def decode(self, raw, request_id):
         if not isinstance(raw, dict):

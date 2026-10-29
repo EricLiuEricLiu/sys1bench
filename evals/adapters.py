@@ -25,6 +25,7 @@ class Reply:
     usage: dict | None = None
     reported_cost_usd: float | None = None
     gateway_metadata: dict | None = None
+    submitted_images: list | None = None
 
 
 class AdapterError(Exception):
@@ -41,7 +42,7 @@ class Adapter(Protocol):
 
 
 def validate_config(config):
-    common = {"provider", "model", "reasoning_effort", "max_output_tokens", "timeout_seconds", "diagnostic_retries", "pricing", "image_detail", "gateway_catalog_sha256", "gateway_only", "requested_name", "no_thinking_policy_sha256"}
+    common = {"provider", "model", "reasoning_effort", "max_output_tokens", "timeout_seconds", "diagnostic_retries", "pricing", "image_detail", "gateway_catalog_sha256", "gateway_only", "requested_name", "no_thinking_policy_sha256", "image_preprocessing"}
     require(isinstance(config, dict), "Config must be an object")
     provider = config.get("provider")
     require(provider in {"mock", "openai-responses", "vercel-responses", "vercel-decision"}, "Unsupported provider adapter")
@@ -54,6 +55,8 @@ def validate_config(config):
         require("/" in config["model"] and not config["model"].startswith("vmc/"), "Exact catalog provider/model required; virtual routing is not allowed")
     if provider == "vercel-decision":
         require(config["reasoning_effort"] == "omit-nonreasoning", "Native decision API has no reasoning effort parameter")
+    if "image_preprocessing" in config:
+        require(provider == "vercel-decision" and config["image_preprocessing"] == "jev-avatar-pixels6x-v1", "Unsupported image preprocessing policy")
     for field, lower, upper in [("max_output_tokens", 0 if provider == "vercel-decision" else 1, 4096), ("timeout_seconds", 1, 60), ("diagnostic_retries", 0, 2)]:
         require(type(config.get(field)) is int and lower <= config[field] <= upper, f"Invalid {field}")
     if provider == "mock":
@@ -114,7 +117,7 @@ def openai_payload(request, config):
     payload = {
         "model": config["model"],
         "instructions": request["system"],
-        "input": [{"role": "user", "content": image_content(request, config) if "images" in request else request["user"]}],
+        "input": [{"type": "message", "role": "user", "content": image_content(request, config) if "images" in request else request["user"]}],
         "max_output_tokens": config["max_output_tokens"],
         "tools": [],
         "tool_choice": "none",

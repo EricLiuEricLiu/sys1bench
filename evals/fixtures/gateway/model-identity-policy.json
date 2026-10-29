@@ -1,0 +1,8 @@
+{
+  "schema_version": "gateway-model-identity-v1",
+  "aliases": {
+    "spacexai/grok-4.20-non-reasoning": ["xai/grok-4.20-non-reasoning"]
+  },
+  "evidence": "Authenticated Gateway responses to the exact requested spacexai/grok-4.20-non-reasoning ID report originalModelId unchanged, canonicalSlug xai/grok-4.20-non-reasoning, finalProvider xai, one model/provider attempt, and zero reasoning tokens. This is creator-prefix normalization, not permission to substitute model versions or providers.",
+  "public_model_source": "https://vercel.com/ai-gateway/models/grok-4.20-non-reasoning"
+}

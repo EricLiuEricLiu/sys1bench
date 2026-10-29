@@ -86,7 +86,7 @@ V041_PROTOCOL_VERSION = PROTOCOL_VERSION
 V041_DECISION_PROTOCOL_VERSION = DECISION_PROTOCOL_VERSION
 V041_HUMAN_PROTOCOL_VERSION = HUMAN_PROTOCOL_VERSION
 V041_PROTOCOLS = dict(PROTOCOLS)
-CURRENT_DATASET_VERSION = "0.5.0"
+CURRENT_DATASET_VERSION = "0.6.0"
 SCHEMA_VERSION = "2.2.0"
 BENCHMARK_VERSION = "0.4.0-pilot"
 HUMAN_PROTOCOL_VERSION = "human-15s-visible-feedback-cross-author-education2-v4"
@@ -110,8 +110,14 @@ DECISION_PROTOCOL = {**PROTOCOL, "version": DECISION_PROTOCOL_VERSION, "system":
                      "parser": "accept exactly A or B from the typed winner.choice field; never choose by probability",
                      "response_format": "Gateway Decision choice with criteria A and B; separate from free-text direct-choice cohort"}
 PROTOCOLS = {**V041_PROTOCOLS, PROTOCOL_VERSION: PROTOCOL, DECISION_PROTOCOL_VERSION: DECISION_PROTOCOL}
+V05_DECISION_PROTOCOL_VERSION = DECISION_PROTOCOL_VERSION
+DECISION_PROTOCOL_VERSION = "choice-cross-author-impressions-v5"
+DECISION_PROTOCOL = {**DECISION_PROTOCOL, "version": DECISION_PROTOCOL_VERSION,
+                     "images": "original captured attachment bytes unchanged; avatars use deterministic 6x nearest-neighbor PNG pixel repetition at submission to satisfy Jev's 280px image minimum; no new visual detail",
+                     "image_preprocessing": "jev-avatar-pixels6x-v1"}
+PROTOCOLS = {**PROTOCOLS, DECISION_PROTOCOL_VERSION: DECISION_PROTOCOL}
 ACTIVE_PROTOCOL_VERSIONS = {PROTOCOL_VERSION, DECISION_PROTOCOL_VERSION}
-DECISION_SYSTEM_PROMPTS = {p["system"] for version, p in PROTOCOLS.items() if version in {V03_DECISION_PROTOCOL_VERSION, V04_DECISION_PROTOCOL_VERSION, V041_DECISION_PROTOCOL_VERSION, DECISION_PROTOCOL_VERSION}}
+DECISION_SYSTEM_PROMPTS = {p["system"] for version, p in PROTOCOLS.items() if version in {V03_DECISION_PROTOCOL_VERSION, V04_DECISION_PROTOCOL_VERSION, V041_DECISION_PROTOCOL_VERSION, V05_DECISION_PROTOCOL_VERSION, DECISION_PROTOCOL_VERSION}}
 DECISION_TARGETS = {p["system"]: p.get("outcome_metric", "cumulative views") for p in PROTOCOLS.values() if p["system"] in DECISION_SYSTEM_PROMPTS}
 DATASET_PROFILES = {
     "0.3.0": {"schema_version": "2.0.0", "benchmark_version": "0.2.0-pilot", "timing": {"exposureMs": 3000, "decisionMs": 2000},
@@ -120,12 +126,14 @@ DATASET_PROFILES = {
               "direct": V04_PROTOCOL_VERSION, "decision": V04_DECISION_PROTOCOL_VERSION, "cross_author": True},
     "0.4.1": {"schema_version": "2.1.0", "benchmark_version": "0.3.1-pilot", "timing": {"exposureMs": 15000, "decisionMs": 5000},
               "direct": V041_PROTOCOL_VERSION, "decision": V041_DECISION_PROTOCOL_VERSION, "cross_author": True},
-    CURRENT_DATASET_VERSION: {"schema_version": SCHEMA_VERSION, "benchmark_version": BENCHMARK_VERSION, "timing": {"roundMs": 15000, "revealMs": 2500},
+    "0.5.0": {"schema_version": SCHEMA_VERSION, "benchmark_version": BENCHMARK_VERSION, "timing": {"roundMs": 15000, "revealMs": 2500},
               "outcome": "cumulative_snapshot_views", "target_field": "engagement.impressions",
               "human_protocol_id": HUMAN_PROTOCOL_VERSION,
               "feedback": {"afterEveryRound": True, "autoAdvance": True, "metrics": ["replies", "reposts", "likes", "impressions"]},
-              "direct": PROTOCOL_VERSION, "decision": DECISION_PROTOCOL_VERSION, "cross_author": True},
+              "direct": PROTOCOL_VERSION, "decision": V05_DECISION_PROTOCOL_VERSION, "cross_author": True},
 }
+DATASET_PROFILES[CURRENT_DATASET_VERSION] = dict(DATASET_PROFILES["0.5.0"])
+DATASET_PROFILES[CURRENT_DATASET_VERSION]["decision"] = DECISION_PROTOCOL_VERSION
 
 
 def validate_human_metadata(data, profile):

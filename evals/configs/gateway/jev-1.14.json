@@ -7,6 +7,7 @@
   "timeout_seconds": 30,
   "diagnostic_retries": 0,
   "image_detail": "high",
+  "image_preprocessing": "jev-avatar-pixels6x-v1",
   "gateway_only": [
     "typesafe-ai"
   ],

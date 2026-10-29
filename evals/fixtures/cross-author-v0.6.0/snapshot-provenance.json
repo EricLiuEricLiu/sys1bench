@@ -1,0 +1,22 @@
+{
+  "dataset_version": "0.6.0",
+  "source_directory": "outputs/system-1-bench-data",
+  "source_files_sha256": {
+    "question-bank.server.json": "1cb873b4d6da67cb22e0e65582d70c2418a13050cd691b9c05a8df17fe6a744b",
+    "stimuli.client.json": "b16c60d5cfd637108015f23dca00114bae8a7ba42ec2226ad5392007a275091e",
+    "audit.json": "2ebc339ae57b7dfa600ebb9c4e737a08ef1a650e9f76450da2d111bd43c07a1b",
+    "media-manifest.json": "9aba841977a773495fa66fa0844d5a308445e7611e770dacf94f18ab16fb79a1",
+    "media/2112551136175808794.jpg": "abb5fc777ef5def54f3777cb18ea8763491eb70b2b70344d3a4e599669e0496c",
+    "media/2112649169605448154.jpg": "7c02691bba62171d1baa4a691aeb0b358718df589dd9591ccc292d9c7725b422",
+    "media/2112538493431787531.png": "021f4081e09ba7b02d80144cc45b0c7aea8efafb33766b7342b34e53a1e1bd4a",
+    "media/2112465446368911840.png": "bbd2b6eda280630835284cef31fe837ba77b27d1ed55c2215ed9542e8bae6f42",
+    "media/2112540906264101014.jpg": "78964f4c05d4c792f2319b5ffca3378ccd2bfc245364330c91000768a078ecd8",
+    "media/2112461574195781691.png": "7da2c6b77e18aebeb2d810d7831fd679071e242aec6fd3696fa00a318ae0115e",
+    "media/2063994615578157528.jpg": "8abfabf2c5926621eba410435f0c741bed9a82e4ef04f74024c03d78d240cb2a",
+    "media/2062773060474651086.jpg": "12bd2b9a94fa39a61dc6e2a7af56d1a333926aba757a7105fedb6fb9130737d8"
+  },
+  "source_receipt_sha256": "fadf383e147bf63fd30c7661bee1d519a1900b03915e63bf9376e51a498ab424",
+  "copied_without_modification": true,
+  "audit_status": "passed_saved_source_and_media_checks",
+  "real_model_calls": 0
+}

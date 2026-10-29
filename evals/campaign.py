@@ -12,7 +12,7 @@ def prepare_campaign(out, seed="pilot-cohort-001"):
     """Freeze the user-approved four-model disabled-thinking comparison offline."""
     package = Path(__file__).parent.resolve()
     data = package / ("fixtures/cross-author-v" + CURRENT_DATASET_VERSION)
-    require((data / "stimuli.client.json").is_file(), "Current 0.5.0 bank is not frozen yet; no historical paid campaign may be prepared")
+    require((data / "stimuli.client.json").is_file(), "Current 0.6.0 bank is not frozen yet; no historical paid campaign may be prepared")
     out = Path(out).resolve()
     out.mkdir(parents=True, exist_ok=False)
     plan_paths = {}
@@ -77,7 +77,7 @@ def run_campaign(manifest_path, out, *, allow_paid=False):
     results = []
     for index, (entry, paths, plan, config) in enumerate(jobs, 1):
         root = out / f"{index:02d}"
-        meta = run(plan, config, root / "run", allow_paid=True)
+        meta = run(plan, config, root / "run", allow_paid=True, stop_on_fatal_http=True)
         summary, _ = score(root / "run", paths["bank"], root / "score.private")
         results.append({"model": config["model"], "run_id": meta["run_id"], "protocol_version": plan["protocol_version"],
                         "complete": summary["complete"], "primary_accuracy": summary["primary_accuracy"]})

@@ -21,6 +21,20 @@ def harness_digest():
     return digest({p.name: p.read_text(encoding="utf-8") for p in sorted(root.glob("*.py"))})
 
 
+def source_revision():
+    """Read revision context without touching the shared Git index."""
+    try:
+        git = Path(__file__).resolve().parent.parent / ".git"
+        revision = (git / "HEAD").read_text().strip()
+        if revision.startswith("ref: refs/"):
+            revision = (git / revision[5:]).read_text().strip()
+        require(len(revision) == 40 and all(c in "0123456789abcdef" for c in revision), "Invalid revision context")
+        return {"git_revision": revision, "evals_tree_dirty": None,
+                "interpretation": "Revision context only; harness_source_sha256 identifies the exact executed files"}
+    except (OSError, ValueError):
+        return {"git_revision": None, "evals_tree_dirty": None}
+
+
 def append_record(path, row):
     with Path(path).open("a", encoding="utf-8") as f:
         f.write(canonical(row) + "\n")
@@ -34,33 +48,49 @@ def validate_execution(plan, config):
     if config["provider"] != "mock":
         from .core import ACTIVE_PROTOCOL_VERSIONS, CURRENT_DATASET_VERSION
         require(plan["dataset_version"] == CURRENT_DATASET_VERSION and plan["protocol_version"] in ACTIVE_PROTOCOL_VERSIONS,
-                "Historical datasets are frozen; paid execution requires current 0.5.0 impressions protocol")
+                "Historical datasets are frozen; paid execution requires current 0.6.0 impressions protocol")
         expected = "omit-nonreasoning" if config["provider"] == "vercel-decision" else "none"
         require(config["reasoning_effort"] == expected, "Thinking must be disabled for real runs; low/minimal reasoning is not allowed")
         from .core import DECISION_PROTOCOL_VERSION
         require((config["provider"] == "vercel-decision") == (plan["protocol_version"] == DECISION_PROTOCOL_VERSION), "Model API and protocol do not match")
+        if config["provider"] == "vercel-decision":
+            from .image_submission import submitted_images
+            require(config.get("image_preprocessing") == plan["protocol"].get("image_preprocessing"), "Jev image policy and model protocol do not match")
+            for item in plan["items"]:
+                submitted_images(request_for(item), config)
         if config["provider"].startswith("vercel-"):
             from .gateway import validate_gateway_config
             validate_gateway_config(config)
     return plan, config
 
 
-def run(plan, config, out, *, allow_paid=False, adapter=None):
+def run(plan, config, out, *, allow_paid=False, adapter=None, stop_on_fatal_http=False):
     validate_execution(plan, config)
     if config["provider"] != "mock" and not allow_paid:
         raise ValueError("Real provider runs require explicit --allow-paid; no request sent")
+    adapter_injected = adapter is not None
     adapter = adapter or make_adapter(config)
     out = Path(out)
     out.mkdir(parents=True, exist_ok=False)
     write_json(out / "plan.json", plan)
     write_json(out / "config.json", config)
+    archive = out / "harness-source"
+    archive.mkdir()
+    source = {p.name: p.read_text(encoding="utf-8") for p in sorted(Path(__file__).parent.glob("*.py"))}
+    for name, content in source.items():
+        (archive / name).write_text(content, encoding="utf-8")
     meta = {
         "schema_version": plan["schema_version"], "run_id": str(uuid.uuid4()),
         "participant_kind": "mock" if config["provider"] == "mock" else "model",
         "is_mock": config["provider"] == "mock", "provider": config["provider"],
         "model_requested": config["model"], "plan_sha256": plan["plan_sha256"],
-        "config_sha256": digest(config), "harness_version": __version__, "harness_source_sha256": harness_digest(),
+        "config_sha256": digest(config), "harness_version": __version__, "harness_source_sha256": digest(source),
         "python_version": platform.python_version(),
+        "execution_mode": "mock" if config["provider"] == "mock" else ("injected_adapter" if adapter_injected else "native_https"),
+        "adapter_injected": adapter_injected,
+        "adapter_class": type(adapter).__module__ + "." + type(adapter).__qualname__,
+        "source_revision": source_revision(),
+        "stop_on_fatal_http": stop_on_fatal_http,
         "endpoint": getattr(adapter, "endpoint", None if config["provider"] == "mock" else OPENAI_ENDPOINT),
         "timeout_semantics": "per socket I/O; not a total generation deadline",
         "started_at": now(), "finished_at": None, "status": "running",
@@ -84,6 +114,7 @@ def run(plan, config, out, *, allow_paid=False, adapter=None):
                     "estimated_cost_usd": None, "billed_cost_usd": None,
                     "gateway_reported_cost_usd": None, "gateway_metadata": None,
                     "error_code": None, "retryable": False,
+                    "submitted_images": None,
                 }
                 try:
                     reply = adapter.generate(request)
@@ -92,6 +123,7 @@ def run(plan, config, out, *, allow_paid=False, adapter=None):
                                request_id=reply.request_id, model_returned=reply.returned_model,
                                usage=reply.usage, estimated_cost_usd=estimated_cost(reply.usage, config.get("pricing")),
                                gateway_reported_cost_usd=reply.reported_cost_usd, gateway_metadata=reply.gateway_metadata,
+                               submitted_images=reply.submitted_images,
                                status=reply.status if reply.status != "ok" else ("valid" if choice else "invalid"))
                     if row["status"] != "valid":
                         row["parsed_choice"] = None
@@ -105,6 +137,8 @@ def run(plan, config, out, *, allow_paid=False, adapter=None):
                 row["finished_at"] = now()
                 row["latency_ms"] = round((time.perf_counter() - started) * 1000, 3)
                 append_record(attempts_path, row)
+                if stop_on_fatal_http and row["error_code"] in {"http_400", "http_401", "http_402", "http_403", "http_404", "http_422"}:
+                    raise ValueError("Fatal provider HTTP failure; requests stopped. Inspect the private journal before any new run.")
                 if not row["retryable"]:
                     break
                 if number <= config["diagnostic_retries"]:

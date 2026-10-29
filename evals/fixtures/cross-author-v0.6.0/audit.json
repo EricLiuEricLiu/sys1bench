@@ -1,0 +1,306 @@
+{
+  "auditVersion": "1.4",
+  "datasetVersion": "0.6.0",
+  "productName": "System 1 Bench",
+  "firstVerifiedAt": "2026-10-29T01:21:20.007864+00:00",
+  "status": "passed_saved_source_and_media_checks",
+  "questionBankSha256": "1cb873b4d6da67cb22e0e65582d70c2418a13050cd691b9c05a8df17fe6a744b",
+  "stimuliSha256": "b16c60d5cfd637108015f23dca00114bae8a7ba42ec2226ad5392007a275091e",
+  "summary": {
+    "version": "0.6.0",
+    "productName": "System 1 Bench",
+    "retrievedRecords": 1278,
+    "uniqueRetrievedPosts": 1178,
+    "scoredPairs": 15,
+    "practicePairs": 2,
+    "selectedUniquePosts": 34,
+    "selectedAuthorCount": 34,
+    "maximumPostsPerAuthor": 1,
+    "crossAuthorPairs": 17,
+    "sameAuthorPairs": 0,
+    "minimumRequiredViews": 100000,
+    "selectedViewMinimum": 113216,
+    "selectedViewMedian": 1531123.5,
+    "selectedViewMaximum": 18951622,
+    "tenMillionPlusScoredPosts": 3,
+    "engagementCompletePosts": 34,
+    "humanProtocolId": "human-15s-visible-feedback-cross-author-education2-v4",
+    "aiRelatedScoredPairs": 2,
+    "millionPlusPosts": 22,
+    "imagePairs": 4,
+    "imagePosts": 8,
+    "scoredImagePairs": 3,
+    "practiceImagePairs": 1,
+    "textOnlyScoredPairs": 12,
+    "minimumPostAgeDaysAtCapture": 3.4862,
+    "maximumPostAgeDaysAtCapture": 174.9161,
+    "maxWithinPairCreationGapHours": 89.8675,
+    "captionWordsPerPairRange": [
+      8,
+      70
+    ],
+    "selectedFollowerRange": [
+      583,
+      138729
+    ],
+    "newCollectionCostUSD": 0.009,
+    "totalCollectionCostUSD": 0.0531,
+    "timing": {
+      "roundMs": 15000,
+      "revealMs": 2500
+    },
+    "practiceScoredPostOverlapCount": 0,
+    "selectedDuplicateIdCount": 0,
+    "allPostsMeetViewFloor": true,
+    "allPairsHaveDifferentAuthors": true,
+    "scoredLeftWinsInCanonicalOrder": 8,
+    "scoredRightWinsInCanonicalOrder": 7
+  },
+  "releaseChangeVerification": {
+    "previousDatasetVersion": "0.5.0",
+    "previousQuestionBankSha256": "621b9d6dcb0589ff87e8e197fd40c4e9cbdcde03999317d4f44465c0d9a6890b",
+    "retainedPostRecords": 30,
+    "newPostRecords": 4,
+    "retainedRecordsAndOutcomesUnchanged": true,
+    "unchangedPracticePairs": true,
+    "unchangedScoredPairs": 13,
+    "replacedScoredPairs": 2,
+    "threeViralPostsPreserved": true,
+    "newQuestionIds": [
+      "ai-models",
+      "ai-startup-culture"
+    ],
+    "allFourMetricsPresentFromOneRawSnapshot": true,
+    "humanProtocolId": "human-15s-visible-feedback-cross-author-education2-v4"
+  },
+  "sourceVerification": "All 34 selected original texts, four engagement counts, author records, URLs, creation times and capture times reconcile to saved successful Monid runs. Eight selected images were visually checked at native scale and their cached bytes/hashes verified. Original X pages/counts and app-responsive rendering were not independently rechecked.",
+  "materialLimitations": [
+    "High-reach curated pilot, not a uniform random sample of X or a validated measure of intuition.",
+    "Every displayed post was selected to have at least 100,000 provider-reported views; discovery also used minimum-like filters. This deliberately conditions on successful posts.",
+    "All 17 pairs compare different author IDs. The 34 posts use 34 distinct accounts, with no author reused in this release.",
+    "Accounts were limited to 100–200,000 source-reported followers, and the selection avoids recognized celebrity and organizational accounts. This does not independently verify account ownership or representativeness.",
+    "Cross-author questions can be affected by author recognition, audience size, posting time, paid promotion and external amplification. Author reach is only approximately matched; the largest source-reported follower ratio is 15.64 to one.",
+    "Pair creation times differ by at most 89.87 hours. This is not a fixed-post-age experiment.",
+    "Views are cumulative snapshots captured at post ages between 3.49 and 174.92 days. They are not unique viewers, causal content effects or 48-hour view outcomes.",
+    "Search/date/language operators are not fully reliable upstream. Actual returned timestamps, language and content were checked for the selected records.",
+    "The normalized source does not expose a reliable quote-post flag. Selected text and images were reviewed to stand alone, but quote status and original X pages/counts were not independently verified.",
+    "Original text is preserved in text. For photo posts, displayText omits one trailing t.co token as an attachment-link rendering convention; source entity mapping is unavailable.",
+    "Pair captions total 8–70 words, with additional words inside some images. One 15-second window combines viewing and choosing with posts always visible; this also measures reading, scanning and image interpretation. Timing has not been calibrated with users.",
+    "All eight selected photo files were downloaded and visually reviewed for visible engagement/outcome leaks; original bytes, dimensions and SHA-256 hashes are preserved. Responsive rendering and preload must be verified by app integration.",
+    "Authors, handles and avatars are visible. Followers and engagement are excluded from initial client stimuli. After every answer or timeout, replies, reposts, likes and impressions are revealed for both posts. Preload and decode all content images before the round; failed-load rounds must not receive a score.",
+    "1 posts also appeared in v0.3.0. This is development/pilot data without a registered held-out split; prior exposure can affect results.",
+    "Two ordered practice rounds are unscored, followed by 15 scored rounds. Every round uses a single 15,000 ms viewing/decision window, followed by 2,500 ms feedback and automatic advance. Feedback after scored answers can teach strategies within a run, so this protocol does not isolate unaided intuition and must not be pooled with previous protocols.",
+    "Engagement is copied from one provider snapshot per post: replies=replyCount, reposts=retweetCount (excluding quoteCount), likes=likeCount, and impressions=viewCount. Server-side views equals impressions. No absent counts are converted to zero; original X counters were not independently authenticated.",
+    "Three or more scored posts were deliberately selected with at least 10 million captured views; this is further selection on outcomes, not random discovery.",
+    "No human percentiles or AI scores are supplied by this dataset. Do not pool older same-author/timer protocols with this cross-author high-reach release.",
+    "Exactly two scored pairs were editorially selected for AI-related topics: model/capability discussion and AI startup culture. Topic selection is not a factual endorsement of the posts or a judgment about author sincerity; this does not validate an AI-specific intuition subscore.",
+    "The four new posts come from topic/engagement-filtered searches. The new captions range from 17 to 46 words, with 56 and 70 words across each pair; previous captions are unchanged. Keep dataset 0.6.0 results separate from prior data cohorts even though the human protocol ID is unchanged.",
+    "The server bank contains outcomes and source URLs. Keep it private; use only the display export for the browser and model inference."
+  ],
+  "pairChecks": [
+    {
+      "pairId": "practice-01",
+      "kind": "practice",
+      "postIds": [
+        "2105849104840753403",
+        "2105906812545630651"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 1454441,
+      "createdGapHours": 3.8217,
+      "authorFollowerRatio": 6.1285
+    },
+    {
+      "pairId": "practice-02",
+      "kind": "practice",
+      "postIds": [
+        "2112551136175808794",
+        "2112649169605448154"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 638605,
+      "createdGapHours": 6.4925,
+      "authorFollowerRatio": 11.7519
+    },
+    {
+      "pairId": "reach-01",
+      "kind": "scored",
+      "postIds": [
+        "2112333916770013187",
+        "2112410984694558801"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 1279466,
+      "createdGapHours": 5.1042,
+      "authorFollowerRatio": 4.6864
+    },
+    {
+      "pairId": "ai-models",
+      "kind": "scored",
+      "postIds": [
+        "2114350692551082390",
+        "2114210584715731160"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 195576,
+      "createdGapHours": 9.2789,
+      "authorFollowerRatio": 15.64
+    },
+    {
+      "pairId": "reach-03",
+      "kind": "scored",
+      "postIds": [
+        "2111822378611408978",
+        "2111873765512491348"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 1614574,
+      "createdGapHours": 3.4033,
+      "authorFollowerRatio": 2.0436
+    },
+    {
+      "pairId": "reach-04",
+      "kind": "scored",
+      "postIds": [
+        "2106025949519130642",
+        "2106061621756060057"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 469559,
+      "createdGapHours": 2.3625,
+      "authorFollowerRatio": 4.6475
+    },
+    {
+      "pairId": "reach-05",
+      "kind": "scored",
+      "postIds": [
+        "2111832011447181687",
+        "2112245420655358140"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 1607806,
+      "createdGapHours": 27.3789,
+      "authorFollowerRatio": 1.7657
+    },
+    {
+      "pairId": "reach-06",
+      "kind": "scored",
+      "postIds": [
+        "2106112191384658220",
+        "2106077308348191094"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 113216,
+      "createdGapHours": 2.3103,
+      "authorFollowerRatio": 10.2727
+    },
+    {
+      "pairId": "reach-07",
+      "kind": "scored",
+      "postIds": [
+        "2106010795499028525",
+        "2105262913879425066"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 329441,
+      "createdGapHours": 49.5303,
+      "authorFollowerRatio": 3.2178
+    },
+    {
+      "pairId": "viral-twitter",
+      "kind": "scored",
+      "postIds": [
+        "2088270464095305815",
+        "2087562238664028343"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 4215314,
+      "createdGapHours": 46.9039,
+      "authorFollowerRatio": 1.2547
+    },
+    {
+      "pairId": "reach-09",
+      "kind": "scored",
+      "postIds": [
+        "2105954444869587378",
+        "2104882126361419829"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 1276655,
+      "createdGapHours": 71.0169,
+      "authorFollowerRatio": 4.9254
+    },
+    {
+      "pairId": "ai-startup-culture",
+      "kind": "scored",
+      "postIds": [
+        "2088514738993176941",
+        "2089871695125655688"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 114818,
+      "createdGapHours": 89.8675,
+      "authorFollowerRatio": 6.3082
+    },
+    {
+      "pairId": "viral-virus-text",
+      "kind": "scored",
+      "postIds": [
+        "2052315315212624354",
+        "2052211394096042179"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 3921878,
+      "createdGapHours": 6.8822,
+      "authorFollowerRatio": 4.152
+    },
+    {
+      "pairId": "reach-12",
+      "kind": "scored",
+      "postIds": [
+        "2112246423064645828",
+        "2111523329781715176"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 798752,
+      "createdGapHours": 47.8886,
+      "authorFollowerRatio": 1.5779
+    },
+    {
+      "pairId": "reach-13",
+      "kind": "scored",
+      "postIds": [
+        "2112538493431787531",
+        "2112465446368911840"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 235332,
+      "createdGapHours": 4.8378,
+      "authorFollowerRatio": 1.7221
+    },
+    {
+      "pairId": "reach-14",
+      "kind": "scored",
+      "postIds": [
+        "2112540906264101014",
+        "2112461574195781691"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 333722,
+      "createdGapHours": 5.2539,
+      "authorFollowerRatio": 2.3739
+    },
+    {
+      "pairId": "viral-reaction-image",
+      "kind": "scored",
+      "postIds": [
+        "2063994615578157528",
+        "2062773060474651086"
+      ],
+      "differentAuthorIds": true,
+      "minimumViews": 2268621,
+      "createdGapHours": 80.9006,
+      "authorFollowerRatio": 1.8012
+    }
+  ]
+}
