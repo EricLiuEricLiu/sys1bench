@@ -12,7 +12,8 @@ try {
   root.append(el('h2','i-round__heading','AI models'));
   if(data.models.length){
     const table=el('table','app-models');const head=el('thead');const headings=el('tr');for(const name of ['Model','Correct','Accuracy'])headings.append(el('th','',name));head.append(headings);table.append(head);
-    const body=el('tbody');for(const model of data.models){const row=el('tr');const label=el('th','',model.name);label.scope='row';row.append(label,el('td','',`${model.correct} / ${model.total}`),el('td','',`${Math.round(model.correct/model.total*100)}%`));body.append(row);}table.append(body);root.append(table);
+    const body=el('tbody');for(const model of data.models){const row=el('tr');const label=el('th','',model.name);label.scope='row';if(model.unanswered){const invalid=model.failures?.invalid??0;label.append(el('small','app-model-note',invalid===model.unanswered?`${invalid} invalid ${invalid===1?'answer':'answers'}`:`${model.unanswered} missing ${model.unanswered===1?'answer':'answers'}`));}row.append(label,el('td','',`${model.correct} / ${model.total}`),el('td','',`${Math.round(model.correct/model.total*100)}%`));body.append(row);}table.append(body);root.append(table);
+    if(data.models.some(model=>model.unanswered))root.append(el('p','app-fine','Invalid or missing answers count as incorrect.'));
     for(const model of data.models)if(model.inputNotes)root.append(el('p','app-fine',`${model.name}: ${model.inputNotes}`));
     root.append(el('p','app-fine','Models answer independently with thinking disabled. Humans see feedback between questions. These are different conditions on the same pilot question set.'));
   } else root.append(el('p','app-note','Model evaluations are being prepared.'));

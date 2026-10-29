@@ -72,7 +72,7 @@ export function createApp({ dataset = bank, now = Date.now, modelResults = publi
         const cookie = request.headers.get('Cookie')?.split(';').map(p => p.trim()).find(p => p.startsWith(`${COOKIE}=`))?.slice(COOKIE.length + 1);
         const participant = UUID.test(cookie ?? '') ? cookie : null;
         if (url.pathname === '/api/health' && request.method === 'GET') {
-          await env.DB.prepare('SELECT id FROM human_runs LIMIT 1').first();
+          await env.DB.prepare('SELECT id,result_json FROM human_runs LIMIT 1').first();
           return json({ status: 'ok', datasetVersion: dataset.version, protocol: PROTOCOL, timing: TIMING });
         }
         if (url.pathname === '/api/runs' && request.method === 'POST') {
@@ -88,7 +88,7 @@ export function createApp({ dataset = bank, now = Date.now, modelResults = publi
         if (url.pathname === '/api/leaderboard' && request.method === 'GET') {
           const aggregate = await env.DB.prepare('SELECT COUNT(*) AS count, AVG(1.0*correct/total) AS accuracy FROM human_first_results WHERE cohort=?').bind(cohort).first();
           const distribution = await env.DB.prepare('SELECT correct,COUNT(*) AS count FROM human_first_results WHERE cohort=? GROUP BY correct ORDER BY correct DESC').bind(cohort).all();
-          return json({ cohort, datasetVersion: dataset.version, protocol: PROTOCOL, humans: { ...aggregate, distribution: distribution.results }, models: modelResults.filter(m=>m.real===true && m.datasetVersion===dataset.version && m.humanProtocol===PROTOCOL).map(m=>({modelId:m.modelId,name:m.name,protocol:m.protocol,correct:m.correct,total:m.total,unanswered:m.unanswered,evaluatedAt:m.evaluatedAt,condition:m.condition,runId:m.runId,inputNotes:m.inputNotes})).sort((a,b)=>b.correct/b.total-a.correct/a.total), pilot: true });
+          return json({ cohort, datasetVersion: dataset.version, protocol: PROTOCOL, humans: { ...aggregate, distribution: distribution.results }, models: modelResults.filter(m=>m.real===true && m.datasetVersion===dataset.version && m.humanProtocol===PROTOCOL).map(m=>({modelId:m.modelId,name:m.name,protocol:m.protocol,correct:m.correct,total:m.total,unanswered:m.unanswered,evaluatedAt:m.evaluatedAt,condition:m.condition,runId:m.runId,inputNotes:m.inputNotes,failures:m.failures})).sort((a,b)=>b.correct/b.total-a.correct/a.total), pilot: true });
         }
         const match = url.pathname.match(/^\/api\/runs\/([a-f0-9-]{36})\/(next|open|answer|result|abort)$/);
         if (!match) throw fail('Not found.', 404);

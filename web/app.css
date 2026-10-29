@@ -21,3 +21,5 @@ body{margin:0;background:var(--i-bg);font-family:var(--i-font-sans)}.app-shell,.
 .app-models thead th { color:var(--i-muted);font-size:12px; }
 .app-models td { font-variant-numeric:tabular-nums; }
 .app-models th:first-child { width:60%; }.app-models td:last-child,.app-models th:last-child { text-align:right;padding-right:0; }
+
+.app-model-note { display:block;margin-top:5px;color:var(--i-muted);font-size:11px;font-weight:400; }.app-benchmarks>.app-fine { margin:16px 0; }

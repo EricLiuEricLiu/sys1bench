@@ -8,10 +8,13 @@ assert.equal(bank.pairs.length, 15);
 assert.deepEqual(bank.timing, TIMING, 'The question set and deployed timing must agree');
 assert.equal(bank.humanProtocolId, PROTOCOL, 'The question set and deployed protocol must agree');
 const models=JSON.parse(readFileSync('data/model-results.server.json','utf8')).results;
+const modelKeys=new Set();
 for(const model of models) {
+  const key=`${model.datasetVersion}:${model.humanProtocol}:${model.modelId}`;assert(!modelKeys.has(key),'Only one primary result per model and cohort');modelKeys.add(key);
   assert.equal(model.real,true,'Only actual model results may be published');
   assert(Number.isInteger(model.correct) && model.correct>=0 && model.correct<=model.total);
   assert.equal(model.total,15);
+  assert(model.correct+model.unanswered<=model.total);
   assert(Number.isInteger(model.unanswered) && model.unanswered>=0 && model.unanswered<=15);
   assert(model.modelId && model.name && model.protocol && model.runId && model.evaluatedAt);
   assert.equal(model.condition,'independent-no-thinking');

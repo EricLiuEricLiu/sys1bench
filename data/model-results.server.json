@@ -1,4 +1,220 @@
 {
   "schemaVersion": 1,
-  "results": []
+  "sourceExportSha256": "18560ac2a6712cd7692baaac5cdbb930ce0c6b8255df34d984df7232a373d765",
+  "results": [
+    {
+      "datasetVersion": "0.6.0",
+      "humanProtocol": "human-15s-visible-feedback-cross-author-education2-v4",
+      "cohort": "0.6.0:human-15s-visible-feedback-cross-author-education2-v4",
+      "modelId": "spacexai/grok-4.20-non-reasoning",
+      "name": "Grok 4.20 Non-Reasoning",
+      "protocol": "direct-ab-cross-author-impressions-v5",
+      "correct": 7,
+      "total": 15,
+      "accuracy": 0.4666666666666667,
+      "valid": 14,
+      "unanswered": 1,
+      "failures": {
+        "invalid": 1
+      },
+      "startedAt": "2026-10-29T01:28:25.504265Z",
+      "evaluatedAt": "2026-10-29T01:28:42.612233Z",
+      "runId": "82dcd201-8b22-4ac3-97fe-e75151427060",
+      "bankSha256": "1cb873b4d6da67cb22e0e65582d70c2418a13050cd691b9c05a8df17fe6a744b",
+      "real": true,
+      "condition": "independent-no-thinking",
+      "reasoningRequested": "none",
+      "responseFormat": "direct-ab",
+      "adapter": "vercel-responses",
+      "adapterClass": "evals.gateway.GatewayResponsesAdapter",
+      "endpoint": "https://ai-gateway.vercel.sh/v1/responses",
+      "providerPinned": [
+        "xai"
+      ],
+      "modelReturned": {
+        "xai/grok-4.20-non-reasoning": 17
+      },
+      "providerReported": {
+        "xai": 17
+      },
+      "providerUnreportedResponses": 0,
+      "modelResponses": 17,
+      "validatedScoredResponses": 15,
+      "imagePreprocessing": "original-captured-bytes",
+      "inputNotes": null,
+      "imagePreprocessingDisclosure": null,
+      "revalidation": {
+        "original_run_sha256": "93f68f88d9809a9ac30bd90d48a2f6df1d53224385b59f3123685fa7183d59dd",
+        "original_journal_sha256": "15eaa16c8d9d75d1863c7c5aa1a23d9af3f68db473be089fd790483c18555691",
+        "revalidated_at": "2026-10-29T01:46:56.031044Z",
+        "decoder_harness_sha256": "01bad709923cb1c06d76ae938c829443cdb910c603a28315b4a05171ff0a6b68",
+        "changed_validation_records": 17,
+        "reason": "Verified Gateway creator-prefix alias normalization only; requests, raw replies, timestamps and all valid answers are preserved",
+        "additional_model_calls": 0
+      },
+      "protocolSha256": "b1c54a0b1170a49e3f7b4fb3d00c3bd5ff12346b5b292df03a9e06334a33e21f",
+      "planSha256": "e6c9eb3fc0656408bc565bf1ace41c3e8d25b1626fe47278238186b10c218c42",
+      "configSha256": "1d80bbae1958b8cc09e57895da2c59793fa2e8931b8428b9a955fdf041291fa2",
+      "journalSha256": "10ccfa4484803f650507f4735d05a55a9bfe763261541a39250563f558d83b55",
+      "harnessSha256": "25d5de55cfbbc4480e24281bb969d0e2447a8b439b99cc3bffed5adfc7af989a",
+      "sourceRevision": {
+        "git_revision": "91aca550020607417ade87832ecd4ae178962a66",
+        "evals_tree_dirty": null,
+        "interpretation": "Revision context only; harness_source_sha256 identifies the exact executed files"
+      }
+    },
+    {
+      "datasetVersion": "0.6.0",
+      "humanProtocol": "human-15s-visible-feedback-cross-author-education2-v4",
+      "cohort": "0.6.0:human-15s-visible-feedback-cross-author-education2-v4",
+      "modelId": "typesafe-ai/jev-1.14.0",
+      "name": "Jev 1.14.0",
+      "protocol": "choice-cross-author-impressions-v5",
+      "correct": 4,
+      "total": 15,
+      "accuracy": 0.26666666666666666,
+      "valid": 15,
+      "unanswered": 0,
+      "failures": {},
+      "startedAt": "2026-10-29T01:47:34.865888Z",
+      "evaluatedAt": "2026-10-29T01:47:41.088309Z",
+      "runId": "f58dc61f-74f6-4cde-b09e-574c04c84f14",
+      "bankSha256": "1cb873b4d6da67cb22e0e65582d70c2418a13050cd691b9c05a8df17fe6a744b",
+      "real": true,
+      "condition": "independent-no-thinking",
+      "reasoningRequested": "omit-nonreasoning",
+      "responseFormat": "native-choice",
+      "adapter": "vercel-decision",
+      "adapterClass": "evals.gateway.GatewayDecisionAdapter",
+      "endpoint": "https://ai-gateway.vercel.sh/v1/decisions",
+      "providerPinned": [
+        "typesafe-ai"
+      ],
+      "modelReturned": {
+        "typesafe-ai/jev-1.14.0": 17
+      },
+      "providerReported": {
+        "typesafe-ai": 17
+      },
+      "providerUnreportedResponses": 0,
+      "modelResponses": 17,
+      "validatedScoredResponses": 15,
+      "imagePreprocessing": "jev-avatar-pixels6x-v1",
+      "inputNotes": "Avatars were pixel-repeated to meet the provider image minimum; no new detail was added.",
+      "imagePreprocessingDisclosure": "Jev avatars repeat each decoded source pixel into a 6x6 block to meet its 280px minimum; no new detail. Other models receive original bytes.",
+      "revalidation": null,
+      "protocolSha256": "beba0a673473890a0309a2ca368c399371f4e84dc6d37da40941dfa167c2517d",
+      "planSha256": "6d919b4be27c8142e0c17ea3243a2de769c5b4fcded0194e7a0b17965bc02392",
+      "configSha256": "d2ccb0e44c3f53b5bbe7c303b1713e405e73af96939f6f39c8de1e79183006d3",
+      "journalSha256": "0a94bb9d6876cb19f767a73ff3433e51ae7fb4593b83e265dfefd657f25c42eb",
+      "harnessSha256": "01bad709923cb1c06d76ae938c829443cdb910c603a28315b4a05171ff0a6b68",
+      "sourceRevision": {
+        "git_revision": "f15ab5a32ad57d0910166d7b7edd327389b2f493",
+        "evals_tree_dirty": null,
+        "interpretation": "Revision context only; harness_source_sha256 identifies the exact executed files"
+      }
+    },
+    {
+      "datasetVersion": "0.6.0",
+      "humanProtocol": "human-15s-visible-feedback-cross-author-education2-v4",
+      "cohort": "0.6.0:human-15s-visible-feedback-cross-author-education2-v4",
+      "modelId": "anthropic/claude-opus-5",
+      "name": "Claude Opus 5",
+      "protocol": "direct-ab-cross-author-impressions-v5",
+      "correct": 11,
+      "total": 15,
+      "accuracy": 0.7333333333333333,
+      "valid": 15,
+      "unanswered": 0,
+      "failures": {},
+      "startedAt": "2026-10-29T01:47:41.202296Z",
+      "evaluatedAt": "2026-10-29T01:48:04.403285Z",
+      "runId": "1e03f7ea-8e10-4a69-81a6-b160d50825cb",
+      "bankSha256": "1cb873b4d6da67cb22e0e65582d70c2418a13050cd691b9c05a8df17fe6a744b",
+      "real": true,
+      "condition": "independent-no-thinking",
+      "reasoningRequested": "none",
+      "responseFormat": "direct-ab",
+      "adapter": "vercel-responses",
+      "adapterClass": "evals.gateway.GatewayResponsesAdapter",
+      "endpoint": "https://ai-gateway.vercel.sh/v1/responses",
+      "providerPinned": [
+        "anthropic"
+      ],
+      "modelReturned": {
+        "anthropic/claude-opus-5": 17
+      },
+      "providerReported": {
+        "anthropic": 17
+      },
+      "providerUnreportedResponses": 0,
+      "modelResponses": 17,
+      "validatedScoredResponses": 15,
+      "imagePreprocessing": "original-captured-bytes",
+      "inputNotes": null,
+      "imagePreprocessingDisclosure": null,
+      "revalidation": null,
+      "protocolSha256": "b1c54a0b1170a49e3f7b4fb3d00c3bd5ff12346b5b292df03a9e06334a33e21f",
+      "planSha256": "e6c9eb3fc0656408bc565bf1ace41c3e8d25b1626fe47278238186b10c218c42",
+      "configSha256": "d574c946e7fc383eec2f9218183cad17000aa58fb7aee7a04b009999446b0c8c",
+      "journalSha256": "bfde35c722aff6b3307f8bf62d0bd1d56a0192ad004737d04b17980de712d057",
+      "harnessSha256": "01bad709923cb1c06d76ae938c829443cdb910c603a28315b4a05171ff0a6b68",
+      "sourceRevision": {
+        "git_revision": "f15ab5a32ad57d0910166d7b7edd327389b2f493",
+        "evals_tree_dirty": null,
+        "interpretation": "Revision context only; harness_source_sha256 identifies the exact executed files"
+      }
+    },
+    {
+      "datasetVersion": "0.6.0",
+      "humanProtocol": "human-15s-visible-feedback-cross-author-education2-v4",
+      "cohort": "0.6.0:human-15s-visible-feedback-cross-author-education2-v4",
+      "modelId": "openai/gpt-6-sol",
+      "name": "GPT-6 Sol",
+      "protocol": "direct-ab-cross-author-impressions-v5",
+      "correct": 9,
+      "total": 15,
+      "accuracy": 0.6,
+      "valid": 15,
+      "unanswered": 0,
+      "failures": {},
+      "startedAt": "2026-10-29T01:48:04.500616Z",
+      "evaluatedAt": "2026-10-29T01:48:29.287760Z",
+      "runId": "7b4282f6-d685-436d-a75f-9157fa6c8719",
+      "bankSha256": "1cb873b4d6da67cb22e0e65582d70c2418a13050cd691b9c05a8df17fe6a744b",
+      "real": true,
+      "condition": "independent-no-thinking",
+      "reasoningRequested": "none",
+      "responseFormat": "direct-ab",
+      "adapter": "vercel-responses",
+      "adapterClass": "evals.gateway.GatewayResponsesAdapter",
+      "endpoint": "https://ai-gateway.vercel.sh/v1/responses",
+      "providerPinned": [
+        "openai"
+      ],
+      "modelReturned": {
+        "openai/gpt-6-sol": 17
+      },
+      "providerReported": {
+        "openai": 17
+      },
+      "providerUnreportedResponses": 0,
+      "modelResponses": 17,
+      "validatedScoredResponses": 15,
+      "imagePreprocessing": "original-captured-bytes",
+      "inputNotes": null,
+      "imagePreprocessingDisclosure": null,
+      "revalidation": null,
+      "protocolSha256": "b1c54a0b1170a49e3f7b4fb3d00c3bd5ff12346b5b292df03a9e06334a33e21f",
+      "planSha256": "e6c9eb3fc0656408bc565bf1ace41c3e8d25b1626fe47278238186b10c218c42",
+      "configSha256": "70d270368fc77c190881b9ef0c8facaee9a0f2641a12152df0674fb96970abd2",
+      "journalSha256": "5b6f6b0307cf43c2d258262fe117e380917d4de7a77aef85ba00cffe0e54e8d9",
+      "harnessSha256": "01bad709923cb1c06d76ae938c829443cdb910c603a28315b4a05171ff0a6b68",
+      "sourceRevision": {
+        "git_revision": "f15ab5a32ad57d0910166d7b7edd327389b2f493",
+        "evals_tree_dirty": null,
+        "interpretation": "Revision context only; harness_source_sha256 identifies the exact executed files"
+      }
+    }
+  ]
 }
