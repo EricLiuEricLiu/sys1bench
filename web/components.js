@@ -8,8 +8,8 @@ const postIcons = {
   x: '<path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26L22.827 21.75h-6.657l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231L18.244 2.25Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/>',
   heart: '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"/>',
   reply: '<path d="M20.8 11.3c0 4.5-3.9 8-8.8 8H5l-3.2 2v-6.6a7.5 7.5 0 0 1-1-3.4c0-4.5 3.9-8 8.8-8h2.4c4.9 0 8.8 3.5 8.8 8Z" transform="translate(1 0) scale(.94)"/>',
-  repost: '<path d="m4 8 4-4 4 4M8 4v13a3 3 0 0 0 3 3h2m7-4-4 4-4-4m4 4V7a3 3 0 0 0-3-3h-2"/>',
-  impressions: '<path d="M4 20V10m5 10V4m6 16v-7m5 7V7"/>',
+  repost: '<path d="m2 9 3-3 3 3M5 6v9a3 3 0 0 0 3 3h4"/><path d="m22 15-3 3-3-3M19 18V9a3 3 0 0 0-3-3h-4"/>',
+  impressions: '<path d="M4 20V10"/><path d="M9 20V4"/><path d="M14 20V7"/><path d="M19 20V13"/>',
   link: '<path d="m9.5 14.5 5-5M7 15l-1.1 1.1a3.5 3.5 0 1 1-5-5L5 7a3.5 3.5 0 0 1 5 0m4 2 1.1-1.1a3.5 3.5 0 1 1 5 5L16 17a3.5 3.5 0 0 1-5 0" transform="translate(1 0)"/>',
 };
 
@@ -49,7 +49,7 @@ export function renderProgress({ completed = 0, total = 15, current = false } = 
   return progress;
 }
 
-export function renderPostPair(pair, { assets, assetBaseUrl, resolveAsset, onChoose, engagement } = {}) {
+export function renderPostPair(pair, { assets, assetBaseUrl, resolveAsset, onChoose, engagement, selected, sourceLinks = false } = {}) {
   const row = node('div', 'i-pair');
   row.setAttribute('aria-label', 'Two X posts');
   for (const side of ['left', 'right']) {
@@ -86,7 +86,9 @@ export function renderPostPair(pair, { assets, assetBaseUrl, resolveAsset, onCho
     const identity = node('div', 'i-post__identity');
     identity.append(node('span', 'i-post__name', stimulus.author?.name || 'Unknown author'));
     if (stimulus.author?.handle) identity.append(node('span', 'i-post__handle', `@${stimulus.author.handle.replace(/^@/, '')}`));
-    const mark = node('span', 'i-post__x');
+    const linkToSource = sourceLinks && /^https:\/\/(?:www\.)?(?:x\.com|twitter\.com)\//.test(stimulus.url ?? '');
+    const mark = node(linkToSource ? 'a' : 'span', 'i-post__x');
+    if (linkToSource) { mark.href=stimulus.url;mark.target='_blank';mark.rel='noopener noreferrer';mark.setAttribute('aria-label', `Open original post by ${stimulus.author?.name || 'author'} on X`); }
     mark.append(postIcon('x'));
     header.append(avatar, identity, mark);
     post.append(header);
@@ -110,7 +112,9 @@ export function renderPostPair(pair, { assets, assetBaseUrl, resolveAsset, onCho
       post.append(attachments);
     }
     post.append(renderPostMetrics(engagement?.[side]));
-    row.append(post);
+    const item = node('div', 'i-pair__item');
+    if (selected !== undefined) item.append(node('p', 'i-post__selection', selected === side ? 'You selected' : '\u00a0'));
+    item.append(post);row.append(item);
   }
   return row;
 }
@@ -173,6 +177,7 @@ export function createRoundController({
   onComplete = () => {},
   onInterrupt = () => {},
   onPhaseChange = () => {},
+  onDisplay = () => {},
 }) {
   if (!(mount instanceof HTMLElement)) throw new TypeError('mount must be an HTMLElement');
   if (!['left', 'right'].every(side => typeof (pair?.[side]?.displayText ?? pair?.[side]?.text) === 'string')) throw new TypeError('pair needs left/right displayText or text');
@@ -233,6 +238,9 @@ export function createRoundController({
     if (destroyed) return;
     for (const post of content.querySelectorAll('.i-post')) {
       post.setAttribute('aria-disabled', 'true');
+      post.removeAttribute('role');
+      post.setAttribute('aria-label', `Post by ${pair[post.dataset.side].author?.name || 'unknown author'}`);
+      post.classList.remove('i-post--selectable');
       post.tabIndex = -1;
       post.classList.toggle('is-selected', post.dataset.side === choice);
     }
@@ -249,7 +257,9 @@ export function createRoundController({
       post.classList.toggle('is-winner', side === feedback.winner);
     }
     timer.classList.add('is-feedback');
-    remaining.textContent = selected === null ? 'Time’s up' : feedback.correct ? 'Correct' : 'Not quite';
+    remaining.textContent = selected === null ? 'Time’s up' : feedback.correct ? 'Correct' : 'Wrong';
+    timer.classList.toggle('is-correct', selected !== null && feedback.correct);
+    timer.classList.toggle('is-wrong', selected !== null && !feedback.correct);
     fill.style.transform = 'scaleX(0)';
     announcement.textContent = `${remaining.textContent}. Counts revealed. The next pair starts shortly.`;
     setPhase('reveal');
@@ -309,6 +319,7 @@ export function createRoundController({
         paintResolve = null;
         if (destroyed || phase === 'interrupted') { resolve(false); return; }
         if (document.hidden || !document.hasFocus()) { interrupt(document.hidden ? 'visibility' : 'blur'); resolve(false); return; }
+        if (onDisplay() === false || destroyed) { resolve(false); return; }
         content.style.visibility = '';
         announcement.textContent = `Select the post with more impressions. You have ${roundMs / 1000} seconds.`;
         exposedAt = clock();

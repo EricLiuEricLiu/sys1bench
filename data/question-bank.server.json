@@ -1,10 +1,10 @@
 {
-  "version": "0.5.0",
+  "version": "0.6.0",
   "productName": "System 1 Bench",
   "canonicalDomain": "https://sys1bench.com",
   "label": "System 1 Bench · English cross-author feedback pilot",
   "language": "en",
-  "collectedAt": "2026-10-29T00:20:11.776Z",
+  "collectedAt": "2026-10-29T01:19:49.955Z",
   "timing": {
     "roundMs": 15000,
     "revealMs": 2500
@@ -36,7 +36,7 @@
       100,
       200000
     ],
-    "maxCaptionWords": 35,
+    "maxCaptionWords": 46,
     "maxPairCreationGapHours": 96
   },
   "limitations": [
@@ -44,13 +44,13 @@
     "Every displayed post was selected to have at least 100,000 provider-reported views; discovery also used minimum-like filters. This deliberately conditions on successful posts.",
     "All 17 pairs compare different author IDs. The 34 posts use 34 distinct accounts, with no author reused in this release.",
     "Accounts were limited to 100–200,000 source-reported followers, and the selection avoids recognized celebrity and organizational accounts. This does not independently verify account ownership or representativeness.",
-    "Cross-author questions can be affected by author recognition, audience size, posting time, paid promotion and external amplification. Author reach is only approximately matched; the largest source-reported follower ratio is 11.75 to one.",
-    "Pair creation times differ by at most 80.90 hours. This is not a fixed-post-age experiment.",
-    "Views are cumulative snapshots captured at post ages between 7.46 and 174.92 days. They are not unique viewers, causal content effects or 48-hour view outcomes.",
+    "Cross-author questions can be affected by author recognition, audience size, posting time, paid promotion and external amplification. Author reach is only approximately matched; the largest source-reported follower ratio is 15.64 to one.",
+    "Pair creation times differ by at most 89.87 hours. This is not a fixed-post-age experiment.",
+    "Views are cumulative snapshots captured at post ages between 3.49 and 174.92 days. They are not unique viewers, causal content effects or 48-hour view outcomes.",
     "Search/date/language operators are not fully reliable upstream. Actual returned timestamps, language and content were checked for the selected records.",
     "The normalized source does not expose a reliable quote-post flag. Selected text and images were reviewed to stand alone, but quote status and original X pages/counts were not independently verified.",
     "Original text is preserved in text. For photo posts, displayText omits one trailing t.co token as an attachment-link rendering convention; source entity mapping is unavailable.",
-    "Pair captions total 8–64 words, with additional words inside some images. One 15-second window combines viewing and choosing with posts always visible; this also measures reading, scanning and image interpretation. Timing has not been calibrated with users.",
+    "Pair captions total 8–70 words, with additional words inside some images. One 15-second window combines viewing and choosing with posts always visible; this also measures reading, scanning and image interpretation. Timing has not been calibrated with users.",
     "All eight selected photo files were downloaded and visually reviewed for visible engagement/outcome leaks; original bytes, dimensions and SHA-256 hashes are preserved. Responsive rendering and preload must be verified by app integration.",
     "Authors, handles and avatars are visible. Followers and engagement are excluded from initial client stimuli. After every answer or timeout, replies, reposts, likes and impressions are revealed for both posts. Preload and decode all content images before the round; failed-load rounds must not receive a score.",
     "1 posts also appeared in v0.3.0. This is development/pilot data without a registered held-out split; prior exposure can affect results.",
@@ -58,6 +58,8 @@
     "Engagement is copied from one provider snapshot per post: replies=replyCount, reposts=retweetCount (excluding quoteCount), likes=likeCount, and impressions=viewCount. Server-side views equals impressions. No absent counts are converted to zero; original X counters were not independently authenticated.",
     "Three or more scored posts were deliberately selected with at least 10 million captured views; this is further selection on outcomes, not random discovery.",
     "No human percentiles or AI scores are supplied by this dataset. Do not pool older same-author/timer protocols with this cross-author high-reach release.",
+    "Exactly two scored pairs were editorially selected for AI-related topics: model/capability discussion and AI startup culture. Topic selection is not a factual endorsement of the posts or a judgment about author sincerity; this does not validate an AI-specific intuition subscore.",
+    "The four new posts come from topic/engagement-filtered searches. The new captions range from 17 to 46 words, with 56 and 70 words across each pair; previous captions are unchanged. Keep dataset 0.6.0 results separate from prior data cohorts even though the human protocol ID is unchanged.",
     "The server bank contains outcomes and source URLs. Keep it private; use only the display export for the browser and model inference."
   ],
   "practice": [
@@ -258,61 +260,61 @@
       }
     },
     {
-      "id": "reach-02",
+      "id": "ai-models",
       "left": {
-        "id": "2112593060836323499",
-        "text": "The literacy crisis isn’t that people can’t read the words. It’s that they can’t understand the context, infer meaning, recognise nuance, identify contradictions, or draw logical conclusions from what they’ve read",
-        "displayText": "The literacy crisis isn’t that people can’t read the words. It’s that they can’t understand the context, infer meaning, recognise nuance, identify contradictions, or draw logical conclusions from what they’ve read",
+        "id": "2114350692551082390",
+        "text": "No human will ever write code better than LLMs. Accept this fact, stop pretending, and move on.",
+        "displayText": "No human will ever write code better than LLMs. Accept this fact, stop pretending, and move on.",
         "author": {
-          "id": "2083125055018475520",
-          "name": ".",
-          "handle": "Omgemeraldddd",
-          "avatarUrl": "https://pbs.twimg.com/profile_images/2087307980752433153/-pXqlizw_normal.jpg",
-          "verified": false
+          "id": "98808847",
+          "name": "Arpit Bhayani",
+          "handle": "arpit_bhayani",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/1982781754093043712/PHVp_-hB_normal.jpg",
+          "verified": true
         },
         "media": [],
-        "url": "https://x.com/Omgemeraldddd/status/2112593060836323499",
-        "views": 1429386,
-        "createdAt": "2026-10-20T17:13:30Z",
-        "capturedAt": "2026-10-28T08:02:16.789Z",
+        "url": "https://x.com/arpit_bhayani/status/2114350692551082390",
+        "views": 528999,
+        "createdAt": "2026-10-25T13:37:42Z",
+        "capturedAt": "2026-10-29T01:17:46.253Z",
         "engagement": {
-          "replies": 372,
-          "reposts": 41253,
-          "likes": 168482,
-          "impressions": 1429386
+          "replies": 505,
+          "reposts": 1069,
+          "likes": 15718,
+          "impressions": 528999
         }
       },
       "right": {
-        "id": "2112558163774038029",
-        "text": "i'm so jealous of those people who speak like so smartly like what the fuck was that word you just said and where did you learn it",
-        "displayText": "i'm so jealous of those people who speak like so smartly like what the fuck was that word you just said and where did you learn it",
+        "id": "2114210584715731160",
+        "text": "Hired a mid-level engineer who looked solid on paper.\n\nFirst week he shipped a clean auth flow.\nSecond week he couldn’t finish a simple form.\n\nAsked what changed.\n\n\"Company laptop blocked all AI tools. I’m coding like it’s 2019.\"",
+        "displayText": "Hired a mid-level engineer who looked solid on paper.\n\nFirst week he shipped a clean auth flow.\nSecond week he couldn’t finish a simple form.\n\nAsked what changed.\n\n\"Company laptop blocked all AI tools. I’m coding like it’s 2019.\"",
         "author": {
-          "id": "2053008125079199753",
-          "name": "mia.",
-          "handle": "dreamsickang3l",
-          "avatarUrl": "https://pbs.twimg.com/profile_images/2112517151391166465/wY3Vgqf1_normal.jpg",
-          "verified": false
+          "id": "1438364117014757377",
+          "name": "Kirtesh",
+          "handle": "AKirtesh",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2060010232773058561/2GSy_oO0_normal.jpg",
+          "verified": true
         },
         "media": [],
-        "url": "https://x.com/dreamsickang3l/status/2112558163774038029",
-        "views": 1076412,
-        "createdAt": "2026-10-20T14:54:50Z",
-        "capturedAt": "2026-10-28T08:02:16.789Z",
+        "url": "https://x.com/AKirtesh/status/2114210584715731160",
+        "views": 195576,
+        "createdAt": "2026-10-25T04:20:58Z",
+        "capturedAt": "2026-10-29T01:19:49.955Z",
         "engagement": {
-          "replies": 138,
-          "reposts": 16175,
-          "likes": 73090,
-          "impressions": 1076412
+          "replies": 85,
+          "reposts": 17,
+          "likes": 1901,
+          "impressions": 195576
         }
       },
       "matching": {
         "strategy": "cross-author",
-        "topic": "Reading and language",
+        "topic": "AI models and software-development capability",
         "contentType": "text",
-        "createdGapHours": 2.3111,
-        "wordCountDifference": 4,
-        "viewRatio": 1.3279,
-        "authorFollowerRatio": 5.6137
+        "createdGapHours": 9.2789,
+        "wordCountDifference": 22,
+        "viewRatio": 2.7048,
+        "authorFollowerRatio": 15.64
       }
     },
     {
@@ -722,61 +724,61 @@
       }
     },
     {
-      "id": "reach-10",
+      "id": "ai-startup-culture",
       "left": {
-        "id": "2111423181063946740",
-        "text": "i just looked up how much money doctors make in the US are y'all fucking insane",
-        "displayText": "i just looked up how much money doctors make in the US are y'all fucking insane",
+        "id": "2088514738993176941",
+        "text": "mamma mia i have never tried to explained ai to someone outside sf before\n\nwe are not early, it literally has not even started",
+        "displayText": "mamma mia i have never tried to explained ai to someone outside sf before\n\nwe are not early, it literally has not even started",
         "author": {
-          "id": "1510376773724393473",
-          "name": "mir🇵🇸🇺🇦",
-          "handle": "Mirs_____",
-          "avatarUrl": "https://pbs.twimg.com/profile_images/2112478572778606592/Ochv-0aJ_normal.jpg",
-          "verified": false
-        },
-        "media": [],
-        "url": "https://x.com/Mirs_____/status/2111423181063946740",
-        "views": 8026998,
-        "createdAt": "2026-10-17T11:44:49Z",
-        "capturedAt": "2026-10-28T08:04:58.286Z",
-        "engagement": {
-          "replies": 476,
-          "reposts": 1776,
-          "likes": 142245,
-          "impressions": 8026998
-        }
-      },
-      "right": {
-        "id": "2112174235095339304",
-        "text": "just bought 3 rolex's at 40% under market\n\nall being shipped from france this week",
-        "displayText": "just bought 3 rolex's at 40% under market\n\nall being shipped from france this week",
-        "author": {
-          "id": "1386542533124272128",
-          "name": "schmosby",
-          "handle": "schmosby_xbt",
-          "avatarUrl": "https://pbs.twimg.com/profile_images/1872076784583249921/-hsw7jZH_normal.jpg",
+          "id": "1101942551349731335",
+          "name": "gabriel",
+          "handle": "gabriel1",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/1900416323030581248/LRlv5e8n_normal.jpg",
           "verified": true
         },
         "media": [],
-        "url": "https://x.com/schmosby_xbt/status/2112174235095339304",
-        "views": 1389063,
-        "createdAt": "2026-10-19T13:29:14Z",
-        "capturedAt": "2026-10-28T08:04:51.243Z",
+        "url": "https://x.com/gabriel1/status/2088514738993176941",
+        "views": 308987,
+        "createdAt": "2026-08-15T06:34:51Z",
+        "capturedAt": "2026-10-29T01:19:35.302Z",
         "engagement": {
-          "replies": 411,
-          "reposts": 1652,
-          "likes": 60575,
-          "impressions": 1389063
+          "replies": 158,
+          "reposts": 85,
+          "likes": 3173,
+          "impressions": 308987
+        }
+      },
+      "right": {
+        "id": "2089871695125655688",
+        "text": "Everyone working in AI in Silicon Valley should be required to talk to someone outside the bubble at least once a week\n\nMy friends in the Midwest have wildly different perceptions of AI\n\nThe gap between the conversation here and everywhere else feels wider than ever",
+        "displayText": "Everyone working in AI in Silicon Valley should be required to talk to someone outside the bubble at least once a week\n\nMy friends in the Midwest have wildly different perceptions of AI\n\nThe gap between the conversation here and everywhere else feels wider than ever",
+        "author": {
+          "id": "1674506538336022528",
+          "name": "Nick",
+          "handle": "nickbaumann_",
+          "avatarUrl": "https://pbs.twimg.com/profile_images/2087323937709637632/wCGVnvvN_normal.jpg",
+          "verified": true
+        },
+        "media": [],
+        "url": "https://x.com/nickbaumann_/status/2089871695125655688",
+        "views": 114818,
+        "createdAt": "2026-08-19T00:26:54Z",
+        "capturedAt": "2026-10-29T01:16:34.908Z",
+        "engagement": {
+          "replies": 211,
+          "reposts": 86,
+          "likes": 1188,
+          "impressions": 114818
         }
       },
       "matching": {
         "strategy": "cross-author",
-        "topic": "Income and spending",
+        "topic": "AI industry culture and public perception",
         "contentType": "text",
-        "createdGapHours": 49.7403,
-        "wordCountDifference": 1,
-        "viewRatio": 5.7787,
-        "authorFollowerRatio": 6.7237
+        "createdGapHours": 89.8675,
+        "wordCountDifference": 22,
+        "viewRatio": 2.6911,
+        "authorFollowerRatio": 6.3082
       }
     },
     {

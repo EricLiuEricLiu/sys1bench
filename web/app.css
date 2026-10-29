@@ -6,3 +6,18 @@
 
 body{margin:0;background:var(--i-bg);font-family:var(--i-font-sans)}.app-shell,.app-shell *{box-sizing:border-box}.app-main .i-button{margin-top:8px}.app-brand{font-size:20px;letter-spacing:-.06em}.app-feedback-pair{margin-block:24px}.app-review-item .i-pair{margin-block:16px}.app-review-item .app-source{display:inline-block;margin-block:8px}#leaderboard>h2:not(:first-child){margin-top:40px}@media(max-width:600px){.app-brand{font-size:18px}.app-header .app-mono{font-size:9px}.app-feedback-pair .i-post{min-height:0}}
 .app-shell--round .app-header{height:64px}.app-shell--round>.app-footer{display:none}.app-shell--round .app-main--round{margin-block:0;padding-block:8px 36px}.app-shell--round .i-pair{margin-top:32px}.app-shell--round .i-post .i-post__image{max-height:clamp(120px,20svh,190px)}@media(max-width:600px){.app-shell--round .app-header{height:56px}.app-shell--round .i-round__phase{gap:12px}.app-shell--round .i-post .i-post__image{max-height:20svh}}
+
+.app-main--practice { display:flex;flex-direction:column;align-items:flex-start; }
+.app-main--practice .app-title { margin-bottom:16px; }
+.app-main--practice .app-body { margin-bottom:28px; }
+.app-main--practice .i-post-skeleton { margin-bottom:28px; }
+.app-warning { width:96px;height:96px;margin:0 0 28px;color:var(--i-error); }.app-warning svg { display:block;width:100%;height:100%; }
+.app-actions { display:flex;gap:12px;flex-wrap:wrap;margin:28px 0; }.app-actions .i-button { min-height:56px;padding:16px 24px;font-size:15px; }
+.app-shell--round .app-main--round { flex:1;display:flex;align-items:center;margin:0 auto;min-height:calc(100svh - 64px);padding:16px 0 128px; }
+.app-shell--round .i-pair { margin-top:32px; }
+@media(max-width:600px) { .app-shell--round .app-main--round { min-height:calc(100svh - 56px);padding-bottom:116px; }.app-actions { flex-direction:column;align-items:stretch; } }
+.app-models { width:100%;border-collapse:collapse;margin:24px 0;font-size:14px; }
+.app-models th,.app-models td { text-align:left;padding:18px 12px 18px 0;border-bottom:1px solid var(--i-line);font-weight:400; }
+.app-models thead th { color:var(--i-muted);font-size:12px; }
+.app-models td { font-variant-numeric:tabular-nums; }
+.app-models th:first-child { width:60%; }.app-models td:last-child,.app-models th:last-child { text-align:right;padding-right:0; }

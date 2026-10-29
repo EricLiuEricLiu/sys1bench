@@ -7,6 +7,23 @@ assert.equal(bank.practice.length, 2, 'Two distinct educational practice rounds 
 assert.equal(bank.pairs.length, 15);
 assert.deepEqual(bank.timing, TIMING, 'The question set and deployed timing must agree');
 assert.equal(bank.humanProtocolId, PROTOCOL, 'The question set and deployed protocol must agree');
+const models=JSON.parse(readFileSync('data/model-results.server.json','utf8')).results;
+for(const model of models) {
+  assert.equal(model.real,true,'Only actual model results may be published');
+  assert(Number.isInteger(model.correct) && model.correct>=0 && model.correct<=model.total);
+  assert.equal(model.total,15);
+  assert(Number.isInteger(model.unanswered) && model.unanswered>=0 && model.unanswered<=15);
+  assert(model.modelId && model.name && model.protocol && model.runId && model.evaluatedAt);
+  assert.equal(model.condition,'independent-no-thinking');
+  assert(/^[a-f0-9]{64}$/.test(model.bankSha256));
+  if(model.datasetVersion===bank.version) {
+    assert.equal(model.humanProtocol,PROTOCOL);
+    assert.equal(model.bankSha256,createHash('sha256').update(readFileSync('data/question-bank.server.json')).digest('hex'));
+  }
+}
+const avatars=JSON.parse(readFileSync('data/avatars.server.json','utf8'));
+assert.equal(avatars.datasetVersion,bank.version);
+assert.equal(avatars.bankSha256,createHash('sha256').update(readFileSync('data/question-bank.server.json')).digest('hex'));
 const seen = new Set();
 for (const p of [...bank.practice, ...bank.pairs]) {
   assert.notEqual(p.left.views, p.right.views);
@@ -14,6 +31,10 @@ for (const p of [...bank.practice, ...bank.pairs]) {
   for (const side of ['left','right']) {
     const post = p[side];
     assert(!seen.has(post.id), 'Practice and scored posts must not overlap'); seen.add(post.id);
+    const avatar=avatars.byPost[post.id];
+    assert(avatar && /^avatars\/[a-f0-9]{64}\.(?:jpg|png|webp)$/.test(avatar.assetFile),'Missing captured avatar');
+    assert.equal(avatar.sourceAvatarUrl,post.author.avatarUrl);
+    assert.equal(createHash('sha256').update(readFileSync(`web/${avatar.assetFile}`)).digest('hex'),avatar.sha256);
     assert(Number.isSafeInteger(post.views) && post.views >= MINIMUM_VIEWS, 'Every post must meet the high-reach floor');
     for (const metric of ['replies','reposts','likes','impressions']) assert(Number.isSafeInteger(post.engagement?.[metric]) && post.engagement[metric] >= 0, `Missing captured ${metric}`);
     assert.equal(post.engagement.impressions, post.views, 'The impression target must match the captured view count');
@@ -24,7 +45,7 @@ for (const p of [...bank.practice, ...bank.pairs]) {
     }
   }
 }
-for (const file of ['index.html','app.js','components.js','components.css','tokens.css','leaderboard.html','leaderboard.js']) assert(existsSync(`web/${file}`), `Missing web/${file}`);
+for (const file of ['index.html','app.js','components.js','components.css','tokens.css','leaderboard.html','leaderboard.js','results.html','results.js','ui.js','api.js']) assert(existsSync(`web/${file}`), `Missing web/${file}`);
 function inspect(directory) {
   for (const f of readdirSync(directory,{withFileTypes:true})) {
     if (f.isDirectory()) inspect(`${directory}/${f.name}`);

@@ -52,3 +52,5 @@
   .lp-body * { transition:none!important; animation:none!important; }
   .lp-start:active,.lp-close:active { transform:none; }
 }
+
+.lp-header { display:flex;align-items:center;justify-content:space-between; }.lp-about { border:0;background:none;color:var(--i-muted);font:inherit;font-size:12px;cursor:pointer; }.lp-start .i-key { margin-left:16px; }

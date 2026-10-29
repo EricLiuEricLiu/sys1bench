@@ -1,19 +1,19 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { createApp, displayPost } from '../server/index.js';
 import bank from '../data/question-bank.server.json' with { type: 'json' };
 
 function fixture() {
   const sqlite=new DatabaseSync(':memory:');
-  sqlite.exec(readFileSync(new URL('../migrations/0001_human_runs.sql',import.meta.url),'utf8'));
+  for(const name of readdirSync(new URL('../migrations/',import.meta.url)).filter(n=>n.endsWith('.sql')).sort())sqlite.exec(readFileSync(new URL(`../migrations/${name}`,import.meta.url),'utf8'));
   const DB={prepare(sql){return {bind(...values){this.values=values;return this;},async first(){return sqlite.prepare(sql).get(...(this.values??[]))??null;},async all(){return {results:sqlite.prepare(sql).all(...(this.values??[]))};},async run(){return sqlite.prepare(sql).run(...(this.values??[]));}};},async batch(statements){sqlite.exec('BEGIN');try{const results=[];for(const s of statements)results.push(await s.run());sqlite.exec('COMMIT');return results;}catch(e){sqlite.exec('ROLLBACK');throw e;}}};
   let time=1000000;
-  const app=createApp({now:()=>time});
+  const app=createApp({now:()=>time,modelResults:[]});
   let cookie='';
-  async function request(path,data,headers={}) {
-    const res=await app.fetch(new Request(`https://sys1bench.com${path}`,{method:data===undefined?'GET':'POST',headers:{...(cookie?{cookie}:{}),...headers},body:data===undefined?undefined:JSON.stringify(data)}),{DB});
+  async function request(path,data,headers={},target=app) {
+    const res=await target.fetch(new Request(`https://sys1bench.com${path}`,{method:data===undefined?'GET':'POST',headers:{...(cookie?{cookie}:{}),...headers},body:data===undefined?undefined:JSON.stringify(data)}),{DB});
     if(res.headers.get('set-cookie'))cookie=res.headers.get('set-cookie').split(';')[0];
     return {status:res.status,data:await res.json()};
   }
@@ -142,5 +142,25 @@ test('comparison cohorts stay separate across question-set versions and timing p
   f.sqlite.prepare('UPDATE human_first_results SET cohort=?').run(previousTiming);
   assert.equal((await f.request('/api/leaderboard')).data.humans.count,0);
   assert.equal(f.sqlite.prepare('SELECT COUNT(*) AS n FROM human_first_results WHERE cohort=?').get(previousTiming).n,1);
+  f.sqlite.close();
+});
+
+test('saved result snapshots survive a changed question set and remain private to the participant',async()=>{
+  const f=fixture();const original=await f.completeRun();
+  const runId=original.data.id;
+  assert(f.sqlite.prepare('SELECT result_json FROM human_runs WHERE id=?').get(runId).result_json);
+  const changed=createApp({dataset:{...bank,version:'future-question-set',pairs:bank.pairs.slice().reverse()}});
+  const restored=await f.request(`/api/runs/${runId}/result`,undefined,{},changed);
+  assert.equal(restored.status,200);assert.deepEqual(restored.data,original.data);
+  const outsider=await f.request(`/api/runs/${runId}/result`,undefined,{cookie:`s1b_participant=${crypto.randomUUID()}`},changed);
+  assert.equal(outsider.status,404);
+  f.sqlite.close();
+});
+test('leaderboard exposes only real model runs for the current dataset and human protocol',async()=>{
+  const f=fixture();
+  const real={real:true,datasetVersion:bank.version,humanProtocol:'human-15s-visible-feedback-cross-author-education2-v4',modelId:'test/validated',name:'Validated model',protocol:'no-thinking-test',correct:10,total:15,unanswered:0,condition:'independent-no-thinking'};
+  const app=createApp({modelResults:[real,{...real,modelId:'test/mock',real:false},{...real,modelId:'test/old',datasetVersion:'previous'},{...real,modelId:'test/other',humanProtocol:'previous'}]});
+  const board=await f.request('/api/leaderboard',undefined,{},app);
+  assert.equal(board.data.models.length,1);assert.equal(board.data.models[0].modelId,'test/validated');
   f.sqlite.close();
 });

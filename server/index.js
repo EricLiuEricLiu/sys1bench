@@ -1,4 +1,6 @@
 import bank from '../data/question-bank.server.json' with { type: 'json' };
+import publishedModels from '../data/model-results.server.json' with { type: 'json' };
+import avatars from '../data/avatars.server.json' with { type: 'json' };
 import { TIMING, PROTOCOL } from '../web/benchmark.js';
 
 const COOKIE = 's1b_participant';
@@ -13,7 +15,7 @@ export function displayPost(post) {
     id: post.id,
     text: post.displayText ?? post.text,
     displayText: post.displayText ?? post.text,
-    author: { name: post.author.name, handle: post.author.handle, avatarUrl: post.author.avatarUrl, verified: Boolean(post.author.verified) },
+    author: { name: post.author.name, handle: post.author.handle, avatarUrl: avatars.byPost[post.id] ? `/${avatars.byPost[post.id].assetFile}` : post.author.avatarUrl, verified: Boolean(post.author.verified) },
     media: post.media.map(m => ({ type: m.type, url: `/${m.assetFile}`, assetFile: `/${m.assetFile}`, width: m.width, height: m.height, alt: m.alt ?? '' })),
   };
 }
@@ -39,7 +41,7 @@ export function gradeAnswer(pair, choice) {
   return choice !== null && pair[choice].engagement.impressions > pair[choice === 'left' ? 'right' : 'left'].engagement.impressions;
 }
 
-export function createApp({ dataset = bank, now = Date.now } = {}) {
+export function createApp({ dataset = bank, now = Date.now, modelResults = publishedModels.results } = {}) {
   const cohort = `${dataset.version}:${PROTOCOL}`;
   const byId = new Map([...dataset.practice, ...dataset.pairs].map(p => [p.id, p]));
   const assignPair = a => {
@@ -47,6 +49,12 @@ export function createApp({ dataset = bank, now = Date.now } = {}) {
     return a.flipped ? { id: p.id, left: p.right, right: p.left } : p;
   };
   const publicPair = p => ({ id: p.id, left: displayPost(p.left), right: displayPost(p.right) });
+  function summarize(rows, assignments, runId) {
+    const scored=rows.filter(a=>a.kind==='scored');
+    return {id:runId,cohort,datasetVersion:dataset.version,protocol:PROTOCOL,correct:scored.filter(a=>a.correct).length,total:scored.length,missed:scored.filter(a=>a.choice===null).length,
+      answers:scored.map(a=>{const p=assignPair(assignments[a.ordinal]);return {choice:a.choice,correct:Boolean(a.correct),pair:{...publicPair(p),left:{...displayPost(p.left),views:p.left.views,engagement:p.left.engagement,url:p.left.url},right:{...displayPost(p.right),views:p.right.views,engagement:p.right.engagement,url:p.right.url}}};})};
+  }
+
 
   async function body(request) {
     if (Number(request.headers.get('content-length')) > 4096) throw fail('Request is too large.', 413);
@@ -80,28 +88,29 @@ export function createApp({ dataset = bank, now = Date.now } = {}) {
         if (url.pathname === '/api/leaderboard' && request.method === 'GET') {
           const aggregate = await env.DB.prepare('SELECT COUNT(*) AS count, AVG(1.0*correct/total) AS accuracy FROM human_first_results WHERE cohort=?').bind(cohort).first();
           const distribution = await env.DB.prepare('SELECT correct,COUNT(*) AS count FROM human_first_results WHERE cohort=? GROUP BY correct ORDER BY correct DESC').bind(cohort).all();
-          return json({ cohort, datasetVersion: dataset.version, protocol: PROTOCOL, humans: { ...aggregate, distribution: distribution.results }, models: [], pilot: true });
+          return json({ cohort, datasetVersion: dataset.version, protocol: PROTOCOL, humans: { ...aggregate, distribution: distribution.results }, models: modelResults.filter(m=>m.real===true && m.datasetVersion===dataset.version && m.humanProtocol===PROTOCOL).map(m=>({modelId:m.modelId,name:m.name,protocol:m.protocol,correct:m.correct,total:m.total,unanswered:m.unanswered,evaluatedAt:m.evaluatedAt,condition:m.condition,runId:m.runId,inputNotes:m.inputNotes})).sort((a,b)=>b.correct/b.total-a.correct/a.total), pilot: true });
         }
         const match = url.pathname.match(/^\/api\/runs\/([a-f0-9-]{36})\/(next|open|answer|result|abort)$/);
         if (!match) throw fail('Not found.', 404);
         if (!participant) throw fail('Enable cookies to take the test.', 401);
         const run = await env.DB.prepare('SELECT * FROM human_runs WHERE id=? AND participant_id=?').bind(match[1], participant).first();
         if (!run) throw fail('Test not found.', 404);
-        if (run.cohort !== cohort) throw fail('This test has changed. Please start again.', 409);
-        const assignments = JSON.parse(run.assignments);
         const action = match[2];
         if (action === 'abort' && request.method === 'POST') {
           await env.DB.prepare("UPDATE human_runs SET status='aborted' WHERE id=? AND status='active'").bind(run.id).run();
           return json({ status: 'aborted' });
         }
+        if (action === 'result' && request.method === 'GET' && run.status === 'complete' && run.result_json) {
+          const first=await env.DB.prepare('SELECT run_id FROM human_first_results WHERE participant_id=? AND cohort=?').bind(participant,run.cohort).first();
+          return json({...JSON.parse(run.result_json),countedInAggregate:first?.run_id===run.id});
+        }
+        if (run.cohort !== cohort) throw fail('This test has changed. Please start again.',409);
+        const assignments=JSON.parse(run.assignments);
         if (action === 'result' && request.method === 'GET') {
-          if (run.status !== 'complete') throw fail('Finish the test first.', 409);
-          const rows = await env.DB.prepare('SELECT * FROM human_answers WHERE run_id=? ORDER BY ordinal').bind(run.id).all();
-          const scored = rows.results.filter(a => a.kind === 'scored');
-          const first = await env.DB.prepare('SELECT run_id FROM human_first_results WHERE participant_id=? AND cohort=?').bind(participant, cohort).first();
-          return json({ cohort, correct: scored.filter(a => a.correct).length, total: scored.length, missed: scored.filter(a => a.choice === null).length,
-            countedInAggregate: first?.run_id === run.id,
-            answers: scored.map(a => { const p = assignPair(assignments[a.ordinal]); return { choice: a.choice, correct: Boolean(a.correct), pair: { ...publicPair(p), left: { ...displayPost(p.left), views: p.left.views, engagement: p.left.engagement, url: p.left.url }, right: { ...displayPost(p.right), views: p.right.views, engagement: p.right.engagement, url: p.right.url } } }; }) });
+          if (run.status !== 'complete') throw fail('Finish the test first.',409);
+          const rows=await env.DB.prepare('SELECT * FROM human_answers WHERE run_id=? ORDER BY ordinal').bind(run.id).all();
+          const first=await env.DB.prepare('SELECT run_id FROM human_first_results WHERE participant_id=? AND cohort=?').bind(participant,cohort).first();
+          return json({...summarize(rows.results,assignments,run.id),countedInAggregate:first?.run_id===run.id});
         }
         if (run.status !== 'active') throw fail('This test is no longer active.', 409);
         if (action === 'next' && request.method === 'GET') {
@@ -127,11 +136,17 @@ export function createApp({ dataset = bank, now = Date.now } = {}) {
           const pair = assignPair(assignment);
           const correct = gradeAnswer(pair, data.choice);
           const end = run.next_ordinal + 1 === assignments.length;
+          let snapshot=null;
+          if(end) {
+            const prior=await env.DB.prepare('SELECT * FROM human_answers WHERE run_id=? ORDER BY ordinal').bind(run.id).all();
+            snapshot=JSON.stringify(summarize([...prior.results,{ordinal:run.next_ordinal,kind:assignment.kind,choice:data.choice,correct:Number(correct)}],assignments,run.id));
+          }
+
           const statements = [
             env.DB.prepare('INSERT INTO human_answers (run_id,ordinal,pair_id,kind,choice,correct,response_ms,observed_ms,answered_at) SELECT ?,?,?,?,?,?,?,?,? FROM human_runs WHERE id=? AND next_ordinal=? AND status=\'active\'')
               .bind(run.id, run.next_ordinal, pair.id, assignment.kind, data.choice, Number(correct), data.responseMs ?? null, data.observedMs, now(), run.id, run.next_ordinal),
-            env.DB.prepare('UPDATE human_runs SET next_ordinal=next_ordinal+1,opened_at=NULL,status=?,finished_at=? WHERE id=? AND next_ordinal=? AND status=\'active\'')
-              .bind(end ? 'complete' : 'active', end ? now() : null, run.id, run.next_ordinal),
+            env.DB.prepare('UPDATE human_runs SET next_ordinal=next_ordinal+1,opened_at=NULL,status=?,finished_at=?,result_json=COALESCE(?,result_json) WHERE id=? AND next_ordinal=? AND status=\'active\'')
+              .bind(end ? 'complete' : 'active', end ? now() : null, snapshot, run.id, run.next_ordinal),
           ];
           if (end) statements.push(env.DB.prepare('INSERT OR IGNORE INTO human_first_results (participant_id,cohort,run_id,correct,total,completed_at) SELECT participant_id,cohort,id,(SELECT COALESCE(SUM(correct),0) FROM human_answers WHERE run_id=? AND kind=\'scored\'),15,? FROM human_runs WHERE id=? AND status=\'complete\'')
             .bind(run.id, now(), run.id));

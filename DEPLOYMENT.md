@@ -37,12 +37,12 @@ The local database is separate from production. Browser QA records must remain l
 
 - Only `web/` is packaged as public assets in `dist/`.
 - `data/question-bank.server.json` is bundled privately in Worker code. Scores are computed on the server; all four captured engagement counts for the current pair are returned only after that answer or timeout is saved. Future pairs never include engagement values.
-- Anonymous answers and timings are stored in D1. An HttpOnly browser cookie deduplicates first completions for each dataset/protocol. This is a browser-based pilot comparison, not verified unique-human identity.
+- Anonymous answers, timings, and completed result snapshots are stored in D1. Result URLs remain participant-authenticated and readable across later question-set versions. Retain previously published media/avatar files referenced by snapshots. An HttpOnly browser cookie deduplicates first completions for each dataset/protocol. This is a browser-based pilot comparison, not verified unique-human identity.
 - Raw collection, provider credentials, evaluation journals, and review artifacts stay out of Git and public assets.
-- The initial model section stays empty until real matching-protocol runs are imported. Mock verification scores must never be published as model results.
+- Validated real model summaries live in data/model-results.server.json and are returned only for the matching dataset/human protocol. The build verifies bank hashes and real-run metadata. Mock verification scores must never be published as model results.
 
 ## CI and model credentials
 
 GitHub Actions runs the build, API tests, and a Worker deployment dry run on pushes and PRs. Production deployment currently uses the authenticated local `cf` helper. A future automated deployment should use a dedicated Cloudflare API token scoped to the intended account; do not copy personal OAuth refresh credentials into CI.
 
-LLM evaluations run separately under `evals/` with `AI_GATEWAY_API_KEY` configured locally. Never put that key in browser code, the question bank, or committed configuration.
+LLM evaluations run separately under `evals/` with `AI_GATEWAY_API_KEY` configured locally in the ignored .env.local file. The Worker has an empty .dev.vars to keep evaluation credentials out of its development bindings. Never put that key in browser code, the question bank, or committed configuration.
