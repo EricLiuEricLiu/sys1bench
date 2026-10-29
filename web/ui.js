@@ -1,13 +1,13 @@
 export const el = (tag, cls, text) => { const n=document.createElement(tag); if(cls)n.className=cls; if(text!=null)n.textContent=text; return n; };
-export function shortcutLabel(target, label) { target.append(el('span','',label),el('kbd','i-key','Enter')); return target; }
+export function shortcutLabel(target, label, shortcut='Enter') { target.append(el('span','',label),el('kbd','i-key',shortcut)); return target; }
 export function button(label, action, {secondary=false, primary=true}={}) {
   const n=shortcutLabel(el('button',`i-button${secondary?' i-button--secondary':''}`),label); n.type='button';
-  if(primary)n.dataset.enterShortcut='';
+  if(primary){n.dataset.shortcut='Enter';n.setAttribute('aria-keyshortcuts','Enter');}
   n.addEventListener('click',()=>{if(n.disabled)return;n.disabled=true;Promise.resolve().then(action).catch(error=>{n.disabled=false;window.dispatchEvent(new CustomEvent('app-error',{detail:error}));});});
   return n;
 }
-export function actionLink(label, href, {secondary=false, primary=false}={}) {
-  const n=shortcutLabel(el('a',`i-button${secondary?' i-button--secondary':''}`),label); n.href=href; if(primary)n.dataset.enterShortcut=''; return n;
+export function actionLink(label, href, {secondary=false, primary=false, shortcut='Enter'}={}) {
+  const n=shortcutLabel(el('a',`i-button${secondary?' i-button--secondary':''}`),label,shortcut); n.href=href; if(primary){n.dataset.shortcut=shortcut;n.setAttribute('aria-keyshortcuts',shortcut);} return n;
 }
 export function frame(root,kicker,title,copy) {
   root.replaceChildren();root.className='app-shell';
@@ -15,11 +15,13 @@ export function frame(root,kicker,title,copy) {
   const main=el('main','app-main');main.tabIndex=-1;main.id='test-main';
   if(kicker)main.append(el('p','app-kicker',kicker));if(title)main.append(el('h1','app-title',title));if(copy)main.append(el('p','app-body',copy));root.append(header,main);return main;
 }
-export function installEnterShortcut() {
+export function installKeyboardShortcuts() {
   document.addEventListener('keydown',event=>{
-    if(event.key!=='Enter'||event.repeat||event.defaultPrevented||event.metaKey||event.ctrlKey||event.altKey||event.shiftKey)return;
-    if(event.target.closest?.('a,button,input,textarea,select,summary,[role="button"]'))return;
-    const target=document.querySelector('[data-enter-shortcut]:not(:disabled)');if(target){event.preventDefault();target.click();}
+    if(event.repeat||event.defaultPrevented||event.metaKey||event.ctrlKey||event.altKey)return;
+    if(event.target.closest?.('input,textarea,select,[contenteditable]:not([contenteditable="false"])'))return;
+    if(event.key==='Enter'&&event.target.closest?.('a,button,summary,[role="button"]'))return;
+    const target=[...document.querySelectorAll('[data-shortcut]:not(:disabled)')].find(node=>node.dataset.shortcut.toLowerCase()===event.key.toLowerCase());
+    if(target){event.preventDefault();target.click();}
   });
 }
 export function warningIcon() {

@@ -1,7 +1,7 @@
 import { api } from './api.js';
 import { renderRanking } from './ranking.js';
-import { el, actionLink, installEnterShortcut, lastResultUrl } from './ui.js';
-const root=document.querySelector('#leaderboard');installEnterShortcut();
+import { el, actionLink, installKeyboardShortcuts, lastResultUrl } from './ui.js';
+const root=document.querySelector('#leaderboard');installKeyboardShortcuts();
 const actions=document.querySelector('#leaderboard-actions');
 const previous=lastResultUrl();
 if(previous)actions.append(actionLink('Back to your result',previous,{primary:true}));

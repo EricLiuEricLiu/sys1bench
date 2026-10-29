@@ -1,7 +1,7 @@
 import { createRoundController } from './components.js';
 import { TIMING } from './benchmark.js';
 import { api } from './api.js';
-import { el, button, frame, installEnterShortcut, warningIcon, postSkeleton, rememberResult, resultUrl } from './ui.js';
+import { el, button, frame, installKeyboardShortcuts, warningIcon, postSkeleton, rememberResult, resultUrl } from './ui.js';
 
 let run;
 let controller;
@@ -68,7 +68,7 @@ async function displayRound(prepared,current) {
   await api(`/api/runs/${run.id}/open`,{ordinal:prepared.round.ordinal});
   if(current===token)await prepared.controller.start();
 }
-installEnterShortcut();
+installKeyboardShortcuts();
 if(new URLSearchParams(location.search).get('view')==='test') {
   window.addEventListener('app-error',event=>errorScreen(event.detail));
   document.body.className='';document.body.replaceChildren(root);document.title='Internet instinct — System 1 Bench';intro();
