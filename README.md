@@ -1,12 +1,12 @@
 # System 1 Bench
 
-A minimal website for benchmarking intuition, beginning with internet instinct: predict which of two English X posts received more views after a brief glimpse.
+A minimal website for benchmarking intuition, beginning with internet instinct: predict which of two English X posts received more impressions within 15 seconds.
 
 **Production domain:** [sys1bench.com](https://sys1bench.com), managed in Eric's Cloudflare account.
 
 The pilot is live on Cloudflare Workers, with anonymous first-attempt comparisons at [/leaderboard](https://sys1bench.com/leaderboard) backed by D1.
 
-The format has two unscored educational practice pairs with feedback, followed by 15 scored pairs. Posts appear for 15 seconds, disappear, and users have 5 seconds to choose left or right. Each pair compares different authors, with at least 100,000 captured views per post in the current pilot. Author context and attached images are shown; engagement and follower counts are hidden. Human and AI comparisons use versioned question sets and protocols.
+The format has two unscored educational practice pairs with feedback, followed by 15 scored pairs. Users have one 15-second window to view both posts and select the one with more impressions. Both posts stay visible. After each answer, replies, reposts, likes, and impressions appear inside each card for 2.5 seconds, then the next pair starts. Each pair compares different authors, with at least 100,000 captured views per post in the current pilot. Author context and attached images are shown; engagement is hidden until answering, and follower counts remain hidden. Human and AI comparisons use versioned question sets and protocols.
 
 ## Project layout
 

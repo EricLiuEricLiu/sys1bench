@@ -8,11 +8,11 @@ Use this shared project directory: `/Users/ericliu/Documents/ChatGPT/sys1bench`.
 
 - Benchmark quick intuition across categories, starting with internet instinct (网感).
 - Start with English X posts. Eric subsequently requested showing authors and including some image posts in the X data chat; this supersedes the earlier author-hidden direction. Show names, handles, avatars, and attached images; hide follower counts and engagement during questions.
-- Initial interaction: two unscored educational practice rounds with feedback, then 15 scored pairs; 15 seconds to view both posts, followed by 5 seconds to choose left or right after the posts disappear. Practice posts must be distinct from the scored set.
-- Eric's latest experiment compares different authors within every question, using substantially higher-reach posts. The v0.4 pilot targets at least 100,000 captured views for each displayed post. Preserve previous question sets/protocols and keep their results separate.
+- Initial interaction: two unscored educational practice rounds with feedback, then 15 scored pairs; one 15-second window to view and choose with both posts always visible. Reveal real replies, reposts, likes, and impressions inside both cards for 2.5 seconds after every answer, then advance automatically. Practice posts must be distinct from the scored set.
+- Eric's latest experiment compares different authors within every question, using substantially higher-reach posts. The current pilot targets at least 100,000 captured views per displayed post and includes a few much more viral posts. Preserve previous question sets/protocols and keep their results separate.
 - Keep visible product copy in English. The landing page should introduce the benchmark generally, with Internet instinct as the first test, a short snippet, and a Start button.
 - Keep the UI extremely simple and styles modular, with shared design tokens.
-- During rounds, show a prominent countdown and large Look/Choose phase status. The countdown bar should be thick and span the viewport at the bottom of the screen.
+- During rounds, make the post cards selectable. Keep the question visible; omit Look/Choose status, visible Left/Right labels, and the two engagement/intuition footer hints. Center the prominent timer immediately above the thick countdown bar spanning the viewport bottom.
 - Use real collected data and disclose pilot limitations. Do not fabricate view counts, human percentiles, or AI scores.
 - LLM comparisons must use a strict no-thinking mode, following Eric's later direction in the evaluations chat. Models with mandatory reasoning are ineligible for that comparison; a short final answer alone does not establish that thinking was disabled. Verify exact Gateway IDs and provider capabilities. `AI_GATEWAY_API_KEY` stays local or in a server secret store.
 

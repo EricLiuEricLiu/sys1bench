@@ -31,12 +31,12 @@ npm run cf -- d1 migrations apply sys1bench --local
 npm run dev
 ```
 
-The local database is separate from production. Browser QA records must remain local.
+The local database is separate from production. Browser QA records must remain local. The current human protocol has one 15-second window with posts visible and selectable, followed by a 2.5-second in-card reveal before automatic advancement.
 
 ## Data boundaries
 
 - Only `web/` is packaged as public assets in `dist/`.
-- `data/question-bank.server.json` is bundled privately in Worker code. Scores are computed on the server; outcomes are returned after a practice answer or a finished test.
+- `data/question-bank.server.json` is bundled privately in Worker code. Scores are computed on the server; all four captured engagement counts for the current pair are returned only after that answer or timeout is saved. Future pairs never include engagement values.
 - Anonymous answers and timings are stored in D1. An HttpOnly browser cookie deduplicates first completions for each dataset/protocol. This is a browser-based pilot comparison, not verified unique-human identity.
 - Raw collection, provider credentials, evaluation journals, and review artifacts stay out of Git and public assets.
 - The initial model section stays empty until real matching-protocol runs are imported. Mock verification scores must never be published as model results.

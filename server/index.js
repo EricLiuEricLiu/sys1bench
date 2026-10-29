@@ -36,7 +36,7 @@ export function makeAssignments(dataset) {
 }
 
 export function gradeAnswer(pair, choice) {
-  return choice !== null && pair[choice].views > pair[choice === 'left' ? 'right' : 'left'].views;
+  return choice !== null && pair[choice].engagement.impressions > pair[choice === 'left' ? 'right' : 'left'].engagement.impressions;
 }
 
 export function createApp({ dataset = bank, now = Date.now } = {}) {
@@ -101,7 +101,7 @@ export function createApp({ dataset = bank, now = Date.now } = {}) {
           const first = await env.DB.prepare('SELECT run_id FROM human_first_results WHERE participant_id=? AND cohort=?').bind(participant, cohort).first();
           return json({ cohort, correct: scored.filter(a => a.correct).length, total: scored.length, missed: scored.filter(a => a.choice === null).length,
             countedInAggregate: first?.run_id === run.id,
-            answers: scored.map(a => { const p = assignPair(assignments[a.ordinal]); return { choice: a.choice, correct: Boolean(a.correct), pair: { ...publicPair(p), left: { ...displayPost(p.left), views: p.left.views, url: p.left.url }, right: { ...displayPost(p.right), views: p.right.views, url: p.right.url } } }; }) });
+            answers: scored.map(a => { const p = assignPair(assignments[a.ordinal]); return { choice: a.choice, correct: Boolean(a.correct), pair: { ...publicPair(p), left: { ...displayPost(p.left), views: p.left.views, engagement: p.left.engagement, url: p.left.url }, right: { ...displayPost(p.right), views: p.right.views, engagement: p.right.engagement, url: p.right.url } } }; }) });
         }
         if (run.status !== 'active') throw fail('This test is no longer active.', 409);
         if (action === 'next' && request.method === 'GET') {
@@ -117,9 +117,12 @@ export function createApp({ dataset = bank, now = Date.now } = {}) {
         if (action === 'answer' && request.method === 'POST') {
           const data = await body(request);
           if (data.ordinal !== run.next_ordinal) throw fail('Round is out of order.', 409);
-          if (![null, 'left', 'right'].includes(data.choice) || !Number.isFinite(data.observedMs) || data.observedMs < TIMING.exposureMs - 100 || data.observedMs > TIMING.exposureMs + 1500) throw fail('Invalid round timing. Please start again.');
-          if (data.choice !== null && (!Number.isFinite(data.responseMs) || data.responseMs < 0 || data.responseMs >= TIMING.decisionMs)) throw fail('Answer deadline has passed.');
-          if (run.opened_at === null || now() - run.opened_at < TIMING.exposureMs - 300 || now() - run.opened_at > TIMING.exposureMs + TIMING.decisionMs + 5000) throw fail('Round expired. Please start again.', 409);
+          if (![null, 'left', 'right'].includes(data.choice) || !Number.isFinite(data.observedMs) || data.observedMs < 0 || data.observedMs > TIMING.roundMs + 1500) throw fail('Invalid round timing. Please start again.');
+          if (data.choice === null) {
+            if (data.responseMs !== null || data.observedMs < TIMING.roundMs - 100) throw fail('The round is still open.');
+          } else if (!Number.isFinite(data.responseMs) || data.responseMs < 0 || data.responseMs >= TIMING.roundMs || Math.abs(data.responseMs - data.observedMs) > 100) throw fail('Answer deadline has passed.');
+          const elapsed = run.opened_at === null ? null : now() - run.opened_at;
+          if (elapsed === null || elapsed < data.observedMs - 300 || elapsed > TIMING.roundMs + 5000) throw fail('Round expired. Please start again.', 409);
           const assignment = assignments[run.next_ordinal];
           const pair = assignPair(assignment);
           const correct = gradeAnswer(pair, data.choice);
@@ -133,7 +136,7 @@ export function createApp({ dataset = bank, now = Date.now } = {}) {
           if (end) statements.push(env.DB.prepare('INSERT OR IGNORE INTO human_first_results (participant_id,cohort,run_id,correct,total,completed_at) SELECT participant_id,cohort,id,(SELECT COALESCE(SUM(correct),0) FROM human_answers WHERE run_id=? AND kind=\'scored\'),15,? FROM human_runs WHERE id=? AND status=\'complete\'')
             .bind(run.id, now(), run.id));
           await env.DB.batch(statements);
-          return json({ saved: true, complete: end, ...(assignment.kind === 'practice' ? { feedback: { correct, winner: pair.left.views > pair.right.views ? 'left' : 'right', views: { left: pair.left.views, right: pair.right.views } } } : {}) });
+          return json({ saved: true, complete: end, feedback: { correct, winner: pair.left.engagement.impressions > pair.right.engagement.impressions ? 'left' : 'right', engagement: { left: pair.left.engagement, right: pair.right.engagement } } });
         }
         throw fail('Method is not allowed.', 405);
       } catch (error) {

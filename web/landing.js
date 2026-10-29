@@ -5,7 +5,7 @@ window.mountSystem1BenchLanding = function mountSystem1BenchLanding(root = docum
   const title = dialog.querySelector('#lp-legal-title');
   const copy = dialog.querySelector('#lp-legal-copy');
   const paragraphs = [
-    'System 1 Bench tests quick intuition across different categories. The first test, Internet instinct, asks you to pick the X post that received more views. Two unscored practice rounds with feedback come first, then 15 scored pairs. You have fifteen seconds to look, then five seconds to choose.',
+    'System 1 Bench tests quick intuition across different categories. The first test, Internet instinct, asks you to pick the X post that received more impressions. Two unscored practice rounds with feedback come first, then 15 scored pairs. You have fifteen seconds to view and select a post. Both posts stay visible, and captured engagement counts appear briefly after every answer.',
     'The real test is an early pilot using high-reach posts from different authors. Its pool comes from keyword searches and uses cumulative views captured at collection time. Human and AI comparisons will follow real benchmark runs.',
     'No account is needed. Answers and timings are saved anonymously. A browser cookie keeps repeat attempts out of the pilot comparison. This prototype adds no analytics or advertising trackers. The hosting provider may process ordinary request information to serve the page.',
     'System 1 Bench is experimental. Pilot scores describe this question set. X posts belong to their authors, who do not endorse this test.'
