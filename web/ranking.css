@@ -1,0 +1,35 @@
+.app-ranking { margin-top:36px; }
+.app-ranking>.i-round__heading { margin-bottom:20px; }
+.app-ranking__summary,.app-ranking__note,.app-ranking__about { font-size:12px;line-height:1.6;color:var(--i-muted); }
+.app-ranking__summary { margin:0 0 14px; }
+.app-ranking__table { width:100%;border-collapse:collapse;font-size:14px; }
+.app-ranking__table th,.app-ranking__table td { padding:18px 12px;border-bottom:1px solid var(--i-line);text-align:left;font-weight:400; }
+.app-ranking__table thead th { padding-top:0;font-size:11px;color:var(--i-muted); }
+.app-ranking__table th:first-child,.app-ranking__table td:first-child { padding-left:10px; }
+.app-ranking__table th:last-child,.app-ranking__table td:last-child { padding-right:10px;text-align:right; }
+.app-ranking__rank,.app-ranking__score,.app-ranking__accuracy { font-variant-numeric:tabular-nums;white-space:nowrap; }
+.app-ranking__rank { width:64px;color:var(--i-muted); }
+.app-ranking__participant { width:100%; }
+.app-ranking__label { display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px; }
+.app-ranking__name { overflow-wrap:anywhere; }
+.app-ranking__tag { display:inline-flex;align-items:center;padding:1px 5px;border:1px solid var(--i-line);border-radius:4px;font-size:10px;font-weight:600;line-height:1.4;letter-spacing:.04em;color:var(--i-muted); }
+.app-ranking__detail { display:block;margin-top:4px;font-size:11px;color:var(--i-muted); }
+.app-ranking__you { background:var(--i-soft); }
+.app-ranking__you .app-ranking__name,.app-ranking__you .app-ranking__rank { color:var(--i-ink);font-weight:600; }
+.app-ranking__you td:first-child { padding-left:10px; }
+.app-ranking__you td:last-child { padding-right:10px; }
+.app-ranking__gap td { padding:12px;text-align:center!important;font-size:12px;color:var(--i-muted); }
+.app-ranking__note { margin:16px 0 0; }
+.app-ranking__about { margin-top:16px; }
+.app-ranking__about summary { cursor:pointer;width:fit-content; }
+.app-ranking__about p { margin:12px 0 0;max-width:540px; }
+@media(max-width:600px) {
+ .app-ranking__table { font-size:13px; }
+ .app-ranking__table th,.app-ranking__table td { padding:15px 7px; }
+ .app-ranking__rank { width:46px; }
+ .app-ranking__tag { font-size:9px; }
+ .app-ranking__detail { font-size:10px; }
+ .app-ranking__note,.app-ranking__about,.app-ranking__summary { font-size:11px; }
+}
+
+.app-main--ranked .app-title { font-size:clamp(36px,5.8vw,60px);letter-spacing:-.055em;margin-bottom:28px; }.app-main--ranked .app-ranking { margin-top:0; }

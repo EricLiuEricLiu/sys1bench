@@ -48,7 +48,7 @@ for (const p of [...bank.practice, ...bank.pairs]) {
     }
   }
 }
-for (const file of ['index.html','app.js','components.js','components.css','tokens.css','leaderboard.html','leaderboard.js','results.html','results.js','ui.js','api.js']) assert(existsSync(`web/${file}`), `Missing web/${file}`);
+for (const file of ['index.html','app.js','components.js','components.css','tokens.css','leaderboard.html','leaderboard.js','results.html','results.js','ui.js','api.js','ranking.js','ranking.css']) assert(existsSync(`web/${file}`), `Missing web/${file}`);
 function inspect(directory) {
   for (const f of readdirSync(directory,{withFileTypes:true})) {
     if (f.isDirectory()) inspect(`${directory}/${f.name}`);

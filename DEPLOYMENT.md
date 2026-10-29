@@ -46,3 +46,5 @@ The local database is separate from production. Browser QA records must remain l
 GitHub Actions runs the build, API tests, and a Worker deployment dry run on pushes and PRs. Production deployment currently uses the authenticated local `cf` helper. A future automated deployment should use a dedicated Cloudflare API token scoped to the intended account; do not copy personal OAuth refresh credentials into CI.
 
 LLM evaluations run separately under `evals/` with `AI_GATEWAY_API_KEY` configured locally in the ignored .env.local file. The Worker has an empty .dev.vars to keep evaluation credentials out of its development bindings. Never put that key in browser code, the question bank, or committed configuration.
+
+The results page fetches its participant-authenticated `/api/runs/:id/leaderboard`, scoped to the saved result’s dataset and protocol. Public rankings expose anonymous labels and scores, never human run/participant IDs or answer reviews. Ranking and truncation happen in SQL before returning a bounded list; ties share a rank, and AI rows are always retained. Repeated results are a personal comparison only and do not alter shared first-attempt records.

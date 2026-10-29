@@ -2,6 +2,7 @@ import bank from '../data/question-bank.server.json' with { type: 'json' };
 import publishedModels from '../data/model-results.server.json' with { type: 'json' };
 import avatars from '../data/avatars.server.json' with { type: 'json' };
 import { TIMING, PROTOCOL } from '../web/benchmark.js';
+import { getLeaderboard } from './leaderboard.js';
 
 const COOKIE = 's1b_participant';
 const UUID = /^[a-f0-9-]{36}$/;
@@ -86,11 +87,9 @@ export function createApp({ dataset = bank, now = Date.now, modelResults = publi
             { 'Set-Cookie': `${COOKIE}=${owner}; Path=/; HttpOnly; SameSite=Lax; Max-Age=31536000${url.protocol === 'https:' ? '; Secure' : ''}` });
         }
         if (url.pathname === '/api/leaderboard' && request.method === 'GET') {
-          const aggregate = await env.DB.prepare('SELECT COUNT(*) AS count, AVG(1.0*correct/total) AS accuracy FROM human_first_results WHERE cohort=?').bind(cohort).first();
-          const distribution = await env.DB.prepare('SELECT correct,COUNT(*) AS count FROM human_first_results WHERE cohort=? GROUP BY correct ORDER BY correct DESC').bind(cohort).all();
-          return json({ cohort, datasetVersion: dataset.version, protocol: PROTOCOL, humans: { ...aggregate, distribution: distribution.results }, models: modelResults.filter(m=>m.real===true && m.datasetVersion===dataset.version && m.humanProtocol===PROTOCOL).map(m=>({modelId:m.modelId,name:m.name,protocol:m.protocol,correct:m.correct,total:m.total,unanswered:m.unanswered,evaluatedAt:m.evaluatedAt,condition:m.condition,runId:m.runId,inputNotes:m.inputNotes,failures:m.failures})).sort((a,b)=>b.correct/b.total-a.correct/a.total), pilot: true });
+          return json(await getLeaderboard(env.DB,{cohort,datasetVersion:dataset.version,protocol:PROTOCOL,modelResults}));
         }
-        const match = url.pathname.match(/^\/api\/runs\/([a-f0-9-]{36})\/(next|open|answer|result|abort)$/);
+        const match = url.pathname.match(/^\/api\/runs\/([a-f0-9-]{36})\/(next|open|answer|result|leaderboard|abort)$/);
         if (!match) throw fail('Not found.', 404);
         if (!participant) throw fail('Enable cookies to take the test.', 401);
         const run = await env.DB.prepare('SELECT * FROM human_runs WHERE id=? AND participant_id=?').bind(match[1], participant).first();
@@ -99,6 +98,18 @@ export function createApp({ dataset = bank, now = Date.now, modelResults = publi
         if (action === 'abort' && request.method === 'POST') {
           await env.DB.prepare("UPDATE human_runs SET status='aborted' WHERE id=? AND status='active'").bind(run.id).run();
           return json({ status: 'aborted' });
+        }
+        if (action === 'leaderboard' && request.method === 'GET') {
+          if(run.status!=='complete')throw fail('Finish the test first.',409);
+          let result;
+          if(run.result_json)result=JSON.parse(run.result_json);
+          else if(run.cohort===cohort){
+            const rows=await env.DB.prepare('SELECT * FROM human_answers WHERE run_id=? ORDER BY ordinal').bind(run.id).all();
+            result=summarize(rows.results,JSON.parse(run.assignments),run.id);
+          }else throw fail('This test has changed. Please start again.',409);
+          const first=await env.DB.prepare('SELECT run_id FROM human_first_results WHERE participant_id=? AND cohort=?').bind(participant,run.cohort).first();
+          return json(await getLeaderboard(env.DB,{cohort:run.cohort,datasetVersion:run.dataset_version,protocol:result.protocol,modelResults,
+            viewer:{participantId:participant,correct:result.correct,total:result.total,isRepeat:first?.run_id!==run.id}}));
         }
         if (action === 'result' && request.method === 'GET' && run.status === 'complete' && run.result_json) {
           const first=await env.DB.prepare('SELECT run_id FROM human_first_results WHERE participant_id=? AND cohort=?').bind(participant,run.cohort).first();

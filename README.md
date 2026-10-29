@@ -4,7 +4,7 @@ A minimal website for benchmarking intuition, beginning with internet instinct: 
 
 **Production domain:** [sys1bench.com](https://sys1bench.com), managed in Eric's Cloudflare account.
 
-The pilot is live on Cloudflare Workers, with anonymous first-attempt comparisons at [/leaderboard](https://sys1bench.com/leaderboard) backed by D1.
+The pilot is live on Cloudflare Workers, with ranked anonymous first attempts and verified AI scores directly on each result page, backed by D1. The public [/leaderboard](https://sys1bench.com/leaderboard) uses the same ranking view. Your result is pinned first with its actual rank; long lists retain every AI and abbreviate other entries.
 
 The format has two unscored educational practice pairs with feedback, followed by 15 scored pairs. Users have one 15-second window to view both posts and select the one with more impressions. Both posts stay visible. After each answer, replies, reposts, likes, and impressions appear inside each card for 2.5 seconds, then the next pair starts. Each pair compares different authors, with at least 100,000 captured views per post in the current pilot. Author context and attached images are shown; engagement is hidden until answering, and follower counts remain hidden. Human and AI comparisons use versioned question sets and protocols. The next pair preloads during feedback, and completed scores have persistent result URLs. Two scored pairs cover AI/LLM ideas and Silicon Valley AI culture.
 
