@@ -109,8 +109,9 @@
   .i-button, .i-choice { transition: none; }
 }
 
-.i-key { font: 400 11px/1.4 var(--i-font-sans); border: 1px solid currentColor; border-radius: 3px; padding: 2px 5px; opacity: .65; }
-@media (max-width:640px), (hover:none) and (pointer:coarse) { .i-key { display:none; } }
+.i-key { display:none; font: 400 11px/1.4 var(--i-font-sans); border: 1px solid currentColor; border-radius: 3px; padding: 2px 5px; opacity: .65; }
+@media (min-width:1025px) and (hover:hover) and (pointer:fine) { .i-key { display:inline; } }
+@media (any-pointer:coarse) { .i-key { display:none; } }
 .i-pair__item { min-width: 0; display: flex; flex-direction: column; }
 .i-pair__item>.i-post { flex: 1; }
 .i-post__selection { margin: 0 0 10px; min-height: 18px; font: 600 12px/1.5 var(--i-font-sans); color: var(--i-ink); }
